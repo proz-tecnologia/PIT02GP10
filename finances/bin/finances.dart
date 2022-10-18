@@ -1,4 +1,5 @@
 import 'dart:io';
+//import 'package:finances/categoria.dart';
 import 'package:finances/despesa.dart';
 import 'package:finances/lista_despesas.dart';
 
@@ -30,23 +31,44 @@ Escolha uma opção:
         String titulo = stdin.readLineSync()!;
         print("Digite o valor da despesa:");
         String valor = stdin.readLineSync()!;
-        final despesa = Despesa(titulo: titulo, valor: double.parse(valor));
-        listaDespesas.adicionarDespesa(despesa);
+        /*String categoria = "";
+        while (categoria.toUpperCase() != "N") {
+          print("Digite a categoria:");
+          categoria = stdin.readLineSync()!;
+        }*/
+        try {
+          final despesa = Despesa(
+            titulo: titulo,
+            valor: double.parse(valor),
+          );
+          //categoria: Categoria(categoria: categoria));
+          listaDespesas.adicionarDespesa(despesa);
+        } catch (e) {
+          print(
+              "É necessário corrigir o valor, foi adicionado uma letra no campo.");
+        }
         break;
       case "2":
         print("Digite o ID da despesa a ser pesquisada");
+        String id = stdin.readLineSync()!;
+        listaDespesas.buscarDespesaID(id);
         break;
       case "3":
         print("Digite o título da despesa a ser pesquisada");
+        String titulo = stdin.readLineSync()!;
+        listaDespesas.buscarDespesaID(titulo);
         break;
       case "4":
         print("Digite a categoria da despesa a ser pesquisada");
+        //TODO Implementar
         break;
       case "5":
         listaDespesas.mostrarDespesas();
         break;
       case "6":
         print("Digite o ID da despesa que deseja excluir");
+        String id = stdin.readLineSync()!;
+        listaDespesas.excluirDespesa(id);
         break;
       default:
         print("Opção Inválida. Tente novamente");
