@@ -6,4 +6,7 @@ class Categoria {
   Categoria({
     required this.nomeCategoria,
   });
+
+  @override
+  String toString() => 'Categoria(nomeCategoria: $nomeCategoria)';
 }

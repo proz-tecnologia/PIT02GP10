@@ -1,24 +1,15 @@
 import 'dart:io';
-import 'package:finances/ganho.dart';
-import 'package:finances/lista_ganhos.dart';
+import 'package:finances/ganhos/ganho.dart';
 import 'package:uuid/uuid.dart';
 
-class Controller {
+class ControllerGanho {
   final listaDeGanhos = <Ganho>[];
 
-  void adicionarGanho() {
-    print('Digite o título do ganho:');
-    String titulo = stdin.readLineSync()!;
-    print('Digite o valor do novo ganho:');
-    String valor = stdin.readLineSync()!;
-    final ganho = Ganho(titulo: titulo, valor: double.parse(valor));
+  void adicionarGanho(Ganho ganho) {
     listaDeGanhos.add(ganho);
   }
 
-  Ganho? buscarGanhoId() {
-    print('Digite o ID do ganho:');
-    String id = stdin.readLineSync()!;
-
+  Ganho? buscarGanhoId(String id) {
     final exists = listaDeGanhos.any((element) => element.id == id);
     if (!exists) {
       print(exists);
@@ -35,24 +26,25 @@ class Controller {
     return ganho;
   }
 
-  Ganho? buscarGanhoTitulo() {
-    print('Digite o Titulo do ganho:');
-    String titulo = stdin.readLineSync()!;
-
+  List<Ganho>? buscarGanhoTitulo(String titulo) {
     final exists = listaDeGanhos.any((element) => element.titulo == titulo);
     if (!exists) {
       print(exists);
       return null;
     }
 
-    final ganho = listaDeGanhos.where((element) => element.titulo == titulo);
+    final ganho =
+        listaDeGanhos.where((element) => element.titulo == titulo).toList();
 
-   /* print('''
-      ID: ${ganho.id}
-      Título:${ganho.titulo}
-      Valor: ${ganho.valor}
+    ganho.forEach((element) {
+      print('''
+      ID: ${element.id}
+      Título:${element.titulo}
+      Valor: ${element.valor}
       ''');
-    return ganho;*/
+    });
+
+    return ganho;
   }
 
   void registroDeGanhos() {
@@ -65,6 +57,4 @@ class Controller {
       ''');
     }
   }
-
-
 }
