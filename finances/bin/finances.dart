@@ -1,6 +1,5 @@
 import 'dart:io';
 //import 'package:finances/categoria.dart';
-import 'package:finances/despesa.dart';
 import 'package:finances/lista_despesas.dart';
 
 void main(List<String> arguments) {
