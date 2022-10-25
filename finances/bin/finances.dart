@@ -31,22 +31,7 @@ Escolha uma opção:
         String titulo = stdin.readLineSync()!;
         print("Digite o valor da despesa:");
         String valor = stdin.readLineSync()!;
-        /*String categoria = "";
-        while (categoria.toUpperCase() != "N") {
-          print("Digite a categoria:");
-          categoria = stdin.readLineSync()!;
-        }*/
-        try {
-          final despesa = Despesa(
-            titulo: titulo,
-            valor: double.parse(valor),
-          );
-          //categoria: Categoria(categoria: categoria));
-          listaDespesas.adicionarDespesa(despesa);
-        } catch (e) {
-          print(
-              "É necessário corrigir o valor, foi adicionado uma letra no campo.");
-        }
+        listaDespesas.adicionarDespesa(titulo, valor);
         break;
       case "2":
         print("Digite o ID da despesa a ser pesquisada");

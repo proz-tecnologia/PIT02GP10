@@ -3,7 +3,11 @@ import 'despesa.dart';
 class ListaDespesas {
   final listaDespesas = <Despesa>[];
 
-  void adicionarDespesa(Despesa despesa) {
+  void adicionarDespesa(String titulo, String valor) {
+    final despesa = Despesa(
+      titulo: titulo,
+      valor: double.parse(valor),
+    );
     listaDespesas.add(despesa);
   }
 
