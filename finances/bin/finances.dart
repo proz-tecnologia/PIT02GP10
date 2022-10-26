@@ -1,9 +1,11 @@
 import 'dart:io';
 //import 'package:finances/categoria.dart';
-import 'package:finances/lista_despesas.dart';
+import 'package:finances/despesa/lista_categorias_despesa.dart';
+import 'package:finances/despesa/lista_despesas.dart';
 
 void main(List<String> arguments) {
   final listaDespesas = ListaDespesas();
+  final listaCategorias = ListaCategoriasDespesa();
 
   while (true) {
     stdout.write('''

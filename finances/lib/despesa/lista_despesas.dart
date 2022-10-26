@@ -27,17 +27,15 @@ class ListaDespesas {
     }
   }
 
-  void buscarDespesaID(String id) {
+  Despesa? buscarDespesaID(String id) {
     if (verificaListaDespesas() == false) {
-      return;
+      return null;
     } else {
-      for (var despesa in listaDespesas) {
-        if (despesa.id == id) {
-          despesa.printDespesas();
-        } else {
-          print("ID não encontrado.");
-        }
-      }
+      final resultado = listaDespesas.any((element) => element.id == id);
+      if (!resultado) return null;
+      final resultado2 =
+          listaDespesas.firstWhere((element) => element.id == id);
+      return resultado2;
     }
   }
 
@@ -70,16 +68,15 @@ class ListaDespesas {
     }
   */
   void excluirDespesa(String id) {
-    try {
-      for (var despesa in listaDespesas) {
-        if (despesa.id == id) {
-          listaDespesas.remove(despesa);
-          print("${despesa.titulo} removida.");
-        }
+    bool isfound = false;
+    for (var despesa in listaDespesas) {
+      if (despesa.id == id) {
+        listaDespesas.remove(despesa);
+        print("${despesa.titulo} removida.");
+        isfound = true;
+        break;
       }
-      print("Despesa não encontrada.");
-    } catch (e) {
-      //TODO Só assim funciona sem crashar, não sei porque
     }
+    if (!isfound) print("Despesa não encontrada.");
   }
 }

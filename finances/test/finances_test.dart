@@ -1,4 +1,4 @@
-import 'package:finances/finances.dart';
+import 'package:finances/despesa/finances.dart';
 import 'package:test/test.dart';
 
 void main() {
