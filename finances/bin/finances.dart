@@ -1,5 +1,9 @@
-import 'package:finances/finances.dart' as finances;
+import 'package:finances/usuarios/usuarios_controller.dart';
+import 'package:finances/usuarios/usuarios_menu.dart';
 
 void main(List<String> arguments) {
-  print('Hello world: ${finances.calculate()}!');
+  final usuarioController = UsuariosController();
+  final usuarioMenu = UsuarioMenu(usuarioController: usuarioController);
+
+  usuarioMenu.abrirMenu();
 }
