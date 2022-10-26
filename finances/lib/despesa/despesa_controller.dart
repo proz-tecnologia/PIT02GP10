@@ -8,6 +8,7 @@ class ControllerDespesa {
     final despesa = DespesaModel(
       titulo: titulo,
       valor: double.parse(valor),
+      criadoPor: "",
     );
     listaDespesas.add(despesa);
   }
