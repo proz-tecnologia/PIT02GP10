@@ -33,7 +33,11 @@ Escolha uma das opções a seguir:
           String titulo = stdin.readLineSync()!;
           print('Digite o valor do novo ganho:');
           String valor = stdin.readLineSync()!;
-          final ganho = Ganho(titulo: titulo, valor: double.parse(valor));
+          final ganho = Ganho(
+            titulo: titulo,
+            valor: double.parse(valor),
+            criadoPor: "",
+          );
           controllerGanho.adicionarGanho(ganho);
           break;
 
