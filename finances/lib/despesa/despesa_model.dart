@@ -1,16 +1,16 @@
 //import 'package:finances/categoria.dart';
 //import 'package:finances/lista_categorias.dart';
 import 'package:uuid/uuid.dart';
-import 'lista_categorias_despesa.dart';
+import 'categoria_despesa_controller.dart';
 
-class Despesa {
+class DespesaModel {
   final _id = Uuid().v1();
   final String titulo;
   final double valor;
   //final listaCategorias = <ListaCategoriasDespesa>[];
-  final listaCategorias = ListaCategoriasDespesa();
+  final listaCategorias = ControllerCategoriasDespesa();
 
-  Despesa({
+  DespesaModel({
     required this.titulo,
     required this.valor,
   });

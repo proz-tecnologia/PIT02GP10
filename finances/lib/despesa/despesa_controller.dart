@@ -1,10 +1,11 @@
-import 'despesa.dart';
+import 'despesa_model.dart';
 
-class ListaDespesas {
-  final listaDespesas = <Despesa>[];
+//era lista de despesas, virou controller_despesa.dart
+class ControllerDespesa {
+  final listaDespesas = <DespesaModel>[];
 
   void adicionarDespesa(String titulo, String valor) {
-    final despesa = Despesa(
+    final despesa = DespesaModel(
       titulo: titulo,
       valor: double.parse(valor),
     );
@@ -26,16 +27,40 @@ class ListaDespesas {
       return true;
     }
   }
-
+/*
   Despesa? buscarDespesaID(String id) {
     if (verificaListaDespesas() == false) {
+      print("lista vazia");
       return null;
     } else {
       final resultado = listaDespesas.any((element) => element.id == id);
-      if (!resultado) return null;
+      if (!resultado) {
+        print("nao achou id");
+        return null;
+      }
       final resultado2 =
           listaDespesas.firstWhere((element) => element.id == id);
+      print('''
+      ID: ${resultado2.id}
+      Título: ${resultado2.titulo}
+      Valor: ${resultado2.valor} 
+      ''');
       return resultado2;
+    }
+  }
+*/
+
+  void buscarDespesaID(String id) {
+    if (verificaListaDespesas() == false) {
+      return;
+    } else {
+      for (var despesa in listaDespesas) {
+        if (despesa.id == id) {
+          despesa.printDespesas();
+        } else {
+          print("ID não encontrado.");
+        }
+      }
     }
   }
 
