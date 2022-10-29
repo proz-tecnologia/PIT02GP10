@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:gastos_app/src/core/app_colors.dart';
 import 'package:gastos_app/src/core/app_images.dart';
-import 'package:gastos_app/src/modules/home/components/income_outcome_box.dart';
+import 'package:gastos_app/src/modules/home/components/profile_box/income_outcome_box.dart';
 
 import 'package:gastos_app/src/shared/utils/currency_formatter.dart';
 

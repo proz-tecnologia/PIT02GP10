@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
 import 'package:gastos_app/src/modules/home/components/custom_app_bar.dart';
-import 'package:gastos_app/src/modules/home/components/custom_bottom_navigation.dart';
+import 'package:gastos_app/src/modules/home/components/bottom_navigation_bar/custom_bottom_navigation.dart';
 import 'package:gastos_app/src/modules/home/components/expenses_resumed_list.dart';
+import 'package:gastos_app/src/modules/home/components/profile_box/profile_currency_box.dart';
 
-import 'package:gastos_app/src/modules/home/components/profile_currency_box.dart';
 import 'package:gastos_app/src/modules/home/components/profit_resumed_list.dart';
 import 'package:gastos_app/src/modules/home/models/expense_model.dart';
 import 'package:gastos_app/src/modules/home/models/profit_model.dart';
