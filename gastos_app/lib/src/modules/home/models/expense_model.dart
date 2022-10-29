@@ -1,5 +1,23 @@
 import 'dart:convert';
 
+final mockedExpenses = [
+  ExpenseModel(
+    title: "Padaria",
+    value: 30.0,
+    createdAt: DateTime(2022, 10, 12),
+  ),
+  ExpenseModel(
+    title: "Farmácia",
+    value: 68.90,
+    createdAt: DateTime(2022, 10, 21),
+  ),
+  ExpenseModel(
+    title: "Jantar",
+    value: 150.0,
+    createdAt: DateTime(2022, 10, 22),
+  ),
+];
+
 class ExpenseModel {
   final String title;
   final double value;
@@ -60,21 +78,3 @@ class ExpenseModel {
   @override
   int get hashCode => title.hashCode ^ value.hashCode ^ createdAt.hashCode;
 }
-
-final mockedExpenses = [
-  ExpenseModel(
-    title: "Padaria",
-    value: 30.0,
-    createdAt: DateTime(2022, 10, 12),
-  ),
-  ExpenseModel(
-    title: "Farmácia",
-    value: 68.90,
-    createdAt: DateTime(2022, 10, 21),
-  ),
-  ExpenseModel(
-    title: "Jantar",
-    value: 150.0,
-    createdAt: DateTime(2022, 10, 22),
-  ),
-];

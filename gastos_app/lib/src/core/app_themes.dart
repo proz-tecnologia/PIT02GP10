@@ -18,8 +18,19 @@ class AppThemes {
         buttonTheme: ButtonTheme.of(context).copyWith(
           buttonColor: AppColors.secondaryColor,
         ),
+        elevatedButtonTheme: ElevatedButtonThemeData(
+          style: ElevatedButton.styleFrom(
+            padding: EdgeInsets.zero,
+            backgroundColor: AppColors.secondaryColor,
+            shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(10)),
+            ),
+            textStyle: Theme.of(context).textTheme.bodyText1,
+          ),
+        ),
         drawerTheme: Theme.of(context).drawerTheme.copyWith(
               backgroundColor: AppColors.primaryColor,
+              scrimColor: AppColors.backgroundColor.withOpacity(0.7),
             ),
         dividerTheme: Theme.of(context).dividerTheme.copyWith(
               color: AppColors.orange,

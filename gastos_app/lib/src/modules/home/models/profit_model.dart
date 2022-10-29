@@ -1,5 +1,23 @@
 import 'dart:convert';
 
+final mockedProfits = [
+  ProfitModel(
+    title: "Projeto",
+    value: 400.00,
+    createdAt: DateTime(2022, 10, 22),
+  ),
+  ProfitModel(
+    title: "Vendas",
+    value: 328.95,
+    createdAt: DateTime(2022, 10, 22),
+  ),
+  ProfitModel(
+    title: "Projeto 2",
+    value: 65.90,
+    createdAt: DateTime(2022, 10, 22),
+  ),
+];
+
 class ProfitModel {
   final String title;
   final double value;
@@ -60,21 +78,3 @@ class ProfitModel {
   @override
   int get hashCode => title.hashCode ^ value.hashCode ^ createdAt.hashCode;
 }
-
-final mockedProfits = [
-  ProfitModel(
-    title: "Projeto",
-    value: 400.00,
-    createdAt: DateTime(2022, 10, 22),
-  ),
-  ProfitModel(
-    title: "Vendas",
-    value: 328.95,
-    createdAt: DateTime(2022, 10, 22),
-  ),
-  ProfitModel(
-    title: "Projeto 2",
-    value: 65.90,
-    createdAt: DateTime(2022, 10, 22),
-  ),
-];

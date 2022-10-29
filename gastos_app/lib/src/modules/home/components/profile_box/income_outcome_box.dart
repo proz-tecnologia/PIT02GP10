@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:gastos_app/src/core/app_colors.dart';
-import 'package:gastos_app/src/modules/home/components/row_with_icon_and_text.dart';
+import 'package:gastos_app/src/modules/home/components/profile_box/row_with_icon_and_text.dart';
 import 'package:gastos_app/src/shared/utils/currency_formatter.dart';
 
 class IncomeOutcomeBox extends StatelessWidget {
