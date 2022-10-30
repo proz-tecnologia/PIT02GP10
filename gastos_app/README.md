@@ -37,7 +37,7 @@
   </br>
 
 
-O aplicativo Gastos trata-se de um app mobile feito em Flutter para gerenciamento financeiro, contendo recursos como gestão de entradas, saídas e extrato mensal. 
+Gastos é um aplicativo mobile feito em Flutter para gerenciar e organizar a vida financeira do usuário, contendo recursos como gestão de entradas, saídas e extrato mensal, a fim de obter um panorama completo das finanças.
 
 ### Tecnologias utilizadas
 
@@ -54,7 +54,7 @@ O aplicativo Gastos trata-se de um app mobile feito em Flutter para gerenciament
 
 ## Instalação
 
-1. Crie um clone desse repo e acesse o diretório clonado.
+1. Crie um clone desse repositório e acesse o diretório clonado.
 
    ```sh
    git clone https://github.com/proz-tecnologia/PIT02GP10.git
