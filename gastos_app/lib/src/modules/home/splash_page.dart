@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:gastos_app/src/core/app_colors.dart';
 import 'package:gastos_app/src/core/app_images.dart';
 
 class SplashPage extends StatefulWidget {
@@ -13,20 +12,52 @@ class _SplashPageState extends State<SplashPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-          color: AppColors.backgroundColor,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Image.asset(
-                AppImages.logo1,
+      body: SizedBox(
+        width: double.infinity,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Image.asset(
+              AppImages.logoSplash,
+            ),
+            const Padding(
+              padding: EdgeInsets.only(top: 12),
+              child: Text(
+                'para sua economia não miar!',
+                style: TextStyle(color: Colors.orange, fontSize: 15, fontWeight: FontWeight.w700),
               ),
-              const Text(
-                'para sua economia não miar',
-                style: TextStyle(color: Colors.orange, fontSize: 15),
-              ),
-            ],
-          )),
+            ),
+            const SizedBox(width: 24,
+            height:16
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Image.asset(
+                  AppImages.logo3,
+                ),
+                const SizedBox(width: 12),
+                Image.asset(
+                  AppImages.logo3,
+                ),
+                const SizedBox(width: 12),
+                Image.asset(
+                  AppImages.logo3,
+                ),
+                const SizedBox(width: 12),
+                Image.asset(
+                  AppImages.logo3,
+                ),
+                const SizedBox(width: 12),
+                Image.asset(
+                  AppImages.logo3,
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
