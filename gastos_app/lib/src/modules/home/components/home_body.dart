@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:gastos_app/src/modules/home/components/expenses_resumed_list.dart';
+import 'package:gastos_app/src/mock/mocked_data.dart';
+import 'package:gastos_app/src/modules/home/components/home_fa_button.dart';
 import 'package:gastos_app/src/modules/home/components/profile_box/profile_currency_box.dart';
-import 'package:gastos_app/src/modules/home/components/profit_resumed_list.dart';
-import 'package:gastos_app/src/modules/home/models/expense_model.dart';
-import 'package:gastos_app/src/modules/home/models/profit_model.dart';
+import 'package:gastos_app/src/modules/home/components/profits_and_expenses_resumed_list.dart';
 
 class HomeBody extends StatelessWidget {
   const HomeBody({
@@ -12,54 +11,32 @@ class HomeBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final totalOutcome = mockedExpenses.fold(
-      0.0,
-      (total, element) => total + element.value,
-    );
-    final totalIncome = mockedProfits.fold(
-      0.0,
-      (total, element) => total + element.value,
-    );
-
-    final monthStyle = Theme.of(context).textTheme.bodyText1?.copyWith(
-          fontSize: 22,
-          fontWeight: FontWeight.w500,
-        );
-
-    return Column(
-      mainAxisSize: MainAxisSize.max,
-      crossAxisAlignment: CrossAxisAlignment.center,
+    return Stack(
+      fit: StackFit.expand,
       children: [
-        const SizedBox(height: 24),
-        ProfileCurrencyBox(
-          totalIncome: totalIncome,
-          totalOutcome: totalOutcome,
-          username: "usuário",
-        ),
-        const SizedBox(height: 10),
-        Text(
-          "Outubro",
-          style: monthStyle,
-        ),
-        const SizedBox(height: 10),
-        const Divider(),
-        ProfitResumedList(
-          onTap: () {},
-        ),
-        const Divider(),
-        ExpensesResumedList(
-          onTap: () {},
-        ),
-        const Divider(),
-        const Spacer(),
-        IconButton(
-          iconSize: 56,
-          icon: const Icon(
-            Icons.add_circle_outline,
+        SingleChildScrollView(
+          child: Column(
+            children: [
+              const SizedBox(height: 7),
+              ProfileCurrencyBox(
+                profits: MockedData.mockedProfits,
+                expenses: MockedData.mockedExpenses,
+                username: "usuário",
+              ),
+              ProfitsAndExpensesResumedList(
+                profits: MockedData.mockedProfits,
+                expenses: MockedData.mockedExpenses,
+              ),
+              // SizedBox para evitar que o FAB fique em cima da informação.
+              const SizedBox(height: 100),
+            ],
           ),
-          onPressed: () {},
         ),
-        const SizedBox(height: 10),
+        const Positioned(
+          bottom: 10,
+          right: 10,
+          child: HomeFAButton(),
+        ),
       ],
     );
   }

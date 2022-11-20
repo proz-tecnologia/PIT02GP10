@@ -21,14 +21,29 @@ class FieldValueBox extends StatelessWidget {
         );
 
     return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
-        Text(
-          "$title: $value",
-          style: textStyle,
+        Expanded(
+          child: Row(
+            children: [
+              Flexible(
+                child: Text(
+                  title,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: textStyle,
+                ),
+              ),
+              Text(
+                ": $value",
+                style: textStyle,
+              ),
+            ],
+          ),
         ),
-        const Spacer(),
+        const SizedBox(width: 10),
         Text(
-          DateFormatter.formattedWithMonthName(date),
+          DateFormatter.formatted(date).toLowerCase(),
           style: textStyle,
         ),
       ],

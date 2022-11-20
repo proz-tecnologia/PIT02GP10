@@ -1,18 +1,23 @@
 class DateFormatter {
   static String formatted(DateTime date) {
-    final day = date.day;
-    final month = date.month;
+    final day = dayMonthFormatter(date.day);
+    final month = dayMonthFormatter(date.month);
     final year = date.year;
 
     return "$day/$month/$year";
   }
 
   static String formattedWithMonthName(DateTime date) {
-    final day = date.day;
+    final day = dayMonthFormatter(date.day);
     final month = monthName(date);
     final year = date.year;
 
     return "$day/$month/$year";
+  }
+
+  static String dayMonthFormatter(int dayOrMonth) {
+    if (dayOrMonth > 9) return "$dayOrMonth";
+    return "0$dayOrMonth";
   }
 
   static String monthName(DateTime date) {
@@ -20,29 +25,29 @@ class DateFormatter {
 
     switch (month) {
       case 1:
-        return "janeiro";
+        return "Janeiro";
       case 2:
-        return "fevereiro";
+        return "Fevereiro";
       case 3:
-        return "março";
+        return "Março";
       case 4:
-        return "abril";
+        return "Abril";
       case 5:
-        return "maio";
+        return "Maio";
       case 6:
-        return "junho";
+        return "Junho";
       case 7:
-        return "julho";
+        return "Julho";
       case 8:
-        return "agosto";
+        return "Agosto";
       case 9:
-        return "setembro";
+        return "Setembro";
       case 10:
-        return "outubro";
+        return "Outubro";
       case 11:
-        return "novembro";
+        return "Novembro";
       default:
-        return "dezembro";
+        return "Dezembro";
     }
   }
 }
