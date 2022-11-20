@@ -6,6 +6,6 @@ class AppColors {
   static const Color backgroundColor = Color(0xFF233D4D);
   static const Color fontColor = Color(0xFFEDF4EF);
 
-  static const Color orange = Color(0xFFFE7F2D);
-  static const Color yellow = Color(0xFFFCCA46);
+  static const Color expenseColor = Color(0xFFFE7F2D);
+  static const Color profitColor = Color(0xFFFCCA46);
 }

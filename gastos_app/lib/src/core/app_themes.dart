@@ -33,7 +33,7 @@ class AppThemes {
               scrimColor: AppColors.backgroundColor.withOpacity(0.7),
             ),
         dividerTheme: Theme.of(context).dividerTheme.copyWith(
-              color: AppColors.orange,
+              color: AppColors.secondaryColor,
               thickness: 1.0,
             ),
         textTheme: GoogleFonts.robotoTextTheme(
