@@ -17,6 +17,15 @@ class AppThemes {
         buttonTheme: ButtonTheme.of(context).copyWith(
           buttonColor: AppColors.secondaryColor,
         ),
+        textButtonTheme: TextButtonThemeData(
+          style: TextButton.styleFrom(
+            foregroundColor: AppColors.expenseColor,
+            textStyle: Theme.of(context).textTheme.bodyText1?.copyWith(
+                  decoration: TextDecoration.underline,
+                  decorationThickness: 2.0,
+                ),
+          ),
+        ),
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ElevatedButton.styleFrom(
             padding: EdgeInsets.zero,
