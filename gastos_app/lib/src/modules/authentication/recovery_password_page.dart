@@ -46,10 +46,15 @@ class RecoveryPasswordPage extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 40),
-              const SizedBox(
+              SizedBox(
                 width: 136,
                 child: CustomElevatedButton(
                   backgroundColor: AppColors.expenseColor,
+                  onPressed: () {},
+                  child: Text(
+                    "Finalizar",
+                    style: textStyle?.copyWith(fontSize: 16),
+                  ),
                 ),
               ),
               const SizedBox(height: 40),

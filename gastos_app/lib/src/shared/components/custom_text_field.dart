@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gastos_app/src/core/app_colors.dart';
+import 'package:gastos_app/src/core/app_themes.dart';
 import 'package:gastos_app/src/shared/components/effectless_inkwell.dart';
 
 class CustomTextField extends StatefulWidget {
@@ -27,10 +28,6 @@ class CustomTextField extends StatefulWidget {
 }
 
 class _CustomTextFieldState extends State<CustomTextField> {
-  final BorderRadius _borderRadius = const BorderRadius.all(
-    Radius.circular(32.0),
-  );
-
   final focusNode = FocusNode();
 
   @override
@@ -48,7 +45,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
         );
 
     final outlineBorder = OutlineInputBorder(
-      borderRadius: _borderRadius,
+      borderRadius: AppThemes.defaultBorderRadius,
       borderSide: BorderSide(
         color: widget.filledColor,
       ),
@@ -75,6 +72,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
                 },
                 controller: widget.controller,
                 focusNode: focusNode,
+                cursorColor: AppColors.backgroundColor,
                 keyboardType: widget.textInputType,
                 textInputAction: widget.textInputAction,
                 validator: widget.validator,
@@ -84,6 +82,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
                   border: outlineBorder,
                   enabledBorder: outlineBorder,
                   focusedBorder: outlineBorder,
+                  suffixIcon: widget.suffixIcon,
                   disabledBorder: outlineBorder.copyWith(
                     borderSide: const BorderSide(
                       color: Colors.grey,
