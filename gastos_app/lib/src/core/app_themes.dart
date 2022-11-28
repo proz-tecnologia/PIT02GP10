@@ -28,10 +28,9 @@ class AppThemes {
         ),
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ElevatedButton.styleFrom(
-            padding: EdgeInsets.zero,
             backgroundColor: AppColors.secondaryColor,
             shape: const RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(Radius.circular(10)),
+              borderRadius: BorderRadius.all(Radius.circular(20)),
             ),
             textStyle: Theme.of(context).textTheme.bodyText1,
           ),

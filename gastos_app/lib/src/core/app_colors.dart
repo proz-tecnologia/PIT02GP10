@@ -1,4 +1,4 @@
-import 'dart:ui';
+import 'package:flutter/material.dart';
 
 class AppColors {
   static const Color primaryColor = Color(0xFF619B8A);
@@ -8,4 +8,6 @@ class AppColors {
 
   static const Color expenseColor = Color(0xFFFE7F2D);
   static const Color profitColor = Color(0xFFFCCA46);
+
+  static const Color errorColor = Colors.red;
 }

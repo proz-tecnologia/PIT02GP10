@@ -28,7 +28,7 @@ class CustomTextField extends StatefulWidget {
 
 class _CustomTextFieldState extends State<CustomTextField> {
   final BorderRadius _borderRadius = const BorderRadius.all(
-    Radius.circular(20.0),
+    Radius.circular(32.0),
   );
 
   final focusNode = FocusNode();
@@ -38,12 +38,21 @@ class _CustomTextFieldState extends State<CustomTextField> {
     final focusedLabelStyle = Theme.of(context).textTheme.bodyText1?.copyWith(
           fontSize: 15,
           color: AppColors.fontColor,
+          fontWeight: FontWeight.w500,
         );
 
     final unfocusedLabelStyle = Theme.of(context).textTheme.bodyText1?.copyWith(
           fontSize: 15,
           color: AppColors.backgroundColor,
+          fontWeight: FontWeight.w500,
         );
+
+    final outlineBorder = OutlineInputBorder(
+      borderRadius: _borderRadius,
+      borderSide: BorderSide(
+        color: widget.filledColor,
+      ),
+    );
 
     return Padding(
       padding: const EdgeInsets.all(16.0),
@@ -55,6 +64,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
             focusNode.hasPrimaryFocus ? widget.label : "",
             style: focusedLabelStyle,
           ),
+          const SizedBox(height: 2),
           Stack(
             children: [
               TextFormField(
@@ -69,9 +79,21 @@ class _CustomTextFieldState extends State<CustomTextField> {
                 textInputAction: widget.textInputAction,
                 validator: widget.validator,
                 decoration: InputDecoration(
-                  fillColor: AppColors.secondaryColor,
+                  fillColor: widget.filledColor,
                   filled: true,
-                  border: OutlineInputBorder(borderRadius: _borderRadius),
+                  border: outlineBorder,
+                  enabledBorder: outlineBorder,
+                  focusedBorder: outlineBorder,
+                  disabledBorder: outlineBorder.copyWith(
+                    borderSide: const BorderSide(
+                      color: Colors.grey,
+                    ),
+                  ),
+                  errorBorder: outlineBorder.copyWith(
+                    borderSide: const BorderSide(
+                      color: AppColors.errorColor,
+                    ),
+                  ),
                 ),
               ),
               if (!focusNode.hasPrimaryFocus)
