@@ -28,15 +28,16 @@ class AppThemes {
         ),
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ElevatedButton.styleFrom(
-              backgroundColor: AppColors.secondaryColor,
-              shape: const RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(Radius.circular(20)),
-              ),
-              textStyle: Theme.of(context).textTheme.bodyText1?.copyWith(
-                    fontWeight: FontWeight.w700,
-                    fontSize: 16,
-                    color: AppColors.fontColor,
-                  )),
+            backgroundColor: AppColors.secondaryColor,
+            shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(20)),
+            ),
+            textStyle: Theme.of(context).textTheme.bodyText1?.copyWith(
+                  fontWeight: FontWeight.w700,
+                  fontSize: 16,
+                  color: AppColors.fontColor,
+                ),
+          ),
         ),
         drawerTheme: Theme.of(context).drawerTheme.copyWith(
               backgroundColor: AppColors.primaryColor,
