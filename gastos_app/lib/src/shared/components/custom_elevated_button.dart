@@ -6,19 +6,23 @@ class CustomElevatedButton extends StatelessWidget {
     required this.child,
     required this.onPressed,
     this.backgroundColor,
+    this.foregroundColor,
   }) : super(key: key);
 
   final Widget child;
   final Color? backgroundColor;
+  final Color? foregroundColor;
+  final VoidCallback onPressed;
 
-  final VoidCallback? onPressed;
   @override
   Widget build(BuildContext context) {
-    return (ElevatedButton(
+    return ElevatedButton(
       onPressed: onPressed,
       style: Theme.of(context).elevatedButtonTheme.style?.copyWith(
-          backgroundColor: MaterialStateProperty.all(backgroundColor)),
+            backgroundColor: MaterialStateProperty.all(backgroundColor),
+            foregroundColor: MaterialStateProperty.all(foregroundColor),
+          ),
       child: child,
-    ));
+    );
   }
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gastos_app/src/core/app_colors.dart';
+import 'package:gastos_app/src/core/app_themes.dart';
 import 'package:gastos_app/src/shared/components/effectless_inkwell.dart';
 
 class CustomTextField extends StatefulWidget {
@@ -7,31 +8,42 @@ class CustomTextField extends StatefulWidget {
     Key? key,
     required this.label,
     this.filledColor = AppColors.secondaryColor,
-    this.suffixIcon,
     this.textInputType = TextInputType.text,
-    this.controller,
     this.textInputAction = TextInputAction.done,
+    this.suffixIcon,
+    this.controller,
     this.validator,
+    this.onTap,
+    this.focusNode,
+    this.readOnly = false,
   }) : super(key: key);
 
   final String label;
   final Color filledColor;
+
   final TextInputType textInputType;
   final TextInputAction textInputAction;
   final Widget? suffixIcon;
-  final TextEditingController? controller;
   final FormFieldValidator<String>? validator;
+  final VoidCallback? onTap;
+  final FocusNode? focusNode;
+  final TextEditingController? controller;
+  final bool readOnly;
 
   @override
   State<CustomTextField> createState() => _CustomTextFieldState();
 }
 
 class _CustomTextFieldState extends State<CustomTextField> {
-  final BorderRadius _borderRadius = const BorderRadius.all(
-    Radius.circular(32.0),
-  );
+  late FocusNode focusNode;
+  late TextEditingController controller;
 
-  final focusNode = FocusNode();
+  @override
+  void initState() {
+    focusNode = widget.focusNode ?? FocusNode();
+    controller = widget.controller ?? TextEditingController();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -47,8 +59,14 @@ class _CustomTextFieldState extends State<CustomTextField> {
           fontWeight: FontWeight.w500,
         );
 
+    final valueTextStyle = Theme.of(context).textTheme.bodyText1?.copyWith(
+          fontSize: 15,
+          color: AppColors.backgroundColor,
+          fontWeight: FontWeight.w500,
+        );
+
     final outlineBorder = OutlineInputBorder(
-      borderRadius: _borderRadius,
+      borderRadius: AppThemes.defaultBorderRadius,
       borderSide: BorderSide(
         color: widget.filledColor,
       ),
@@ -61,7 +79,9 @@ class _CustomTextFieldState extends State<CustomTextField> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            focusNode.hasPrimaryFocus ? widget.label : "",
+            focusNode.hasPrimaryFocus || controller.text.isNotEmpty
+                ? widget.label
+                : "",
             style: focusedLabelStyle,
           ),
           const SizedBox(height: 2),
@@ -72,18 +92,26 @@ class _CustomTextFieldState extends State<CustomTextField> {
                   setState(() {
                     if (focusNode.hasPrimaryFocus) focusNode.unfocus();
                   });
+                  if (widget.onTap != null) widget.onTap!();
                 },
-                controller: widget.controller,
+                controller: controller,
                 focusNode: focusNode,
+                onChanged: (value) {
+                  if (value.isEmpty) setState(() {});
+                },
+                cursorColor: AppColors.backgroundColor,
                 keyboardType: widget.textInputType,
                 textInputAction: widget.textInputAction,
                 validator: widget.validator,
+                readOnly: widget.readOnly,
+                style: valueTextStyle,
                 decoration: InputDecoration(
                   fillColor: widget.filledColor,
                   filled: true,
                   border: outlineBorder,
                   enabledBorder: outlineBorder,
                   focusedBorder: outlineBorder,
+                  suffixIcon: widget.suffixIcon,
                   disabledBorder: outlineBorder.copyWith(
                     borderSide: const BorderSide(
                       color: Colors.grey,
@@ -96,7 +124,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
                   ),
                 ),
               ),
-              if (!focusNode.hasPrimaryFocus)
+              if (!focusNode.hasPrimaryFocus && controller.text.isEmpty)
                 Positioned(
                   top: 0,
                   bottom: 0,

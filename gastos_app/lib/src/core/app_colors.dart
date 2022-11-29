@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 
 class AppColors {
@@ -10,4 +12,10 @@ class AppColors {
   static const Color profitColor = Color(0xFFFCCA46);
 
   static const Color errorColor = Colors.red;
+
+  static Color foregroundColorBasedOnBackground(Color reference) {
+    log(reference.computeLuminance().toString());
+    if (reference.computeLuminance() > 0.5) return AppColors.backgroundColor;
+    return AppColors.fontColor;
+  }
 }

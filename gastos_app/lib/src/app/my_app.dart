@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:gastos_app/src/core/app_colors.dart';
 import 'package:gastos_app/src/core/app_themes.dart';
-import 'package:gastos_app/src/modules/authentication/recovery_password_page.dart';
+import 'package:gastos_app/src/modules/home/profit/create_profit_page.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -19,7 +20,12 @@ class MyApp extends StatelessWidget {
       title: 'Gastos App',
       theme: AppThemes.defaultTheme(context),
       debugShowCheckedModeBanner: false,
-      home: const RecoveryPasswordPage(),
+      localizationsDelegates: const [
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate
+      ],
+      supportedLocales: const [Locale('pt', 'BR')],
+      home: const CreateProfitPage(),
     );
   }
 }
