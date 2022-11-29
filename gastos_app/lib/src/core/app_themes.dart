@@ -36,9 +36,13 @@ class AppThemes {
         style: ElevatedButton.styleFrom(
           backgroundColor: AppColors.secondaryColor,
           shape: const RoundedRectangleBorder(
-            borderRadius: defaultBorderRadius,
+            borderRadius: BorderRadius.all(Radius.circular(20)),
           ),
-          textStyle: Theme.of(context).textTheme.bodyText1,
+          textStyle: Theme.of(context).textTheme.bodyText1?.copyWith(
+                fontWeight: FontWeight.w700,
+                fontSize: 16,
+                color: AppColors.fontColor,
+              ),
         ),
       ),
       drawerTheme: Theme.of(context).drawerTheme.copyWith(
