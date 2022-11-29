@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:gastos_app/src/core/app_colors.dart';
 import 'package:gastos_app/src/shared/components/custom_date_picker.dart';
@@ -42,10 +44,13 @@ class CreateProfitPage extends StatelessWidget {
                 label: "Descrição",
                 filledColor: AppColors.profitColor,
               ),
-              const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 16),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: CustomDatePicker(
                   label: "Data de recebimento",
+                  onDateChange: (date) {
+                    log(date.toIso8601String());
+                  },
                   filledColor: AppColors.profitColor,
                 ),
               ),
