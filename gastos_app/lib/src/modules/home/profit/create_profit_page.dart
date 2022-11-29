@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gastos_app/src/core/app_colors.dart';
+import 'package:gastos_app/src/shared/components/custom_date_picker.dart';
 import 'package:gastos_app/src/shared/components/custom_elevated_button.dart';
 import 'package:gastos_app/src/shared/components/custom_text_field.dart';
 
@@ -41,12 +42,11 @@ class CreateProfitPage extends StatelessWidget {
                 label: "Descrição",
                 filledColor: AppColors.profitColor,
               ),
-              const CustomTextField(
-                label: "Data do Recebimento",
-                filledColor: AppColors.profitColor,
-                suffixIcon: Icon(
-                  Icons.arrow_forward_ios,
-                  color: AppColors.backgroundColor,
+              const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 16),
+                child: CustomDatePicker(
+                  label: "Data de recebimento",
+                  filledColor: AppColors.profitColor,
                 ),
               ),
               const SizedBox(height: 80),
