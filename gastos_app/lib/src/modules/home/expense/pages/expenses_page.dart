@@ -1,25 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:gastos_app/src/core/app_colors.dart';
 import 'package:gastos_app/src/modules/home/components/field_value_box.dart';
-import 'package:gastos_app/src/modules/home/models/profit_model.dart';
+import 'package:gastos_app/src/modules/home/models/expense_model.dart';
 import 'package:gastos_app/src/shared/utils/currency_formatter.dart';
 
-class ProfitsPage extends StatefulWidget {
-  const ProfitsPage({
+class ExpensesPage extends StatefulWidget {
+  const ExpensesPage({
     Key? key,
-    required this.profits,
+    required this.expenses,
   }) : super(key: key);
 
-  final List<ProfitModel> profits;
+  final List<ExpenseModel> expenses;
 
   @override
-  State<ProfitsPage> createState() => _ProfitsPageState();
+  State<ExpensesPage> createState() => _ExpensesPageState();
 }
 
-class _ProfitsPageState extends State<ProfitsPage> {
+class _ExpensesPageState extends State<ExpensesPage> {
   @override
   void initState() {
-    widget.profits.sort((a, b) => b.createdAt.compareTo(a.createdAt));
+    widget.expenses.sort((a, b) => b.createdAt.compareTo(a.createdAt));
     super.initState();
   }
 
@@ -27,7 +27,7 @@ class _ProfitsPageState extends State<ProfitsPage> {
   Widget build(BuildContext context) {
     final textStyle = Theme.of(context).textTheme.bodyText1?.copyWith(
           fontWeight: FontWeight.w500,
-          color: AppColors.profitColor,
+          color: AppColors.expenseColor,
           fontSize: 36,
         );
 
@@ -42,40 +42,48 @@ class _ProfitsPageState extends State<ProfitsPage> {
                   onPressed: () {},
                 )),
             Text(
-              "Ganhos",
+              "Despesas",
               style: textStyle,
             ),
             const SizedBox(height: 50),
             Expanded(
               child: ListView.builder(
                 itemBuilder: (context, index) {
-                  final profit = widget.profits[index];
+                  final expense = widget.expenses[index];
                   return Column(
                     children: [
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 16.0),
                         child: Row(
                           children: [
-                            const Icon(
-                              Icons.monetization_on,
-                              size: 20,
-                              color: AppColors.profitColor,
+                            Container(
+                              decoration: const BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: AppColors.expenseColor,
+                              ),
+                              width: 20,
+                              height: 20,
+                              child: const Icon(
+                                Icons.money_off,
+                                size: 20,
+                                color: AppColors.backgroundColor,
+                              ),
                             ),
                             const SizedBox(width: 16),
                             Expanded(
                               child: FieldValueBox(
-                                title: profit.title,
+                                title: expense.title,
                                 value: CurrencyFormatter.doubleToReais(
-                                  profit.value,
+                                  expense.value,
                                 ),
-                                date: profit.createdAt,
+                                date: expense.createdAt,
                               ),
                             ),
                           ],
                         ),
                       ),
                       const Divider(
-                        color: AppColors.profitColor,
+                        color: AppColors.expenseColor,
                         endIndent: 10,
                         indent: 10,
                         thickness: 2.0,
@@ -83,7 +91,7 @@ class _ProfitsPageState extends State<ProfitsPage> {
                     ],
                   );
                 },
-                itemCount: widget.profits.length,
+                itemCount: widget.expenses.length,
               ),
             )
           ],
