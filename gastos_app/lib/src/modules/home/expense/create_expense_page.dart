@@ -53,7 +53,7 @@ class CreateExpensePage extends StatelessWidget {
                   filledColor: AppColors.expenseColor,
                 ),
               ),
-              const SizedBox(height: 80),
+              const SizedBox(height: 150),
               SizedBox(
                 width: 110,
                 child: CustomElevatedButton(

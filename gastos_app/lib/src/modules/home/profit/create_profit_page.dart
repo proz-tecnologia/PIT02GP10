@@ -54,7 +54,7 @@ class CreateProfitPage extends StatelessWidget {
                   filledColor: AppColors.profitColor,
                 ),
               ),
-              const SizedBox(height: 80),
+              const SizedBox(height: 150),
               SizedBox(
                 width: 110,
                 child: CustomElevatedButton(
