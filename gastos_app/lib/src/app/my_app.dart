@@ -3,8 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:gastos_app/src/core/app_colors.dart';
 import 'package:gastos_app/src/core/app_themes.dart';
-import 'package:gastos_app/src/mock/mocked_data.dart';
-import 'package:gastos_app/src/modules/home/expense/pages/expenses_page.dart';
+import 'package:gastos_app/src/modules/home/profit/pages/create_profit_page.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -27,9 +26,7 @@ class MyApp extends StatelessWidget {
         GlobalCupertinoLocalizations.delegate,
       ],
       supportedLocales: const [Locale('pt', 'BR')],
-      home: ExpensesPage(
-        expenses: MockedData.mockedExpenses,
-      ),
+      home: const CreateProfitPage(),
     );
   }
 }
