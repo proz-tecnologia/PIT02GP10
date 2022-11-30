@@ -39,10 +39,12 @@ class CreateExpensePage extends StatelessWidget {
                 label: "Valor da despesa",
                 filledColor: AppColors.expenseColor,
               ),
+              const SizedBox(height: 20),
               const CustomTextField(
                 label: "Descrição",
                 filledColor: AppColors.expenseColor,
               ),
+              const SizedBox(height: 20),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: CustomDatePicker(
