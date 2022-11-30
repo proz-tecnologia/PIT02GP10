@@ -40,10 +40,12 @@ class CreateProfitPage extends StatelessWidget {
                 label: "Valor do ganho",
                 filledColor: AppColors.profitColor,
               ),
+              const SizedBox(height: 20),
               const CustomTextField(
                 label: "Descrição",
                 filledColor: AppColors.profitColor,
               ),
+              const SizedBox(height: 20),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: CustomDatePicker(

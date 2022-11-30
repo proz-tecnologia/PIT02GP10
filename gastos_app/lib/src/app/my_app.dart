@@ -3,7 +3,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:gastos_app/src/core/app_colors.dart';
 import 'package:gastos_app/src/core/app_themes.dart';
-import 'package:gastos_app/src/modules/home/expense/create_expense_page.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -22,10 +21,11 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       localizationsDelegates: const [
         GlobalMaterialLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
       ],
       supportedLocales: const [Locale('pt', 'BR')],
-      home: const CreateExpensePage(),
+      home: const CreateProfitPage(),
     );
   }
 }
