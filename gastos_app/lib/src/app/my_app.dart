@@ -6,6 +6,8 @@ import 'package:gastos_app/src/core/app_themes.dart';
 import 'package:gastos_app/src/mock/mocked_data.dart';
 import 'package:gastos_app/src/modules/home/expense/pages/expenses_page.dart';
 
+import '../modules/home/login.dart';
+
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
@@ -27,9 +29,7 @@ class MyApp extends StatelessWidget {
         GlobalCupertinoLocalizations.delegate,
       ],
       supportedLocales: const [Locale('pt', 'BR')],
-      home: ExpensesPage(
-        expenses: MockedData.mockedExpenses,
-      ),
+      home: SignInPage(),
     );
   }
 }
