@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 import 'package:gastos_app/src/core/app_colors.dart';
 import 'package:gastos_app/src/modules/home/profit/controllers/create_profit_controller.dart';
 import 'package:gastos_app/src/shared/components/custom_date_picker.dart';
 import 'package:gastos_app/src/shared/components/custom_elevated_button.dart';
+import 'package:gastos_app/src/shared/components/custom_loading_icon.dart';
 import 'package:gastos_app/src/shared/components/custom_text_field.dart';
 import 'package:validatorless/validatorless.dart';
 
@@ -17,7 +19,11 @@ class _CreateProfitPageState extends State<CreateProfitPage> {
   final formKey = GlobalKey<FormState>();
   final createProfitController = CreateProfitController();
 
-  final valueController = TextEditingController();
+  final valueController = MoneyMaskedTextController(
+    leftSymbol: "R\$ ",
+    decimalSeparator: ',',
+    thousandSeparator: '.',
+  );
   final descriptionController = TextEditingController();
   DateTime? chosenDate;
 
@@ -54,8 +60,16 @@ class _CreateProfitPageState extends State<CreateProfitPage> {
                   label: "Valor do ganho",
                   filledColor: AppColors.profitColor,
                   controller: valueController,
+                  textInputType: TextInputType.number,
+                  textInputAction: TextInputAction.next,
                   validator: Validatorless.multiple([
-                    Validatorless.required("Necessário informar um ganho"),
+                    Validatorless.required("Necessário informar um valor"),
+                    (String? value) {
+                      if (value == null || value == "R\$ 0,00") {
+                        return "Digite um valor válido";
+                      }
+                      return null;
+                    },
                   ]),
                 ),
                 const SizedBox(height: 20),
@@ -63,6 +77,7 @@ class _CreateProfitPageState extends State<CreateProfitPage> {
                   label: "Descrição",
                   filledColor: AppColors.profitColor,
                   controller: descriptionController,
+                  textInputAction: TextInputAction.next,
                   validator: Validatorless.multiple([
                     Validatorless.required("Necessário informar uma descrição"),
                   ]),
@@ -95,12 +110,12 @@ class _CreateProfitPageState extends State<CreateProfitPage> {
                           if (formKey.currentState!.validate()) {
                             createProfitController.createProfit(
                               title: descriptionController.text,
-                              value: double.parse("2.00"),
+                              value: valueController.numberValue,
                             );
                           }
                         },
                         child: state == CreateProfitStates.loading
-                            ? const CircularProgressIndicator()
+                            ? const CustomLoadingIcon(size: 16)
                             : Text(
                                 "Finalizar",
                                 style: textStyle?.copyWith(

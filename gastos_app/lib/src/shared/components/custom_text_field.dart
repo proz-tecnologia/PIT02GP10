@@ -112,6 +112,10 @@ class _CustomTextFieldState extends State<CustomTextField> {
                   enabledBorder: outlineBorder,
                   focusedBorder: outlineBorder,
                   suffixIcon: widget.suffixIcon,
+                  errorMaxLines: 1,
+                  errorStyle: focusedLabelStyle?.copyWith(
+                    color: AppColors.errorColor,
+                  ),
                   disabledBorder: outlineBorder.copyWith(
                     borderSide: const BorderSide(
                       color: Colors.grey,
