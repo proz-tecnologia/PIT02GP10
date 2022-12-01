@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:gastos_app/src/modules/home/models/profit_model.dart';
 
@@ -10,9 +8,7 @@ class CreateProfitController {
 
   CreateProfitStates get state => createProfitStateNotifier.value;
   set state(CreateProfitStates state) {
-    log(this.state.toString());
     createProfitStateNotifier.value = state;
-    log(this.state.toString());
   }
 
   Future<void> createProfit({
@@ -30,9 +26,10 @@ class CreateProfitController {
       // Pegar esse profit e salvar em algum lugar, ou seja, chamar um service/repository que faça isso.
       await Future.delayed(const Duration(seconds: 3));
       state = CreateProfitStates.success;
-      //Navegar para Tela anterior
+      //Navegar para Tela anterior ou para tela de listagem
     } catch (e) {
       state = CreateProfitStates.error;
+      //Continuo na mesma tela
     }
   }
 }
