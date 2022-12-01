@@ -78,9 +78,9 @@ class _CreateProfitPageState extends State<CreateProfitPage> {
                   filledColor: AppColors.profitColor,
                   controller: descriptionController,
                   textInputAction: TextInputAction.next,
-                  validator: Validatorless.multiple([
-                    Validatorless.required("Necessário informar uma descrição"),
-                  ]),
+                  validator: Validatorless.required(
+                    "Necessário informar uma descrição",
+                  ),
                 ),
                 const SizedBox(height: 20),
                 Padding(
@@ -90,9 +90,9 @@ class _CreateProfitPageState extends State<CreateProfitPage> {
                     onDateChange: (date) {
                       chosenDate = date;
                     },
-                    validator: Validatorless.multiple([
-                      Validatorless.required("Necessário informar uma data"),
-                    ]),
+                    validator: Validatorless.required(
+                      "Necessário informar uma data",
+                    ),
                     filledColor: AppColors.profitColor,
                   ),
                 ),
