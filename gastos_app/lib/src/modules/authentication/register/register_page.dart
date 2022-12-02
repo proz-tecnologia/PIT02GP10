@@ -23,44 +23,39 @@ class RegisterPage extends StatelessWidget {
             children: [
               const SizedBox(height: 32),
               Image.asset(AppImages.logoSplash),
-              const SizedBox(height: 32),
-              Align(
-                alignment: Alignment.centerLeft,
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 32.0),
-                  child: Text(
-                    "Bem-vindo!",
-                    style: textStyle?.copyWith(fontSize: 30),
-                  ),
+              const SizedBox(height: 16),
+              Text(
+                "Cadastre-se",
+                style: textStyle?.copyWith(fontSize: 30),
+              ),
+              const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 20.0),
+                child: CustomTextField(
+                  label: "Nome",
                 ),
               ),
-              const SizedBox(height: 16),
               const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 60.0),
+                padding: EdgeInsets.symmetric(horizontal: 20.0),
                 child: CustomTextField(
                   label: "E-mail",
                 ),
               ),
               const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 60.0),
+                padding: EdgeInsets.symmetric(horizontal: 20.0),
+                child: CustomTextField(
+                  label: "Telefone",
+                ),
+              ),
+              const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 20.0),
                 child: CustomTextField(
                   label: "Senha",
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 60.0),
-                child: Align(
-                  alignment: Alignment.centerRight,
-                  child: TextButton(
-                    onPressed: () {},
-                    child: Text(
-                      "esqueci a senha",
-                      style: textStyle?.copyWith(
-                        decoration: TextDecoration.underline,
-                        decorationThickness: 2.0,
-                      ),
-                    ),
-                  ),
+              const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 20.0),
+                child: CustomTextField(
+                  label: "Confirmar a senha",
                 ),
               ),
               const SizedBox(height: 40),
@@ -70,33 +65,9 @@ class RegisterPage extends StatelessWidget {
                   backgroundColor: AppColors.expenseColor,
                   onPressed: () {},
                   child: Text(
-                    "Login",
+                    "Cadastrar",
                     style: textStyle,
                   ),
-                ),
-              ),
-              const SizedBox(height: 40),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      "É novo?",
-                      style: textStyle,
-                    ),
-                    TextButton(
-                      child: Text(
-                        "Cadastre-se",
-                        style: textStyle?.copyWith(
-                          color: AppColors.expenseColor,
-                          decoration: TextDecoration.underline,
-                          decorationThickness: 2.0,
-                        ),
-                      ),
-                      onPressed: () {},
-                    ),
-                  ],
                 ),
               ),
               const SizedBox(height: 40),
