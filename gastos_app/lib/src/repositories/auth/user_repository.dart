@@ -105,6 +105,7 @@ class SharedPrefsUserRepository with UserRepository {
     required String newPassword,
   }) async {
     final instance = await SharedPreferences.getInstance();
+
     final users = await listAll();
 
     if (users == null) {
@@ -122,6 +123,7 @@ class SharedPrefsUserRepository with UserRepository {
         statusCode: 404,
       );
     }
+
     final updatedUser = user.copyWith(password: newPassword);
 
     users.remove(user);

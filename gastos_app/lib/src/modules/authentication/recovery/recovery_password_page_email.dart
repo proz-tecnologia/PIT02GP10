@@ -24,6 +24,12 @@ class _RecoveryPasswordPageEmailState extends State<RecoveryPasswordPageEmail> {
   final emailController = TextEditingController();
   final formKey = GlobalKey<FormState>();
 
+  void requestToken() {
+    if (formKey.currentState!.validate()) {
+      widget.recoveryPageController.requestCode(email: emailController.text);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final textStyle = Theme.of(context).textTheme.bodyText1?.copyWith(
@@ -71,6 +77,10 @@ class _RecoveryPasswordPageEmailState extends State<RecoveryPasswordPageEmail> {
                     label: "E-mail",
                     controller: emailController,
                     textInputType: TextInputType.emailAddress,
+                    textInputAction: TextInputAction.send,
+                    onFieldSubmitted: (_) {
+                      requestToken();
+                    },
                     validator: Validatorless.multiple([
                       Validatorless.required("Digite um e-mail válido"),
                       Validatorless.email("Digite um e-mail válido"),
@@ -82,13 +92,7 @@ class _RecoveryPasswordPageEmailState extends State<RecoveryPasswordPageEmail> {
                   width: 136,
                   child: CustomElevatedButton(
                     backgroundColor: AppColors.expenseColor,
-                    onPressed: () {
-                      if (formKey.currentState!.validate()) {
-                        widget.recoveryPageController.requestCode(
-                          email: emailController.text,
-                        );
-                      }
-                    },
+                    onPressed: requestToken,
                     child: ValueListenableBuilder<EmailPageState>(
                       valueListenable:
                           widget.recoveryPageController.emailPageStateNotifier,

@@ -6,6 +6,7 @@ class RecoveryPageController {
   final recoreryRepository = RecoveryRepository();
 
   String? emailToRecover;
+  String? token;
 
   Future<void> requestCode({required String email}) async {
     try {
@@ -30,6 +31,54 @@ class RecoveryPageController {
     }
   }
 
+  Future<void> validateToken({required String token}) async {
+    if (emailToRecover == null) {
+      currentPage = RecoveryPages.email;
+    } else {
+      try {
+        codePageState = CodePageState.loading;
+        await Future.delayed(const Duration(seconds: 2));
+
+        await recoreryRepository.validateToken(
+          code: token,
+          email: emailToRecover!,
+        );
+        currentPage = RecoveryPages.newPassword;
+        codePageState = CodePageState.success;
+        this.token = token;
+      } catch (e) {
+        AppNotifications.errorNotificationBanner(e);
+        codePageState = CodePageState.error;
+        this.token = null;
+      }
+    }
+  }
+
+  Future<bool> changePassword({required String newPassword}) async {
+    if (emailToRecover == null && token == null) {
+      currentPage = RecoveryPages.email;
+    } else if (token == null) {
+      currentPage = RecoveryPages.code;
+    } else {
+      try {
+        newPasswordPageState = NewPasswordPageState.loading;
+        await Future.delayed(const Duration(seconds: 2));
+        await recoreryRepository.changePassword(
+          newPassword: newPassword,
+          token: token!,
+          email: emailToRecover!,
+        );
+        newPasswordPageState = NewPasswordPageState.success;
+        return true;
+      } catch (e) {
+        AppNotifications.errorNotificationBanner(e);
+        newPasswordPageState = NewPasswordPageState.error;
+        currentPage = RecoveryPages.code;
+      }
+    }
+    return false;
+  }
+
   final currentPageNotifier = ValueNotifier<RecoveryPages>(RecoveryPages.email);
 
   RecoveryPages get currentPage => currentPageNotifier.value;
@@ -41,21 +90,20 @@ class RecoveryPageController {
   set emailPageState(EmailPageState page) =>
       emailPageStateNotifier.value = page;
 
-  final codePageStateNotifier = ValueNotifier<RecoveryCodeState>(
-    RecoveryCodeState.empty,
+  final codePageStateNotifier = ValueNotifier<CodePageState>(
+    CodePageState.empty,
   );
 
-  RecoveryCodeState get codePageState => codePageStateNotifier.value;
-  set codePageState(RecoveryCodeState page) =>
-      codePageStateNotifier.value = page;
+  CodePageState get codePageState => codePageStateNotifier.value;
+  set codePageState(CodePageState page) => codePageStateNotifier.value = page;
 
-  final newPasswordPageStateNotifier = ValueNotifier<RecoveryNewPasswordState>(
-    RecoveryNewPasswordState.empty,
+  final newPasswordPageStateNotifier = ValueNotifier<NewPasswordPageState>(
+    NewPasswordPageState.empty,
   );
 
-  RecoveryNewPasswordState get newPasswordPageState =>
+  NewPasswordPageState get newPasswordPageState =>
       newPasswordPageStateNotifier.value;
-  set newPasswordPageState(RecoveryNewPasswordState page) =>
+  set newPasswordPageState(NewPasswordPageState page) =>
       newPasswordPageStateNotifier.value = page;
 }
 
@@ -72,14 +120,14 @@ enum EmailPageState {
   error,
 }
 
-enum RecoveryCodeState {
+enum CodePageState {
   empty,
   loading,
   success,
   error,
 }
 
-enum RecoveryNewPasswordState {
+enum NewPasswordPageState {
   empty,
   loading,
   success,

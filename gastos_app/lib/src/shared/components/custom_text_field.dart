@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:gastos_app/src/core/app_colors.dart';
 import 'package:gastos_app/src/core/app_themes.dart';
 import 'package:gastos_app/src/shared/components/effectless_inkwell.dart';
@@ -11,11 +12,13 @@ class CustomTextField extends StatefulWidget {
     this.textInputType = TextInputType.text,
     this.textInputAction = TextInputAction.done,
     this.suffixIcon,
-    this.controller,
     this.validator,
+    this.onFieldSubmitted,
     this.onTap,
     this.focusNode,
+    this.controller,
     this.readOnly = false,
+    this.inputFormatters,
   }) : super(key: key);
 
   final String label;
@@ -25,10 +28,12 @@ class CustomTextField extends StatefulWidget {
   final TextInputAction textInputAction;
   final Widget? suffixIcon;
   final FormFieldValidator<String>? validator;
+  final void Function(String)? onFieldSubmitted;
   final VoidCallback? onTap;
   final FocusNode? focusNode;
   final TextEditingController? controller;
   final bool readOnly;
+  final List<TextInputFormatter>? inputFormatters;
 
   @override
   State<CustomTextField> createState() => _CustomTextFieldState();
@@ -103,6 +108,8 @@ class _CustomTextFieldState extends State<CustomTextField> {
               validator: widget.validator,
               readOnly: widget.readOnly,
               style: valueTextStyle,
+              inputFormatters: widget.inputFormatters,
+              onFieldSubmitted: widget.onFieldSubmitted,
               decoration: InputDecoration(
                 fillColor: widget.filledColor,
                 filled: true,

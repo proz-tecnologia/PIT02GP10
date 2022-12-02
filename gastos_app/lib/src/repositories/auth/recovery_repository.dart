@@ -9,17 +9,29 @@ import 'package:shared_preferences/shared_preferences.dart';
 class RecoveryRepository {
   final Duration expirationDuration = const Duration(minutes: 2);
 
-  Future<RecoveryTokenModel?> validateToken({
+  Future<RecoveryTokenModel> validateToken({
     required String code,
     required String email,
   }) async {
     final unexpiredToken = await findUnexpiredByEmail(email: email);
 
     if (unexpiredToken == null || unexpiredToken.code != code) {
-      return null;
+      throw AppErrorModel(message: "Código inválido", statusCode: 401);
     }
 
     return unexpiredToken;
+  }
+
+  Future<void> changePassword({
+    required String newPassword,
+    required String token,
+    required String email,
+  }) async {
+    await validateToken(code: token, email: email);
+
+    final userRepository = SharedPrefsUserRepository();
+
+    await userRepository.updatePassword(email: email, newPassword: newPassword);
   }
 
   Future<RecoveryTokenModel> generateRecoveryToken({
