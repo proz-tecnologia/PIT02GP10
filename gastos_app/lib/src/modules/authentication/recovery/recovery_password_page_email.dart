@@ -1,11 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:gastos_app/src/core/app_colors.dart';
 import 'package:gastos_app/src/core/app_images.dart';
+import 'package:gastos_app/src/modules/authentication/recovery/recovery_page_controller.dart';
 import 'package:gastos_app/src/shared/components/custom_elevated_button.dart';
 import 'package:gastos_app/src/shared/components/custom_text_field.dart';
 
-class RecoveryPasswordPage extends StatelessWidget {
-  const RecoveryPasswordPage({Key? key}) : super(key: key);
+class RecoveryPasswordPageEmail extends StatelessWidget {
+  const RecoveryPasswordPageEmail({
+    Key? key,
+    required this.recoveryPageController,
+  }) : super(key: key);
+
+  final RecoveryPageController recoveryPageController;
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +25,16 @@ class RecoveryPasswordPage extends StatelessWidget {
         body: SingleChildScrollView(
           child: Column(
             children: [
-              const SizedBox(height: 40),
+              Align(
+                alignment: Alignment.centerLeft,
+                child: IconButton(
+                  onPressed: () {
+                    //Go Back to Login,
+                  },
+                  icon: const Icon(Icons.arrow_back_ios),
+                ),
+              ),
+              const SizedBox(height: 20),
               Image.asset(AppImages.logoSplash),
               const SizedBox(height: 34),
               Padding(
@@ -33,7 +48,7 @@ class RecoveryPasswordPage extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 30.0),
                 child: Text(
-                  "Enviaremos um código para o seu email de login para dar início ao processo de redefinição de senha",
+                  "Enviaremos um código para dar início ao processo de redefinição de senha",
                   style: textStyle?.copyWith(fontSize: 16),
                   textAlign: TextAlign.center,
                 ),
@@ -50,9 +65,11 @@ class RecoveryPasswordPage extends StatelessWidget {
                 width: 136,
                 child: CustomElevatedButton(
                   backgroundColor: AppColors.expenseColor,
-                  onPressed: () {},
+                  onPressed: () {
+                    recoveryPageController.currentPage = RecoveryPages.code;
+                  },
                   child: Text(
-                    "Finalizar",
+                    "Solicitar",
                     style: textStyle?.copyWith(fontSize: 16),
                   ),
                 ),

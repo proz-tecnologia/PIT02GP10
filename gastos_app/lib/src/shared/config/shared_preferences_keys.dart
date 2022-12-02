@@ -3,4 +3,5 @@ class SharedPreferencesKeys {
   static const String users = 'users';
   static const String profits = 'profits';
   static const String expenses = 'expenses';
+  static const String recoveryTokens = 'recoveryTokens';
 }
