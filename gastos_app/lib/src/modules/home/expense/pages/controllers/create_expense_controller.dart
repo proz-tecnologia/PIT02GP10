@@ -1,7 +1,7 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:gastos_app/src/modules/home/models/expense_model.dart';
+import 'package:gastos_app/src/models/expense_model.dart';
 
 class CreateExpenseController {
   final createExpenseStateNotifier = ValueNotifier<CreateExpenseStates>(
@@ -23,13 +23,14 @@ class CreateExpenseController {
         title: title,
         value: value,
         createdAt: DateTime.now(),
+        createdBy: '123',
+        id: '123',
       );
 
       log(expense.toString());
 
       await Future.delayed(const Duration(seconds: 3));
       state = CreateExpenseStates.success;
-   
     } catch (e) {
       state = CreateExpenseStates.error;
     }

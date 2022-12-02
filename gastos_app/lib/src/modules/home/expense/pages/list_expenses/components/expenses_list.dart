@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gastos_app/src/core/app_colors.dart';
-import 'package:gastos_app/src/modules/home/models/expense_model.dart';
+import 'package:gastos_app/src/models/expense_model.dart';
 import 'package:gastos_app/src/shared/components/custom_refresh_indicator.dart';
 import 'package:gastos_app/src/shared/utils/currency_formatter.dart';
 
