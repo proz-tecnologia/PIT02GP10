@@ -1,15 +1,42 @@
 import 'dart:math' as math;
 
+import 'package:gastos_app/src/models/app_error_model.dart';
 import 'package:gastos_app/src/models/recovery_token_model.dart';
+import 'package:gastos_app/src/repositories/auth/user_repository.dart';
 import 'package:gastos_app/src/shared/config/shared_preferences_keys.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class RecoveryRepository {
-  static const expirationDays = 1;
+  final int expirationDays = 1;
 
-  static Future<RecoveryTokenModel> generateRecoveryToken(
-      {required String email}) async {
+  Future<RecoveryTokenModel?> validateToken({
+    required int code,
+    required String email,
+  }) async {
+    final unexpiredToken = await findUnexpiredByEmail(email: email);
+
+    if (unexpiredToken == null || unexpiredToken.code != code) {
+      return null;
+    }
+
+    return unexpiredToken;
+  }
+
+  Future<RecoveryTokenModel> generateRecoveryToken({
+    required String email,
+  }) async {
     final instance = await SharedPreferences.getInstance();
+
+    final userRepository = SharedPrefsUserRepository();
+
+    final user = await userRepository.findByEmail(email: email);
+
+    if (user == null) {
+      throw AppErrorModel(
+        message: "usuário não encontrado",
+        statusCode: 401,
+      );
+    }
 
     final exists = await findUnexpiredByEmail(email: email);
 
@@ -48,7 +75,7 @@ class RecoveryRepository {
     return recoveryToken;
   }
 
-  static int generateRandomCode() {
+  int generateRandomCode() {
     final rdn = math.Random();
     int randomCode = rdn.nextInt(999999) * 1000000;
     while (randomCode < 100000) {
@@ -57,7 +84,7 @@ class RecoveryRepository {
     return randomCode;
   }
 
-  static Future<List<RecoveryTokenModel>?> listAll() async {
+  Future<List<RecoveryTokenModel>?> listAll() async {
     final sharedPreferences = await SharedPreferences.getInstance();
 
     final contains = sharedPreferences.containsKey(
@@ -76,7 +103,7 @@ class RecoveryRepository {
     return tokens;
   }
 
-  static Future<RecoveryTokenModel?> findUnexpiredByEmail({
+  Future<RecoveryTokenModel?> findUnexpiredByEmail({
     required String email,
   }) async {
     final tokens = await listAll();
@@ -90,7 +117,7 @@ class RecoveryRepository {
     final userTokens = tokens.where((element) => element.userEmail == email);
 
     userTokens.map((e) {
-      e.createdAt.add(const Duration(days: expirationDays));
+      e.createdAt.add(Duration(days: expirationDays));
     });
 
     final isExpired = userTokens.any(

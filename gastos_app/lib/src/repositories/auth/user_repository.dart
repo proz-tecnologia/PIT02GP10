@@ -12,6 +12,10 @@ abstract class UserRepository {
   });
   Future<List<UserModel>?> listAll();
   Future<UserModel?> findByEmail({required String email});
+  Future<UserModel> updatePassword({
+    required String email,
+    required String newPassword,
+  });
 
   List<String> listToJson({required List<UserModel> users}) {
     return users.map((e) => e.toJson()).toList();
@@ -93,5 +97,40 @@ class SharedPrefsUserRepository with UserRepository {
     final jsons = sharedPreferences.getStringList(SharedPreferencesKeys.users);
     final users = jsons!.map((element) => UserModel.fromJson(element)).toList();
     return users;
+  }
+
+  @override
+  Future<UserModel> updatePassword({
+    required String email,
+    required String newPassword,
+  }) async {
+    final instance = await SharedPreferences.getInstance();
+    final users = await listAll();
+
+    if (users == null) {
+      throw AppErrorModel(
+        message: "Usuário não encontrado",
+        statusCode: 404,
+      );
+    }
+
+    final user = await findByEmail(email: email);
+
+    if (user == null) {
+      throw AppErrorModel(
+        message: "Usuário não encontrado",
+        statusCode: 404,
+      );
+    }
+    final updatedUser = user.copyWith(password: newPassword);
+
+    users.remove(user);
+
+    users.add(updatedUser);
+
+    final usersToJson = listToJson(users: users);
+
+    await instance.setStringList(SharedPreferencesKeys.users, usersToJson);
+    return updatedUser;
   }
 }

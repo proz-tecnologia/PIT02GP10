@@ -20,6 +20,14 @@ class AuthRepository {
     return user;
   }
 
+  static Future<UserModel?> changePassword({
+    required String email,
+    required newPassword,
+  }) async {
+    final userRepository = SharedPrefsUserRepository();
+    return null;
+  }
+
   static Future<bool> isAuthenticated() async {
     final sharedPreferences = await SharedPreferences.getInstance();
     return sharedPreferences.containsKey(SharedPreferencesKeys.loggedUser);

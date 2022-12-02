@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:gastos_app/src/modules/authentication/recovery/recovery_page_controller.dart';
+import 'package:gastos_app/src/modules/authentication/recovery/controller/recovery_page_controller.dart';
 import 'package:gastos_app/src/modules/authentication/recovery/recovery_password_page_code.dart';
 import 'package:gastos_app/src/modules/authentication/recovery/recovery_password_page_email.dart';
 import 'package:gastos_app/src/modules/authentication/recovery/recovery_password_page_new_password.dart';

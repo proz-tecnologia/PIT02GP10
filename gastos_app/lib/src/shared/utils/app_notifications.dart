@@ -6,8 +6,13 @@ import 'package:overlay_support/overlay_support.dart';
 class AppNotifications {
   static void simpleNotificationBanner({
     required final String message,
+    Duration? duration,
   }) {
-    showSimpleNotification(Text(message), background: AppColors.primaryColor);
+    showSimpleNotification(
+      Text(message),
+      background: AppColors.primaryColor,
+      duration: duration,
+    );
   }
 
   static void errorNotificationBanner(
@@ -20,6 +25,7 @@ class AppNotifications {
       final apiError = object as AppErrorModel;
       message = apiError.message;
       errorType = "App Error";
+      statusCode = apiError.statusCode.toString();
     }
 
     showSimpleNotification(
@@ -27,7 +33,7 @@ class AppNotifications {
       background: AppColors.errorColor,
       elevation: 2.5,
       foreground: AppColors.fontColor,
-      subtitle: statusCode != null ? Text("status code: $statusCode") : null,
+      subtitle: statusCode != null ? Text("code: $statusCode") : null,
       leading: errorType != null
           ? SizedBox(
               width: 55,
