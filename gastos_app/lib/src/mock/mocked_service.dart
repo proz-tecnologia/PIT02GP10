@@ -19,7 +19,7 @@ class MockedService {
           password: user.password,
         );
       } catch (e) {
-        log(e.toString());
+        log(e.toString(), name: "MockedService");
       }
     }
     log("created mocked users!...", name: "MockedService");

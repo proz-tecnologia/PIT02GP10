@@ -25,6 +25,7 @@ dependencies:
   uuid: ^3.0.7
   shared_preferences: ^2.0.15
   overlay_support: ^2.1.0
+  flutter_modular: ^5.0.3
 
 dev_dependencies:
   flutter_test:
