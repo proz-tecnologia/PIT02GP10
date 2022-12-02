@@ -8,6 +8,8 @@ abstract class UserRepository {
   Future<UserModel> create({
     required String email,
     required String password,
+    String? phone,
+    String? avatarUrl,
     required String name,
   });
   Future<List<UserModel>?> listAll();
@@ -27,6 +29,8 @@ class SharedPrefsUserRepository with UserRepository {
   Future<UserModel> create({
     required String email,
     required String password,
+    String? phone,
+    String? avatarUrl,
     required String name,
   }) async {
     final sharedPreferences = await SharedPreferences.getInstance();
@@ -35,6 +39,8 @@ class SharedPrefsUserRepository with UserRepository {
       id: const Uuid().v1(),
       email: email,
       password: password,
+      phone: phone,
+      avatarUrl: avatarUrl,
       name: name,
     );
 

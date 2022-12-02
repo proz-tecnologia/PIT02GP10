@@ -5,7 +5,10 @@ import 'package:gastos_app/src/modules/home/components/drawer/drawer_side_icon.d
 class CustomDrawer extends StatelessWidget {
   const CustomDrawer({
     Key? key,
+    required this.onLogout,
   }) : super(key: key);
+
+  final VoidCallback onLogout;
 
   @override
   Widget build(BuildContext context) {
@@ -48,6 +51,7 @@ class CustomDrawer extends StatelessWidget {
                   ),
                   DrawerMenuItem(
                     onPressed: () {
+                      onLogout();
                       Navigator.pop(context);
                     },
                     icon: Icons.exit_to_app_outlined,
