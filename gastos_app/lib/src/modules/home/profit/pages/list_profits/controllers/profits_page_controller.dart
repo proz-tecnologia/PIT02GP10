@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gastos_app/src/mock/mocked_data.dart';
-import 'package:gastos_app/src/modules/home/models/profit_model.dart';
+import 'package:gastos_app/src/models/profit_model.dart';
 
 class ProfitsPageController {
   final profitsPageStateNotifier = ValueNotifier<ProfitsPageStates>(

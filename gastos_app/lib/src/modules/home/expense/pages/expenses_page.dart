@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gastos_app/src/core/app_colors.dart';
+import 'package:gastos_app/src/models/expense_model.dart';
 import 'package:gastos_app/src/modules/home/components/field_value_box.dart';
-import 'package:gastos_app/src/modules/home/models/expense_model.dart';
 import 'package:gastos_app/src/shared/utils/currency_formatter.dart';
 
 class ExpensesPage extends StatefulWidget {

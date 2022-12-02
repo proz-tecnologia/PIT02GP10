@@ -1,5 +1,7 @@
-import 'package:gastos_app/src/modules/home/models/expense_model.dart';
-import 'package:gastos_app/src/modules/home/models/profit_model.dart';
+import 'package:gastos_app/src/models/expense_model.dart';
+import 'package:gastos_app/src/models/profit_model.dart';
+import 'package:gastos_app/src/models/user_model.dart';
+import 'package:uuid/uuid.dart';
 
 class MockedData {
   static final mockedProfits = <ProfitModel>[
@@ -50,6 +52,15 @@ class MockedData {
       title: "Preisteichon",
       value: 3500.0,
       createdAt: DateTime(2022, 11, 22),
+    ),
+  ];
+
+  static final mockedUsers = <UserModel>[
+    UserModel(
+      id: const Uuid().v1(),
+      email: "patrick@dev.com",
+      name: "Patrick",
+      password: "123",
     ),
   ];
 }

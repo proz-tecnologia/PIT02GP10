@@ -1,7 +1,7 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:gastos_app/src/modules/home/models/profit_model.dart';
+import 'package:gastos_app/src/models/profit_model.dart';
 
 class CreateProfitController {
   final createProfitStateNotifier = ValueNotifier<CreateProfitStates>(
