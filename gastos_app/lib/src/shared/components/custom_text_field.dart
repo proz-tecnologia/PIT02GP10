@@ -72,88 +72,85 @@ class _CustomTextFieldState extends State<CustomTextField> {
       ),
     );
 
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16.0),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            focusNode.hasPrimaryFocus || controller.text.isNotEmpty
-                ? widget.label
-                : "",
-            style: focusedLabelStyle,
-          ),
-          const SizedBox(height: 2),
-          Stack(
-            children: [
-              TextFormField(
-                onTap: () {
-                  setState(() {
-                    if (focusNode.hasPrimaryFocus) focusNode.unfocus();
-                  });
-                  if (widget.onTap != null) widget.onTap!();
-                },
-                controller: controller,
-                focusNode: focusNode,
-                onChanged: (value) {
-                  if (value.isEmpty) setState(() {});
-                },
-                cursorColor: AppColors.backgroundColor,
-                keyboardType: widget.textInputType,
-                textInputAction: widget.textInputAction,
-                validator: widget.validator,
-                readOnly: widget.readOnly,
-                style: valueTextStyle,
-                decoration: InputDecoration(
-                  fillColor: widget.filledColor,
-                  filled: true,
-                  border: outlineBorder,
-                  enabledBorder: outlineBorder,
-                  focusedBorder: outlineBorder,
-                  suffixIcon: widget.suffixIcon,
-                  errorMaxLines: 1,
-                  errorStyle: focusedLabelStyle?.copyWith(
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          focusNode.hasPrimaryFocus || controller.text.isNotEmpty
+              ? widget.label
+              : "",
+          style: focusedLabelStyle,
+        ),
+        const SizedBox(height: 2),
+        Stack(
+          children: [
+            TextFormField(
+              onTap: () {
+                setState(() {
+                  if (focusNode.hasPrimaryFocus) focusNode.unfocus();
+                });
+                if (widget.onTap != null) widget.onTap!();
+              },
+              controller: controller,
+              focusNode: focusNode,
+              onChanged: (value) {
+                if (value.isEmpty) setState(() {});
+              },
+              cursorColor: AppColors.backgroundColor,
+              keyboardType: widget.textInputType,
+              textInputAction: widget.textInputAction,
+              validator: widget.validator,
+              readOnly: widget.readOnly,
+              style: valueTextStyle,
+              decoration: InputDecoration(
+                fillColor: widget.filledColor,
+                filled: true,
+                border: outlineBorder,
+                enabledBorder: outlineBorder,
+                focusedBorder: outlineBorder,
+                suffixIcon: widget.suffixIcon,
+                errorMaxLines: 1,
+                errorStyle: focusedLabelStyle?.copyWith(
+                  color: AppColors.errorColor,
+                ),
+                disabledBorder: outlineBorder.copyWith(
+                  borderSide: const BorderSide(
+                    color: Colors.grey,
+                  ),
+                ),
+                errorBorder: outlineBorder.copyWith(
+                  borderSide: const BorderSide(
                     color: AppColors.errorColor,
                   ),
-                  disabledBorder: outlineBorder.copyWith(
-                    borderSide: const BorderSide(
-                      color: Colors.grey,
-                    ),
-                  ),
-                  errorBorder: outlineBorder.copyWith(
-                    borderSide: const BorderSide(
-                      color: AppColors.errorColor,
+                ),
+              ),
+            ),
+            if (!focusNode.hasPrimaryFocus && controller.text.isEmpty)
+              Positioned(
+                top: 0,
+                bottom: 0,
+                left: 0,
+                right: 0,
+                child: EffectlessInkWell(
+                  onTap: () {
+                    setState(() {
+                      if (!focusNode.hasPrimaryFocus) {
+                        focusNode.requestFocus();
+                      }
+                    });
+                  },
+                  child: Center(
+                    child: Text(
+                      widget.label,
+                      style: unfocusedLabelStyle,
                     ),
                   ),
                 ),
               ),
-              if (!focusNode.hasPrimaryFocus && controller.text.isEmpty)
-                Positioned(
-                  top: 0,
-                  bottom: 0,
-                  left: 0,
-                  right: 0,
-                  child: EffectlessInkWell(
-                    onTap: () {
-                      setState(() {
-                        if (!focusNode.hasPrimaryFocus) {
-                          focusNode.requestFocus();
-                        }
-                      });
-                    },
-                    child: Center(
-                      child: Text(
-                        widget.label,
-                        style: unfocusedLabelStyle,
-                      ),
-                    ),
-                  ),
-                ),
-            ],
-          ),
-        ],
-      ),
+          ],
+        ),
+      ],
     );
   }
 }

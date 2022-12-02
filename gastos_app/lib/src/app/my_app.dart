@@ -4,7 +4,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:gastos_app/src/core/app_colors.dart';
 import 'package:gastos_app/src/core/app_themes.dart';
 import 'package:gastos_app/src/mock/mocked_service.dart';
-import 'package:gastos_app/src/modules/authentication/login/login_page.dart';
+import 'package:gastos_app/src/modules/authentication/register/register_page.dart';
 import 'package:overlay_support/overlay_support.dart';
 
 class MyApp extends StatefulWidget {
@@ -45,7 +45,7 @@ class _MyAppState extends State<MyApp> {
           GlobalCupertinoLocalizations.delegate,
         ],
         supportedLocales: const [Locale('pt', 'BR')],
-        home: const LoginPage(),
+        home: const RegisterPage(),
       ),
     );
   }
