@@ -1,7 +1,8 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:gastos_app/src/modules/home/models/profit_model.dart';
+import 'package:gastos_app/src/models/profit_model.dart';
+import 'package:uuid/uuid.dart';
 
 class CreateProfitController {
   final createProfitStateNotifier = ValueNotifier<CreateProfitStates>(
@@ -20,9 +21,11 @@ class CreateProfitController {
     state = CreateProfitStates.loading;
     try {
       final profit = ProfitModel(
+        id: const Uuid().v1(),
         title: title,
         value: value,
         createdAt: DateTime.now(),
+        createdBy: '',
       );
 
       log(profit.toString());
