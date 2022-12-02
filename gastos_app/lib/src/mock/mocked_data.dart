@@ -2,7 +2,7 @@ import 'package:gastos_app/src/modules/home/models/expense_model.dart';
 import 'package:gastos_app/src/modules/home/models/profit_model.dart';
 
 class MockedData {
-  static final mockedProfits = [
+  static final mockedProfits = <ProfitModel>[
     ProfitModel(
       title: "Projeto 1",
       value: 400.00,
@@ -30,7 +30,7 @@ class MockedData {
     ),
   ];
 
-  static final mockedExpenses = [
+  static final mockedExpenses = <ExpenseModel>[
     ExpenseModel(
       title: "Padaria",
       value: 30.0,
