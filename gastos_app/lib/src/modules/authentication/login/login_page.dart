@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
+import 'package:gastos_app/src/app/app_routes.dart';
 import 'package:gastos_app/src/core/app_colors.dart';
 import 'package:gastos_app/src/core/app_images.dart';
 import 'package:gastos_app/src/shared/components/custom_elevated_button.dart';
@@ -52,7 +54,9 @@ class LoginPage extends StatelessWidget {
                 child: Align(
                   alignment: Alignment.centerRight,
                   child: TextButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Modular.to.pushNamed(AppRoutes.recover);
+                    },
                     child: Text(
                       "esqueci a senha",
                       style: textStyle?.copyWith(
@@ -94,7 +98,9 @@ class LoginPage extends StatelessWidget {
                           decorationThickness: 2.0,
                         ),
                       ),
-                      onPressed: () {},
+                      onPressed: () {
+                        Modular.to.pushNamed(AppRoutes.register);
+                      },
                     ),
                   ],
                 ),

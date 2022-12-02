@@ -1,5 +1,7 @@
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:gastos_app/src/app/app_routes.dart';
+import 'package:gastos_app/src/modules/authentication/recovery/recovery_password_page.dart';
+import 'package:gastos_app/src/modules/authentication/register/register_page.dart';
 
 import '../modules/authentication/login/login_page.dart';
 import '../modules/home/home_page.dart';
@@ -20,6 +22,18 @@ class AppModule extends Module {
         ChildRoute(
           AppRoutes.login,
           child: (context, _) => const LoginPage(),
+          duration: animationDuration,
+          transition: transitionType,
+        ),
+        ChildRoute(
+          AppRoutes.recover,
+          child: (context, _) => const RecoveryPasswordPage(),
+          duration: animationDuration,
+          transition: transitionType,
+        ),
+        ChildRoute(
+          AppRoutes.register,
+          child: (context, _) => const RegisterPage(),
           duration: animationDuration,
           transition: transitionType,
         ),
