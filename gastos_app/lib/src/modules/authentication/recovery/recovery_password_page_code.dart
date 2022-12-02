@@ -68,7 +68,11 @@ class RecoveryPasswordPageCode extends StatelessWidget {
                   children: [
                     TextButton(
                       child: const Text("Solicitar novamente"),
-                      onPressed: () {},
+                      onPressed: () {
+                        recoveryPageController.requestCode(
+                          email: recoveryPageController.emailToRecover!,
+                        );
+                      },
                     ),
                     SizedBox(
                       width: 136,

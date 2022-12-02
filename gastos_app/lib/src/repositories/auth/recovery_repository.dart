@@ -7,10 +7,10 @@ import 'package:gastos_app/src/shared/config/shared_preferences_keys.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class RecoveryRepository {
-  final int expirationDays = 1;
+  final Duration expirationDuration = const Duration(minutes: 2);
 
   Future<RecoveryTokenModel?> validateToken({
-    required int code,
+    required String code,
     required String email,
   }) async {
     final unexpiredToken = await findUnexpiredByEmail(email: email);
@@ -75,13 +75,10 @@ class RecoveryRepository {
     return recoveryToken;
   }
 
-  int generateRandomCode() {
+  String generateRandomCode() {
     final rdn = math.Random();
-    int randomCode = rdn.nextInt(999999) * 1000000;
-    while (randomCode < 100000) {
-      randomCode *= 10;
-    }
-    return randomCode;
+    int randomCode = rdn.nextInt(999999) * 100000;
+    return randomCode.toString().substring(0, 6);
   }
 
   Future<List<RecoveryTokenModel>?> listAll() async {
@@ -100,34 +97,52 @@ class RecoveryRepository {
     );
     final tokens =
         jsons!.map((element) => RecoveryTokenModel.fromJson(element)).toList();
+
     return tokens;
   }
 
   Future<RecoveryTokenModel?> findUnexpiredByEmail({
     required String email,
   }) async {
-    final tokens = await listAll();
+    List<RecoveryTokenModel>? tokens = await listAll();
 
     if (tokens == null) return null;
+
+    tokens = await removedExpiredTokens(tokens);
 
     final exists = tokens.any((element) => element.userEmail == email);
 
     if (!exists) return null;
 
-    final userTokens = tokens.where((element) => element.userEmail == email);
+    final userTokens = tokens
+        .where(
+          (element) => element.userEmail == email,
+        )
+        .toList();
 
-    userTokens.map((e) {
-      e.createdAt.add(Duration(days: expirationDays));
-    });
+    if (userTokens.isNotEmpty) {
+      return userTokens.first;
+    }
 
-    final isExpired = userTokens.any(
-      (element) => DateTime.now().isBefore(element.createdAt),
+    return null;
+  }
+
+  Future<List<RecoveryTokenModel>> removedExpiredTokens(
+      List<RecoveryTokenModel> tokens) async {
+    final instance = await SharedPreferences.getInstance();
+
+    tokens.removeWhere(
+      (element) => element.createdAt
+          .isBefore(DateTime.now().subtract(expirationDuration)),
     );
 
-    if (isExpired) return null;
+    final tokensToJson = tokens.map((e) => e.toJson()).toList();
 
-    return userTokens.firstWhere(
-      (element) => DateTime.now().isBefore(element.createdAt),
+    await instance.setStringList(
+      SharedPreferencesKeys.recoveryTokens,
+      tokensToJson,
     );
+
+    return tokens;
   }
 }

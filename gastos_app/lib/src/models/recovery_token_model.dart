@@ -1,9 +1,9 @@
 import 'dart:convert';
 
 class RecoveryTokenModel {
-  final int code;
+  final String code;
   final String userEmail;
-  final DateTime createdAt;
+  DateTime createdAt;
   RecoveryTokenModel({
     required this.code,
     required this.userEmail,
@@ -11,7 +11,7 @@ class RecoveryTokenModel {
   });
 
   RecoveryTokenModel copyWith({
-    int? code,
+    String? code,
     String? userEmail,
     DateTime? createdAt,
   }) {
@@ -26,15 +26,15 @@ class RecoveryTokenModel {
     return {
       'code': code,
       'userEmail': userEmail,
-      'createdAt': createdAt.toIso8601String(),
+      'createdAt': createdAt.millisecondsSinceEpoch,
     };
   }
 
   factory RecoveryTokenModel.fromMap(Map<String, dynamic> map) {
     return RecoveryTokenModel(
-      code: map['code']?.toInt() ?? 0,
+      code: map['code'] ?? '',
       userEmail: map['userEmail'] ?? '',
-      createdAt: DateTime.parse(map['createdAt']),
+      createdAt: DateTime.fromMillisecondsSinceEpoch(map['createdAt']),
     );
   }
 

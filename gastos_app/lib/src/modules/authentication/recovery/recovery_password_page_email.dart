@@ -94,7 +94,9 @@ class _RecoveryPasswordPageEmailState extends State<RecoveryPasswordPageEmail> {
                           widget.recoveryPageController.emailPageStateNotifier,
                       builder: (context, state, _) {
                         if (state == EmailPageState.loading) {
-                          return const CustomLoadingIcon();
+                          return const CustomLoadingIcon(
+                            size: 16,
+                          );
                         }
 
                         return Text(

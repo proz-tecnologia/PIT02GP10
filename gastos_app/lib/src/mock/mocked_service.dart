@@ -22,6 +22,7 @@ class MockedService {
         log(e.toString());
       }
     }
+    log("created mocked users!...", name: "MockedService");
   }
 
   Future<void> createProfits() async {
@@ -39,6 +40,7 @@ class MockedService {
         );
       }
     }
+    log("created mocked profits!...", name: "MockedService");
   }
 
   Future<void> createExpenses() async {
@@ -56,5 +58,6 @@ class MockedService {
         );
       }
     }
+    log("created mocked expenses!...", name: "MockedService");
   }
 }

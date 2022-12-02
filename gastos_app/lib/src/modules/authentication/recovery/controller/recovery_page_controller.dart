@@ -10,17 +10,18 @@ class RecoveryPageController {
   Future<void> requestCode({required String email}) async {
     try {
       emailPageState = EmailPageState.loading;
+      await Future.delayed(const Duration(seconds: 2));
+
       final recoveryToken = await recoreryRepository.generateRecoveryToken(
         email: email,
       );
-      await Future.delayed(const Duration(seconds: 2));
 
       AppNotifications.simpleNotificationBanner(
         message: "Código de recuperação: ${recoveryToken.code}",
         duration: const Duration(seconds: 5),
       );
-      emailToRecover = email;
       currentPage = RecoveryPages.code;
+      emailToRecover = email;
       emailPageState = EmailPageState.success;
     } catch (e) {
       AppNotifications.errorNotificationBanner(e);
