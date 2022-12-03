@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gastos_app/src/core/app_images.dart';
 import 'package:gastos_app/src/modules/splash/components/animated_cats.dart';
-import 'package:gastos_app/src/modules/splash/controller/splash_controller.dart';
+import 'package:gastos_app/src/modules/splash/controller/splash_page_controller.dart';
 
 class SplashPage extends StatefulWidget {
   const SplashPage({super.key});
@@ -11,10 +11,11 @@ class SplashPage extends StatefulWidget {
 }
 
 class _SplashPageState extends State<SplashPage> {
-  final splashController = SplashController();
+  final SplashPageController controller = SplashPageController();
+
   @override
   void initState() {
-    splashController.isAuthenticated();
+    controller.isAuthenticated();
     super.initState();
   }
 
