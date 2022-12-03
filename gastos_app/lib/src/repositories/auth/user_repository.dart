@@ -8,6 +8,8 @@ abstract class UserRepository {
   Future<UserModel> create({
     required String email,
     required String password,
+    String? phone,
+    String? avatarUrl,
     required String name,
   });
   Future<List<UserModel>?> listAll();
@@ -27,21 +29,25 @@ class SharedPrefsUserRepository with UserRepository {
   Future<UserModel> create({
     required String email,
     required String password,
+    String? phone,
+    String? avatarUrl,
     required String name,
   }) async {
-    final sharedPreferences = await SharedPreferences.getInstance();
+    final instance = await SharedPreferences.getInstance();
 
     final createUser = UserModel(
       id: const Uuid().v1(),
       email: email,
       password: password,
+      phone: phone,
+      avatarUrl: avatarUrl,
       name: name,
     );
 
     final users = await listAll();
 
     if (users == null) {
-      await sharedPreferences.setStringList(
+      await instance.setStringList(
         SharedPreferencesKeys.users,
         [
           createUser.toJson(),
@@ -63,7 +69,7 @@ class SharedPrefsUserRepository with UserRepository {
 
     final usersToJson = listToJson(users: users);
 
-    await sharedPreferences.setStringList(
+    await instance.setStringList(
       SharedPreferencesKeys.users,
       usersToJson,
     );
@@ -86,15 +92,15 @@ class SharedPrefsUserRepository with UserRepository {
 
   @override
   Future<List<UserModel>?> listAll() async {
-    final sharedPreferences = await SharedPreferences.getInstance();
+    final instance = await SharedPreferences.getInstance();
 
-    final contains = sharedPreferences.containsKey(SharedPreferencesKeys.users);
+    final contains = instance.containsKey(SharedPreferencesKeys.users);
 
     if (!contains) {
       return null;
     }
 
-    final jsons = sharedPreferences.getStringList(SharedPreferencesKeys.users);
+    final jsons = instance.getStringList(SharedPreferencesKeys.users);
     final users = jsons!.map((element) => UserModel.fromJson(element)).toList();
     return users;
   }

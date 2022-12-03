@@ -1,8 +1,8 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
-import 'package:gastos_app/src/models/profit_model.dart';
-import 'package:uuid/uuid.dart';
+import 'package:flutter_modular/flutter_modular.dart';
+import 'package:gastos_app/src/repositories/auth/auth_repository.dart';
+import 'package:gastos_app/src/repositories/profit/profit_repository.dart';
+import 'package:gastos_app/src/shared/utils/app_notifications.dart';
 
 class CreateProfitController {
   final createProfitStateNotifier = ValueNotifier<CreateProfitStates>(
@@ -17,26 +17,29 @@ class CreateProfitController {
   Future<void> createProfit({
     required String title,
     required double value,
+    required DateTime createdAt,
   }) async {
     state = CreateProfitStates.loading;
-    try {
-      final profit = ProfitModel(
-        id: const Uuid().v1(),
-        title: title,
-        value: value,
-        createdAt: DateTime.now(),
-        createdBy: '',
-      );
+    final profitsRepository = SharedPreferencesProfitRepository();
+    final loggedUser = await AuthRepository.getLoggedUser();
+    if (loggedUser != null) {
+      try {
+        await Future.delayed(const Duration(seconds: 2));
+        await profitsRepository.create(
+          title: title,
+          value: value,
+          createdAt: createdAt,
+          loggedUserId: loggedUser.id,
+        );
 
-      log(profit.toString());
-
-      // Pegar esse profit e salvar em algum lugar, ou seja, chamar um service/repository que faça isso.
-      await Future.delayed(const Duration(seconds: 3));
-      state = CreateProfitStates.success;
-      //Navegar para Tela anterior ou para tela de listagem
-    } catch (e) {
-      state = CreateProfitStates.error;
-      //Continuo na mesma tela
+        state = CreateProfitStates.success;
+        Modular.to.pop();
+      } catch (e) {
+        AppNotifications.errorNotificationBanner(e);
+        state = CreateProfitStates.error;
+      }
+    } else {
+      AuthRepository.logout();
     }
   }
 }

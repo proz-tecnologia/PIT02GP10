@@ -19,7 +19,7 @@ class MockedService {
           password: user.password,
         );
       } catch (e) {
-        log(e.toString());
+        log(e.toString(), name: "MockedService");
       }
     }
     log("created mocked users!...", name: "MockedService");
@@ -28,16 +28,25 @@ class MockedService {
   Future<void> createProfits() async {
     final profitsRepository = SharedPreferencesProfitRepository();
 
+    final userRepository = SharedPrefsUserRepository();
+    final mockedUser = await userRepository.findByEmail(
+      email: "patrick@dev.com",
+    );
+
     final createdProfits = await profitsRepository.listAll();
 
-    for (final profit in MockedData.mockedProfits) {
-      if (createdProfits != null &&
-          !createdProfits.any((element) => element.id == profit.id)) {
-        await profitsRepository.create(
-          title: profit.title,
-          value: profit.value,
-          loggedUserId: "123",
-        );
+    if (mockedUser != null) {
+      if (createdProfits != null) {
+        for (final profit in MockedData.mockedProfits) {
+          if (!createdProfits.any((element) => element.id == profit.id)) {
+            await profitsRepository.create(
+              title: profit.title,
+              value: profit.value,
+              createdAt: profit.createdAt,
+              loggedUserId: mockedUser.id,
+            );
+          }
+        }
       }
     }
     log("created mocked profits!...", name: "MockedService");
@@ -46,16 +55,25 @@ class MockedService {
   Future<void> createExpenses() async {
     final expensesRepository = SharedPreferencesExpenseRepository();
 
-    final createdExpense = await expensesRepository.listAll();
+    final userRepository = SharedPrefsUserRepository();
+    final mockedUser = await userRepository.findByEmail(
+      email: "patrick@dev.com",
+    );
 
-    for (final expense in MockedData.mockedExpenses) {
-      if (createdExpense != null &&
-          !createdExpense.any((element) => element.id == expense.id)) {
-        await expensesRepository.create(
-          title: expense.title,
-          value: expense.value,
-          loggedUserId: "123",
-        );
+    final createdExpenses = await expensesRepository.listAll();
+
+    if (mockedUser != null) {
+      if (createdExpenses != null) {
+        for (final expense in MockedData.mockedExpenses) {
+          if (!createdExpenses.any((element) => element.id == expense.id)) {
+            await expensesRepository.create(
+              title: expense.title,
+              value: expense.value,
+              createdAt: expense.createdAt,
+              loggedUserId: mockedUser.id,
+            );
+          }
+        }
       }
     }
     log("created mocked expenses!...", name: "MockedService");

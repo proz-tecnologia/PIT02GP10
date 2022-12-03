@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:gastos_app/src/core/app_colors.dart';
 import 'package:gastos_app/src/core/app_themes.dart';
-import 'package:gastos_app/src/mock/mocked_service.dart';
-import 'package:gastos_app/src/modules/authentication/recovery/recovery_password_page.dart';
 import 'package:overlay_support/overlay_support.dart';
 
 class MyApp extends StatefulWidget {
@@ -17,12 +16,6 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   @override
   void initState() {
-    final mockedService = MockedService();
-
-    mockedService.createUsers();
-    mockedService.createExpenses();
-    mockedService.createProfits();
-
     super.initState();
   }
 
@@ -35,7 +28,7 @@ class _MyAppState extends State<MyApp> {
     );
 
     return OverlaySupport.global(
-      child: MaterialApp(
+      child: MaterialApp.router(
         title: 'Gastos App',
         theme: AppThemes.defaultTheme(context),
         debugShowCheckedModeBanner: false,
@@ -45,7 +38,8 @@ class _MyAppState extends State<MyApp> {
           GlobalCupertinoLocalizations.delegate,
         ],
         supportedLocales: const [Locale('pt', 'BR')],
-        home: const RecoveryPasswordPage(),
+        routeInformationParser: Modular.routeInformationParser,
+        routerDelegate: Modular.routerDelegate,
       ),
     );
   }

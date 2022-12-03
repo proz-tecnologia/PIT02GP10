@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:gastos_app/src/core/app_colors.dart';
 import 'package:gastos_app/src/modules/home/profit/pages/list_profits/components/empty_page.dart';
 import 'package:gastos_app/src/modules/home/profit/pages/list_profits/components/error_page.dart';
 import 'package:gastos_app/src/modules/home/profit/pages/list_profits/components/profits_list.dart';
 import 'package:gastos_app/src/modules/home/profit/pages/list_profits/controllers/profits_page_controller.dart';
+import 'package:gastos_app/src/modules/home/profit/pages/list_profits/profits_page_states.dart';
 import 'package:gastos_app/src/shared/components/custom_loading_icon.dart';
 
 class ProfitsPage extends StatefulWidget {
@@ -20,6 +22,7 @@ class _ProfitsPageState extends State<ProfitsPage> {
 
   @override
   void initState() {
+    profitsPageController.getProfitsList();
     super.initState();
   }
 
@@ -38,7 +41,9 @@ class _ProfitsPageState extends State<ProfitsPage> {
                 alignment: Alignment.centerLeft,
                 child: IconButton(
                   icon: const Icon(Icons.arrow_back_ios),
-                  onPressed: () {},
+                  onPressed: () {
+                    Modular.to.pop();
+                  },
                 )),
             Text(
               "Ganhos",
@@ -46,20 +51,20 @@ class _ProfitsPageState extends State<ProfitsPage> {
             ),
             const SizedBox(height: 50),
             Expanded(
-              child: ValueListenableBuilder(
+              child: ValueListenableBuilder<ProfitsPageState>(
                 builder: (context, state, _) {
-                  if (state == ProfitsPageStates.success) {
+                  if (state is ProfitPageStateSuccess) {
                     return ProfitsList(
                       onRefresh: profitsPageController.getProfitsList,
-                      profits: profitsPageController.profits,
+                      profits: state.profitsList,
                     );
-                  } else if (state == ProfitsPageStates.loading) {
+                  } else if (state is ProfitPageStateLoading) {
                     return const Center(
                       child: CustomLoadingIcon(
                         valueColor: AppColors.profitColor,
                       ),
                     );
-                  } else if (state == ProfitsPageStates.error) {
+                  } else if (state is ProfitPageStateError) {
                     return ErrorPage(
                       onTryAgain: profitsPageController.getProfitsList,
                     );

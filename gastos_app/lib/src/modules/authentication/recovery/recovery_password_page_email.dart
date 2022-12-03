@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:gastos_app/src/core/app_colors.dart';
 import 'package:gastos_app/src/core/app_images.dart';
 import 'package:gastos_app/src/modules/authentication/recovery/controller/recovery_page_controller.dart';
@@ -47,7 +48,9 @@ class _RecoveryPasswordPageEmailState extends State<RecoveryPasswordPageEmail> {
                 Align(
                   alignment: Alignment.centerLeft,
                   child: IconButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Modular.to.pop();
+                    },
                     icon: const Icon(Icons.arrow_back_ios),
                   ),
                 ),

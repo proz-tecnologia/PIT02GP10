@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:gastos_app/src/core/app_colors.dart';
 import 'package:gastos_app/src/core/app_images.dart';
 import 'package:gastos_app/src/modules/authentication/recovery/controller/recovery_page_controller.dart';
@@ -32,7 +33,7 @@ class _RecoveryPasswordPageNewPasswordState
       final response = await widget.recoveryPageController.changePassword(
         newPassword: passwordController.text,
       );
-      // if(response) // NavigateBack;
+      if (response) Modular.to.pop();
     }
   }
 

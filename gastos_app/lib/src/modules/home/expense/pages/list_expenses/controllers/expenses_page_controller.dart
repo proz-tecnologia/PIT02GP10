@@ -1,44 +1,46 @@
 import 'package:flutter/material.dart';
-import 'package:gastos_app/src/mock/mocked_data.dart';
-import 'package:gastos_app/src/models/expense_model.dart';
+import 'package:gastos_app/src/modules/home/expense/pages/list_expenses/expenses_page_states.dart';
+import 'package:gastos_app/src/repositories/auth/auth_repository.dart';
+import 'package:gastos_app/src/repositories/expense/expense_repository.dart';
 
 class ExpensesPageController {
-  final expensesPageStateNotifier = ValueNotifier<ExpensesPageStates>(
-    ExpensesPageStates.empty,
+  final expensesPageStateNotifier = ValueNotifier<ExpensesPageState>(
+    ExpensePageStateEmpty(),
   );
 
-  ExpensesPageStates get state => expensesPageStateNotifier.value;
-  set state(ExpensesPageStates state) {
+  ExpensesPageState get state => expensesPageStateNotifier.value;
+  set state(ExpensesPageState state) {
     expensesPageStateNotifier.value = state;
   }
 
-  final expenses = <ExpenseModel>[];
-
-  ExpensesPageController() {
-    getExpensesList();
-  }
-
   Future<void> getExpensesList() async {
-    state = ExpensesPageStates.loading;
-    try {
-      await Future.delayed(const Duration(seconds: 2));
-      expenses.clear();
-      expenses.addAll(MockedData.mockedExpenses);
-      if (expenses.isEmpty) {
-        state = ExpensesPageStates.empty;
-        return;
+    state = ExpensePageStateLoading();
+    final expenseRepository = SharedPreferencesExpenseRepository();
+
+    await Future.delayed(const Duration(seconds: 2));
+
+    final loggedUser = await AuthRepository.getLoggedUser();
+
+    if (loggedUser != null) {
+      try {
+        final expenses = await expenseRepository.listAll(
+          loggedUserId: loggedUser.id,
+        );
+
+        if (expenses == null || expenses.isEmpty) {
+          state = ExpensePageStateEmpty();
+          return;
+        }
+        expenses.sort((a, b) => b.createdAt.compareTo(a.createdAt));
+        state = ExpensePageStateSuccess(
+          expensesList: expenses,
+          loggedUser: loggedUser,
+        );
+      } catch (e) {
+        state = ExpensePageStateError(error: e.toString());
       }
-      expenses.sort((a, b) => b.createdAt.compareTo(a.createdAt));
-      state = ExpensesPageStates.success;
-    } catch (e) {
-      state = ExpensesPageStates.error;
+    } else {
+      AuthRepository.logout();
     }
   }
-}
-
-enum ExpensesPageStates {
-  empty,
-  loading,
-  success,
-  error,
 }

@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-
 import 'package:gastos_app/src/core/app_colors.dart';
-
 import 'package:gastos_app/src/shared/utils/currency_formatter.dart';
 
 class IncomeOutcomeBox extends StatelessWidget {
@@ -21,7 +19,7 @@ class IncomeOutcomeBox extends StatelessWidget {
           fontWeight: FontWeight.w500,
         );
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20),
+      padding: const EdgeInsets.symmetric(horizontal: 10),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -30,19 +28,27 @@ class IncomeOutcomeBox extends StatelessWidget {
             color: AppColors.profitColor,
           ),
           const SizedBox(width: 5),
-          Text(
-            CurrencyFormatter.doubleToReais(incomeValue),
-            style: incomeOutcomeStyle,
+          Flexible(
+            child: Text(
+              CurrencyFormatter.doubleToReais(incomeValue),
+              style: incomeOutcomeStyle,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+            ),
           ),
-          const SizedBox(width: 20),
+          const SizedBox(width: 5),
           const Icon(
             Icons.arrow_downward,
             color: AppColors.expenseColor,
           ),
           const SizedBox(width: 5),
-          Text(
-            CurrencyFormatter.doubleToReais(outcomeValue),
-            style: incomeOutcomeStyle,
+          Flexible(
+            child: Text(
+              CurrencyFormatter.doubleToReais(outcomeValue),
+              style: incomeOutcomeStyle,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+            ),
           ),
         ],
       ),

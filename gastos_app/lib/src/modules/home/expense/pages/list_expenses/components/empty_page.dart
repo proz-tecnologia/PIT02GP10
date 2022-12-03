@@ -24,7 +24,7 @@ class EmptyPage extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.all(20),
           child: Text(
-            'Nenhum ganho cadastrado',
+            'Nenhuma despesa cadastrada',
             style: textStyle?.copyWith(
               fontSize: 18,
               color: AppColors.fontColor,
@@ -36,7 +36,7 @@ class EmptyPage extends StatelessWidget {
         CustomElevatedButton(
           onPressed: onCreateExpense,
           backgroundColor: AppColors.expenseColor,
-          child: const Text("Cadastrar ganho"),
+          child: const Text("Cadastrar despesa"),
         ),
       ],
     );

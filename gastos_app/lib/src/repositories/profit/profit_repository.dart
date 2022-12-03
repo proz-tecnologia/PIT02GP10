@@ -8,6 +8,7 @@ abstract class ProfitRepository {
     required String title,
     required double value,
     required String loggedUserId,
+    required DateTime createdAt,
   });
   Future<List<ProfitModel>?> listAll({String loggedUserId});
 
@@ -22,21 +23,22 @@ class SharedPreferencesProfitRepository with ProfitRepository {
     required String title,
     required double value,
     required String loggedUserId,
+    required DateTime createdAt,
   }) async {
-    final sharedPreferences = await SharedPreferences.getInstance();
+    final instance = await SharedPreferences.getInstance();
 
     final profits = await listAll();
 
     final createProfit = ProfitModel(
       title: title,
-      createdAt: DateTime.now(),
+      createdAt: createdAt,
       createdBy: loggedUserId,
       id: const Uuid().v1(),
       value: value,
     );
 
     if (profits == null) {
-      await sharedPreferences.setStringList(
+      await instance.setStringList(
         SharedPreferencesKeys.profits,
         [
           createProfit.toJson(),
@@ -49,7 +51,7 @@ class SharedPreferencesProfitRepository with ProfitRepository {
 
     final profitsToJson = listToJson(profits: profits);
 
-    await sharedPreferences.setStringList(
+    await instance.setStringList(
       SharedPreferencesKeys.profits,
       profitsToJson,
     );
@@ -61,9 +63,9 @@ class SharedPreferencesProfitRepository with ProfitRepository {
   Future<List<ProfitModel>?> listAll({
     String? loggedUserId,
   }) async {
-    final sharedPreferences = await SharedPreferences.getInstance();
+    final instance = await SharedPreferences.getInstance();
 
-    final contains = sharedPreferences.containsKey(
+    final contains = instance.containsKey(
       SharedPreferencesKeys.profits,
     );
 
@@ -71,7 +73,7 @@ class SharedPreferencesProfitRepository with ProfitRepository {
       return null;
     }
 
-    final jsons = sharedPreferences.getStringList(
+    final jsons = instance.getStringList(
       SharedPreferencesKeys.profits,
     );
 
@@ -81,6 +83,7 @@ class SharedPreferencesProfitRepository with ProfitRepository {
     if (loggedUserId != null) {
       return profits.where((e) => e.createdBy == loggedUserId).toList();
     }
+
     return profits;
   }
 }
