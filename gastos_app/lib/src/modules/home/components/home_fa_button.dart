@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
+import 'package:gastos_app/src/app/app_routes.dart';
 import 'package:gastos_app/src/core/app_colors.dart';
 
 class HomeFAButton extends StatelessWidget {
@@ -21,34 +23,44 @@ class HomeFAButton extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Row(
-            children: [
-              const Icon(
-                Icons.add_circle,
-                color: AppColors.profitColor,
-                size: 24,
-              ),
-              const SizedBox(width: 6),
-              Text(
-                "Ganho",
-                style: textStyle,
-              ),
-            ],
+          InkWell(
+            onTap: () {
+              Modular.to.pushNamed(AppRoutes.createProfit);
+            },
+            child: Row(
+              children: [
+                const Icon(
+                  Icons.add_circle,
+                  color: AppColors.profitColor,
+                  size: 24,
+                ),
+                const SizedBox(width: 6),
+                Text(
+                  "Ganho",
+                  style: textStyle,
+                ),
+              ],
+            ),
           ),
           const SizedBox(height: 18),
-          Row(
-            children: [
-              const Icon(
-                Icons.remove_circle,
-                color: AppColors.expenseColor,
-                size: 24,
-              ),
-              const SizedBox(width: 6),
-              Text(
-                "Despesa",
-                style: textStyle,
-              ),
-            ],
+          InkWell(
+            onTap: () {
+              Modular.to.pushNamed(AppRoutes.createExpense);
+            },
+            child: Row(
+              children: [
+                const Icon(
+                  Icons.remove_circle,
+                  color: AppColors.expenseColor,
+                  size: 24,
+                ),
+                const SizedBox(width: 6),
+                Text(
+                  "Despesa",
+                  style: textStyle,
+                ),
+              ],
+            ),
           ),
         ],
       ),

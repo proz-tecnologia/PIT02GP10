@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:gastos_app/src/models/profit_model.dart';
 import 'package:uuid/uuid.dart';
@@ -27,8 +25,6 @@ class CreateProfitController {
         createdAt: DateTime.now(),
         createdBy: '',
       );
-
-      log(profit.toString());
 
       // Pegar esse profit e salvar em algum lugar, ou seja, chamar um service/repository que faça isso.
       await Future.delayed(const Duration(seconds: 3));

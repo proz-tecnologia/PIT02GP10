@@ -46,14 +46,6 @@ class MockedService {
             );
           }
         }
-      } else {
-        for (final profit in MockedData.mockedProfits) {
-          await profitsRepository.create(
-            title: profit.title,
-            value: profit.value,
-            loggedUserId: mockedUser.id,
-          );
-        }
       }
     }
     log("created mocked profits!...", name: "MockedService");
@@ -79,14 +71,6 @@ class MockedService {
               loggedUserId: mockedUser.id,
             );
           }
-        }
-      } else {
-        for (final expense in MockedData.mockedExpenses) {
-          await expensesRepository.create(
-            title: expense.title,
-            value: expense.value,
-            loggedUserId: mockedUser.id,
-          );
         }
       }
     }

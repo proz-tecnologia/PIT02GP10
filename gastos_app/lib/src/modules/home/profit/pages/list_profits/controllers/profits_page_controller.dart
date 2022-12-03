@@ -1,44 +1,46 @@
 import 'package:flutter/material.dart';
-import 'package:gastos_app/src/mock/mocked_data.dart';
-import 'package:gastos_app/src/models/profit_model.dart';
+import 'package:gastos_app/src/modules/home/profit/pages/list_profits/profits_page_states.dart';
+import 'package:gastos_app/src/repositories/auth/auth_repository.dart';
+import 'package:gastos_app/src/repositories/profit/profit_repository.dart';
 
 class ProfitsPageController {
-  final profitsPageStateNotifier = ValueNotifier<ProfitsPageStates>(
-    ProfitsPageStates.empty,
+  final profitsPageStateNotifier = ValueNotifier<ProfitsPageState>(
+    ProfitPageStateEmpty(),
   );
 
-  ProfitsPageStates get state => profitsPageStateNotifier.value;
-  set state(ProfitsPageStates state) {
+  ProfitsPageState get state => profitsPageStateNotifier.value;
+  set state(ProfitsPageState state) {
     profitsPageStateNotifier.value = state;
   }
 
-  final profits = <ProfitModel>[];
-
-  ProfitsPageController() {
-    getProfitsList();
-  }
-
   Future<void> getProfitsList() async {
-    state = ProfitsPageStates.loading;
-    try {
-      await Future.delayed(const Duration(seconds: 2));
-      profits.clear();
-      profits.addAll(MockedData.mockedProfits);
-      if (profits.isEmpty) {
-        state = ProfitsPageStates.empty;
-        return;
+    state = ProfitPageStateLoading();
+    final profitRepository = SharedPreferencesProfitRepository();
+
+    await Future.delayed(const Duration(seconds: 2));
+
+    final loggedUser = await AuthRepository.getLoggedUser();
+
+    if (loggedUser != null) {
+      try {
+        final profits = await profitRepository.listAll(
+          loggedUserId: loggedUser.id,
+        );
+
+        if (profits == null || profits.isEmpty) {
+          state = ProfitPageStateEmpty();
+          return;
+        }
+        profits.sort((a, b) => b.createdAt.compareTo(a.createdAt));
+        state = ProfitPageStateSuccess(
+          profitsList: profits,
+          loggedUser: loggedUser,
+        );
+      } catch (e) {
+        state = ProfitPageStateError(error: e.toString());
       }
-      profits.sort((a, b) => b.createdAt.compareTo(a.createdAt));
-      state = ProfitsPageStates.success;
-    } catch (e) {
-      state = ProfitsPageStates.error;
+    } else {
+      // logout;
     }
   }
-}
-
-enum ProfitsPageStates {
-  empty,
-  loading,
-  success,
-  error,
 }

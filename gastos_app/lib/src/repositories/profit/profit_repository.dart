@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:gastos_app/src/models/profit_model.dart';
 import 'package:gastos_app/src/shared/config/shared_preferences_keys.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -69,8 +67,6 @@ class SharedPreferencesProfitRepository with ProfitRepository {
       SharedPreferencesKeys.profits,
     );
 
-    log(contains.toString());
-
     if (!contains) {
       return null;
     }
@@ -86,7 +82,6 @@ class SharedPreferencesProfitRepository with ProfitRepository {
       return profits.where((e) => e.createdBy == loggedUserId).toList();
     }
 
-    log(profits.toString());
     return profits;
   }
 }

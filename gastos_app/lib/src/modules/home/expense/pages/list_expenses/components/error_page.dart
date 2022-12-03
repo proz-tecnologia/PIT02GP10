@@ -24,7 +24,7 @@ class ErrorPage extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.all(20),
           child: Text(
-            'Erro ao carregar ganhos',
+            'Erro ao carregar despesas',
             style: textStyle?.copyWith(
               fontSize: 18,
               color: AppColors.fontColor,

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:gastos_app/src/core/app_colors.dart';
 import 'package:gastos_app/src/modules/home/profit/pages/create_profit/controllers/create_profit_controller.dart';
 import 'package:gastos_app/src/shared/components/custom_date_picker.dart';
@@ -48,7 +49,9 @@ class _CreateProfitPageState extends State<CreateProfitPage> {
                       Icons.arrow_back_ios,
                       size: 24,
                     ),
-                    onPressed: () {},
+                    onPressed: () {
+                      Modular.to.pop();
+                    },
                   ),
                 ),
                 Text(

@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:gastos_app/src/models/expense_model.dart';
 
@@ -26,8 +24,6 @@ class CreateExpenseController {
         createdBy: '123',
         id: '123',
       );
-
-      log(expense.toString());
 
       await Future.delayed(const Duration(seconds: 3));
       state = CreateExpenseStates.success;
