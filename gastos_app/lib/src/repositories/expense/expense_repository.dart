@@ -8,6 +8,7 @@ abstract class ExpenseRepository {
     required String title,
     required double value,
     required String loggedUserId,
+    required DateTime createdAt,
   });
   Future<List<ExpenseModel>?> listAll({String loggedUserId});
 
@@ -22,6 +23,7 @@ class SharedPreferencesExpenseRepository with ExpenseRepository {
     required String title,
     required double value,
     required String loggedUserId,
+    required DateTime createdAt,
   }) async {
     final sharedPreferences = await SharedPreferences.getInstance();
 
@@ -29,7 +31,7 @@ class SharedPreferencesExpenseRepository with ExpenseRepository {
 
     final createExpense = ExpenseModel(
       title: title,
-      createdAt: DateTime.now(),
+      createdAt: createdAt,
       createdBy: loggedUserId,
       id: const Uuid().v1(),
       value: value,

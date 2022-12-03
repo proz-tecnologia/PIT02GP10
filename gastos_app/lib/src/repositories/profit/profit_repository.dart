@@ -8,6 +8,7 @@ abstract class ProfitRepository {
     required String title,
     required double value,
     required String loggedUserId,
+    required DateTime createdAt,
   });
   Future<List<ProfitModel>?> listAll({String loggedUserId});
 
@@ -22,6 +23,7 @@ class SharedPreferencesProfitRepository with ProfitRepository {
     required String title,
     required double value,
     required String loggedUserId,
+    required DateTime createdAt,
   }) async {
     final instance = await SharedPreferences.getInstance();
 
@@ -29,7 +31,7 @@ class SharedPreferencesProfitRepository with ProfitRepository {
 
     final createProfit = ProfitModel(
       title: title,
-      createdAt: DateTime.now(),
+      createdAt: createdAt,
       createdBy: loggedUserId,
       id: const Uuid().v1(),
       value: value,

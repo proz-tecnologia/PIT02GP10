@@ -9,8 +9,8 @@ class HomeStateEmpty extends HomeStates {}
 class HomeStateLoading extends HomeStates {}
 
 class HomeStateSuccess extends HomeStates {
-  final List<ProfitModel>? profitsList;
-  final List<ExpenseModel>? expensesList;
+  final List<ProfitModel> profitsList;
+  final List<ExpenseModel> expensesList;
   final UserModel loggedUser;
 
   HomeStateSuccess({

@@ -59,35 +59,41 @@ class _CreateProfitPageState extends State<CreateProfitPage> {
                   style: textStyle,
                 ),
                 const SizedBox(height: 40),
-                CustomTextField(
-                  label: "Valor do ganho",
-                  filledColor: AppColors.profitColor,
-                  controller: valueController,
-                  textInputType: TextInputType.number,
-                  textInputAction: TextInputAction.next,
-                  validator: Validatorless.multiple([
-                    Validatorless.required("Necessário informar um valor"),
-                    (String? value) {
-                      if (value == null || value == "R\$ 0,00") {
-                        return "Digite um valor válido";
-                      }
-                      return null;
-                    },
-                  ]),
-                ),
-                const SizedBox(height: 20),
-                CustomTextField(
-                  label: "Descrição",
-                  filledColor: AppColors.profitColor,
-                  controller: descriptionController,
-                  textInputAction: TextInputAction.next,
-                  validator: Validatorless.required(
-                    "Necessário informar uma descrição",
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                  child: CustomTextField(
+                    label: "Valor do ganho",
+                    filledColor: AppColors.profitColor,
+                    controller: valueController,
+                    textInputType: TextInputType.number,
+                    textInputAction: TextInputAction.next,
+                    validator: Validatorless.multiple([
+                      Validatorless.required("Necessário informar um valor"),
+                      (String? value) {
+                        if (value == null || value == "R\$ 0,00") {
+                          return "Digite um valor válido";
+                        }
+                        return null;
+                      },
+                    ]),
                   ),
                 ),
                 const SizedBox(height: 20),
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                  child: CustomTextField(
+                    label: "Descrição",
+                    filledColor: AppColors.profitColor,
+                    controller: descriptionController,
+                    textInputAction: TextInputAction.next,
+                    validator: Validatorless.required(
+                      "Necessário informar uma descrição",
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 20),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
                   child: CustomDatePicker(
                     label: "Data de recebimento",
                     onDateChange: (date) {
@@ -114,6 +120,7 @@ class _CreateProfitPageState extends State<CreateProfitPage> {
                             createProfitController.createProfit(
                               title: descriptionController.text,
                               value: valueController.numberValue,
+                              createdAt: chosenDate!,
                             );
                           }
                         },

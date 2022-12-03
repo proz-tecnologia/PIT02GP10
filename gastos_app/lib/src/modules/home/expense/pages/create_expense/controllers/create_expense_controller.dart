@@ -1,42 +1,42 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:gastos_app/src/repositories/auth/auth_repository.dart';
-import 'package:gastos_app/src/repositories/profit/profit_repository.dart';
+import 'package:gastos_app/src/repositories/expense/expense_repository.dart';
 import 'package:gastos_app/src/shared/utils/app_notifications.dart';
 
-class CreateProfitController {
-  final createProfitStateNotifier = ValueNotifier<CreateProfitStates>(
-    CreateProfitStates.empty,
+class CreateExpenseController {
+  final createExpenseStateNotifier = ValueNotifier<CreateExpenseStates>(
+    CreateExpenseStates.empty,
   );
 
-  CreateProfitStates get state => createProfitStateNotifier.value;
-  set state(CreateProfitStates state) {
-    createProfitStateNotifier.value = state;
+  CreateExpenseStates get state => createExpenseStateNotifier.value;
+  set state(CreateExpenseStates state) {
+    createExpenseStateNotifier.value = state;
   }
 
-  Future<void> createProfit({
+  Future<void> createExpense({
     required String title,
     required double value,
     required DateTime createdAt,
   }) async {
-    state = CreateProfitStates.loading;
-    final profitsRepository = SharedPreferencesProfitRepository();
+    state = CreateExpenseStates.loading;
+    final expensesRepository = SharedPreferencesExpenseRepository();
     final loggedUser = await AuthRepository.getLoggedUser();
     if (loggedUser != null) {
       try {
         await Future.delayed(const Duration(seconds: 2));
-        await profitsRepository.create(
+        await expensesRepository.create(
           title: title,
           value: value,
           createdAt: createdAt,
           loggedUserId: loggedUser.id,
         );
 
-        state = CreateProfitStates.success;
+        state = CreateExpenseStates.success;
         Modular.to.pop();
       } catch (e) {
         AppNotifications.errorNotificationBanner(e);
-        state = CreateProfitStates.error;
+        state = CreateExpenseStates.error;
       }
     } else {
       // logout()
@@ -44,7 +44,7 @@ class CreateProfitController {
   }
 }
 
-enum CreateProfitStates {
+enum CreateExpenseStates {
   empty,
   loading,
   error,

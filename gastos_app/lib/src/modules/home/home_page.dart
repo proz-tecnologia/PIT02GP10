@@ -50,8 +50,8 @@ class _HomePageState extends State<HomePage> {
               final success = state;
 
               return HomeBody(
-                expenses: success.expensesList ?? [],
-                profits: success.profitsList ?? [],
+                expenses: success.expensesList,
+                profits: success.profitsList,
                 loggedUser: success.loggedUser,
               );
             } else if (state is HomeStateError) {

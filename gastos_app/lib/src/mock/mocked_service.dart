@@ -42,6 +42,7 @@ class MockedService {
             await profitsRepository.create(
               title: profit.title,
               value: profit.value,
+              createdAt: profit.createdAt,
               loggedUserId: mockedUser.id,
             );
           }
@@ -68,6 +69,7 @@ class MockedService {
             await expensesRepository.create(
               title: expense.title,
               value: expense.value,
+              createdAt: expense.createdAt,
               loggedUserId: mockedUser.id,
             );
           }

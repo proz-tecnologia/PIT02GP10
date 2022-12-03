@@ -29,8 +29,8 @@ class HomeController {
       );
 
       state = HomeStateSuccess(
-        profitsList: profits,
-        expensesList: expenses,
+        profitsList: profits ?? [],
+        expensesList: expenses ?? [],
         loggedUser: loggedUser,
       );
     } else {

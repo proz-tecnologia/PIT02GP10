@@ -42,6 +42,8 @@ class ProfitsAndExpensesResumedList extends StatelessWidget {
         profits.elementAt(1),
         profits.elementAt(2),
       ]);
+    } else {
+      resumedProfits.addAll(profits);
     }
     if (resumedExpenses.length >= 3) {
       resumedExpenses.addAll([
@@ -49,6 +51,8 @@ class ProfitsAndExpensesResumedList extends StatelessWidget {
         expenses.elementAt(1),
         expenses.elementAt(2),
       ]);
+    } else {
+      resumedExpenses.addAll(expenses);
     }
 
     return Column(
