@@ -40,7 +40,7 @@ class ProfitsPageController {
         state = ProfitPageStateError(error: e.toString());
       }
     } else {
-      // logout;
+      AuthRepository.logout();
     }
   }
 }

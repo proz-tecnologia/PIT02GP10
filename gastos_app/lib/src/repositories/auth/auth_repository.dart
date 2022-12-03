@@ -1,3 +1,5 @@
+import 'package:flutter_modular/flutter_modular.dart';
+import 'package:gastos_app/src/app/app_routes.dart';
 import 'package:gastos_app/src/models/app_error_model.dart';
 import 'package:gastos_app/src/models/user_model.dart';
 import 'package:gastos_app/src/repositories/auth/user_repository.dart';
@@ -46,5 +48,10 @@ class AuthRepository {
     }
 
     return UserModel.fromJson(userJson);
+  }
+
+  static Future<void> logout() async {
+    await AuthRepository.clearLoggedUser();
+    Modular.to.pushReplacementNamed(AppRoutes.splash);
   }
 }

@@ -39,7 +39,7 @@ class CreateProfitController {
         state = CreateProfitStates.error;
       }
     } else {
-      // logout()
+      AuthRepository.logout();
     }
   }
 }

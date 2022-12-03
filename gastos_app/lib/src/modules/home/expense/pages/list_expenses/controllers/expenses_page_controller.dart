@@ -40,7 +40,7 @@ class ExpensesPageController {
         state = ExpensePageStateError(error: e.toString());
       }
     } else {
-      // logout;
+      AuthRepository.logout();
     }
   }
 }

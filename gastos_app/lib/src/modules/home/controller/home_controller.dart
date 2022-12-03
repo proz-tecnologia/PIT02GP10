@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_modular/flutter_modular.dart';
-import 'package:gastos_app/src/app/app_routes.dart';
 import 'package:gastos_app/src/modules/home/home_states.dart';
 import 'package:gastos_app/src/repositories/auth/auth_repository.dart';
 import 'package:gastos_app/src/repositories/expense/expense_repository.dart';
@@ -35,12 +33,7 @@ class HomeController {
       );
     } else {
       state = HomeStateError(error: "Erro ao carregar dados");
-      logout();
+      await AuthRepository.logout();
     }
-  }
-
-  Future<void> logout() async {
-    await AuthRepository.clearLoggedUser();
-    Modular.to.pushReplacementNamed(AppRoutes.splash);
   }
 }

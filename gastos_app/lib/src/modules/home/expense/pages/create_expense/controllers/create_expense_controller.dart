@@ -39,7 +39,7 @@ class CreateExpenseController {
         state = CreateExpenseStates.error;
       }
     } else {
-      // logout()
+      AuthRepository.logout();
     }
   }
 }

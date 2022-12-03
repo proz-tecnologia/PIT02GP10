@@ -45,7 +45,7 @@ class ProfitsAndExpensesResumedList extends StatelessWidget {
     } else {
       resumedProfits.addAll(profits);
     }
-    if (resumedExpenses.length >= 3) {
+    if (expenses.length >= 3) {
       resumedExpenses.addAll([
         expenses.elementAt(0),
         expenses.elementAt(1),
