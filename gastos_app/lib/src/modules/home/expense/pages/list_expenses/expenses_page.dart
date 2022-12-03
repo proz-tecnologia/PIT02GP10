@@ -63,7 +63,7 @@ class _ExpensesPageState extends State<ExpensesPage> {
                   } else if (state is ExpensePageStateLoading) {
                     return const Center(
                       child: CustomLoadingIcon(
-                        valueColor: AppColors.profitColor,
+                        valueColor: AppColors.expenseColor,
                       ),
                     );
                   } else if (state is ExpensePageStateError) {

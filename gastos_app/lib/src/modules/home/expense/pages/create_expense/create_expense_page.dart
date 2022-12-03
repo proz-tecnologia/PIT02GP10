@@ -125,7 +125,9 @@ class _CreateExpensePageState extends State<CreateExpensePage> {
                           }
                         },
                         child: state == CreateExpenseStates.loading
-                            ? const CustomLoadingIcon(size: 16)
+                            ? const CustomLoadingIcon(
+                                size: 16,
+                              )
                             : Text(
                                 "Finalizar",
                                 style: textStyle?.copyWith(
