@@ -4,6 +4,8 @@ import 'package:gastos_app/src/modules/home/components/custom_app_bar.dart';
 import 'package:gastos_app/src/modules/home/components/drawer/custom_drawer.dart';
 import 'package:gastos_app/src/modules/home/components/home_body.dart';
 import 'package:gastos_app/src/modules/home/controller/home_controller.dart';
+import 'package:gastos_app/src/modules/home/home_states.dart';
+import 'package:gastos_app/src/shared/components/custom_loading_icon.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -18,6 +20,12 @@ class _HomePageState extends State<HomePage> {
   final homeController = HomeController();
 
   @override
+  void initState() {
+    homeController.loadData();
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
@@ -26,11 +34,34 @@ class _HomePageState extends State<HomePage> {
           onOpenDrawer: () {
             _scaffoldKey.currentState?.openEndDrawer();
           },
+          onRefresh: () {
+            homeController.loadData();
+          },
         ),
         endDrawer: CustomDrawer(
-          onLogout: homeController.logout,
+          onLogout: () {
+            homeController.logout();
+          },
         ),
-        body: const HomeBody(),
+        body: ValueListenableBuilder<HomeStates>(
+          valueListenable: homeController.homeStateNotifier,
+          builder: (context, state, _) {
+            if (state is HomeStateSuccess) {
+              final success = state;
+
+              return HomeBody(
+                expenses: success.expensesList ?? [],
+                profits: success.profitsList ?? [],
+                loggedUser: success.loggedUser,
+              );
+            } else if (state is HomeStateError) {
+              return Center(child: Text(state.error));
+            } else if (state is HomeStateLoading) {
+              return const Center(child: CustomLoadingIcon());
+            }
+            return const SizedBox();
+          },
+        ),
         bottomNavigationBar: const CustomBottomNavigationBar(),
       ),
     );

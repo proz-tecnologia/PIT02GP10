@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-
 import 'package:gastos_app/src/core/app_colors.dart';
-
 import 'package:gastos_app/src/shared/utils/currency_formatter.dart';
 
 class IncomeOutcomeBox extends StatelessWidget {
@@ -34,7 +32,7 @@ class IncomeOutcomeBox extends StatelessWidget {
             CurrencyFormatter.doubleToReais(incomeValue),
             style: incomeOutcomeStyle,
           ),
-          const SizedBox(width: 20),
+          const SizedBox(width: 5),
           const Icon(
             Icons.arrow_downward,
             color: AppColors.expenseColor,

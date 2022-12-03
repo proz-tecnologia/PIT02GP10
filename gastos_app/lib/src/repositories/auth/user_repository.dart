@@ -33,7 +33,7 @@ class SharedPrefsUserRepository with UserRepository {
     String? avatarUrl,
     required String name,
   }) async {
-    final sharedPreferences = await SharedPreferences.getInstance();
+    final instance = await SharedPreferences.getInstance();
 
     final createUser = UserModel(
       id: const Uuid().v1(),
@@ -47,7 +47,7 @@ class SharedPrefsUserRepository with UserRepository {
     final users = await listAll();
 
     if (users == null) {
-      await sharedPreferences.setStringList(
+      await instance.setStringList(
         SharedPreferencesKeys.users,
         [
           createUser.toJson(),
@@ -69,7 +69,7 @@ class SharedPrefsUserRepository with UserRepository {
 
     final usersToJson = listToJson(users: users);
 
-    await sharedPreferences.setStringList(
+    await instance.setStringList(
       SharedPreferencesKeys.users,
       usersToJson,
     );
@@ -92,15 +92,15 @@ class SharedPrefsUserRepository with UserRepository {
 
   @override
   Future<List<UserModel>?> listAll() async {
-    final sharedPreferences = await SharedPreferences.getInstance();
+    final instance = await SharedPreferences.getInstance();
 
-    final contains = sharedPreferences.containsKey(SharedPreferencesKeys.users);
+    final contains = instance.containsKey(SharedPreferencesKeys.users);
 
     if (!contains) {
       return null;
     }
 
-    final jsons = sharedPreferences.getStringList(SharedPreferencesKeys.users);
+    final jsons = instance.getStringList(SharedPreferencesKeys.users);
     final users = jsons!.map((element) => UserModel.fromJson(element)).toList();
     return users;
   }

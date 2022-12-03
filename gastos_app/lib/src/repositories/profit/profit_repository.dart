@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:gastos_app/src/models/profit_model.dart';
 import 'package:gastos_app/src/shared/config/shared_preferences_keys.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -23,7 +25,7 @@ class SharedPreferencesProfitRepository with ProfitRepository {
     required double value,
     required String loggedUserId,
   }) async {
-    final sharedPreferences = await SharedPreferences.getInstance();
+    final instance = await SharedPreferences.getInstance();
 
     final profits = await listAll();
 
@@ -36,7 +38,7 @@ class SharedPreferencesProfitRepository with ProfitRepository {
     );
 
     if (profits == null) {
-      await sharedPreferences.setStringList(
+      await instance.setStringList(
         SharedPreferencesKeys.profits,
         [
           createProfit.toJson(),
@@ -49,7 +51,7 @@ class SharedPreferencesProfitRepository with ProfitRepository {
 
     final profitsToJson = listToJson(profits: profits);
 
-    await sharedPreferences.setStringList(
+    await instance.setStringList(
       SharedPreferencesKeys.profits,
       profitsToJson,
     );
@@ -61,17 +63,19 @@ class SharedPreferencesProfitRepository with ProfitRepository {
   Future<List<ProfitModel>?> listAll({
     String? loggedUserId,
   }) async {
-    final sharedPreferences = await SharedPreferences.getInstance();
+    final instance = await SharedPreferences.getInstance();
 
-    final contains = sharedPreferences.containsKey(
+    final contains = instance.containsKey(
       SharedPreferencesKeys.profits,
     );
+
+    log(contains.toString());
 
     if (!contains) {
       return null;
     }
 
-    final jsons = sharedPreferences.getStringList(
+    final jsons = instance.getStringList(
       SharedPreferencesKeys.profits,
     );
 
@@ -81,6 +85,8 @@ class SharedPreferencesProfitRepository with ProfitRepository {
     if (loggedUserId != null) {
       return profits.where((e) => e.createdBy == loggedUserId).toList();
     }
+
+    log(profits.toString());
     return profits;
   }
 }
