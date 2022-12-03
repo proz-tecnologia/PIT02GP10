@@ -29,7 +29,7 @@
 ## Sobre o Projeto
 
 <p align="center">
-  <img src=""./.github/demo_sprint2.gif"" width="250" alt="Demo">
+  <img src=".github/demo_sprint2.gif" width="250" alt="Demo">
   </p>
   </br>
 
