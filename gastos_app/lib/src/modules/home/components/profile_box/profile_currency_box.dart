@@ -1,22 +1,23 @@
 import 'package:flutter/material.dart';
-
 import 'package:gastos_app/src/core/app_colors.dart';
 import 'package:gastos_app/src/core/app_images.dart';
+import 'package:gastos_app/src/models/expense_model.dart';
+import 'package:gastos_app/src/models/profit_model.dart';
 import 'package:gastos_app/src/modules/home/components/profile_box/income_outcome_box.dart';
-
 import 'package:gastos_app/src/shared/utils/currency_formatter.dart';
 
 class ProfileCurrencyBox extends StatelessWidget {
   const ProfileCurrencyBox({
     Key? key,
     required this.username,
-    required this.totalOutcome,
-    required this.totalIncome,
+    required this.profits,
+    required this.expenses,
   }) : super(key: key);
 
   final String username;
-  final double totalOutcome;
-  final double totalIncome;
+
+  final List<ProfitModel> profits;
+  final List<ExpenseModel> expenses;
 
   @override
   Widget build(BuildContext context) {
@@ -39,9 +40,18 @@ class ProfileCurrencyBox extends StatelessWidget {
       ),
     );
 
+    final totalOutcome = expenses.fold(
+      0.0,
+      (total, element) => total + element.value,
+    );
+    final totalIncome = profits.fold(
+      0.0,
+      (total, element) => total + element.value,
+    );
+
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-      width: 284,
+      margin: const EdgeInsets.symmetric(horizontal: 50),
       decoration: decoration,
       child: Column(
         children: [

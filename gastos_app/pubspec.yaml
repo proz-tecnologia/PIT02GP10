@@ -11,11 +11,21 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_localizations:
+    sdk: flutter
 
   cupertino_icons: ^1.0.2
   intl:
   google_fonts: ^3.0.1
   flutter_svg: ^1.1.6
+  date_time_picker: ^2.1.0
+  mask_text_input_formatter: ^2.4.0
+  validatorless: ^1.2.3
+  flutter_masked_text2: ^0.9.1
+  uuid: ^3.0.7
+  shared_preferences: ^2.0.15
+  overlay_support: ^2.1.0
+  flutter_modular: ^5.0.3
 
 dev_dependencies:
   flutter_test:
