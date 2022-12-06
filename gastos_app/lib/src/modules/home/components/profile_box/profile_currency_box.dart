@@ -22,11 +22,12 @@ class ProfileCurrencyBox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final usernameStyle = Theme.of(context).textTheme.titleLarge?.copyWith(
-        // textAlignment: TextAlign.center,
-        color: AppColors.primaryColor,
-        fontSize: 24,
-        fontWeight: FontWeight.w500,
-        overflow: TextOverflow.ellipsis);
+          // textAlign: TextAlign.center,
+          color: AppColors.primaryColor,
+          fontSize: 24,
+          fontWeight: FontWeight.w500,
+          // overflow: TextOverflow.ellipsis,
+        );
 
     final balanceStyle = Theme.of(context).textTheme.titleLarge?.copyWith(
           color: AppColors.backgroundColor,
@@ -65,13 +66,18 @@ class ProfileCurrencyBox extends StatelessWidget {
                 Image.asset(
                   AppImages.profileImage,
                 ),
+                SizedBox(
+                  width: 10,
+                ),
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Text(
-                        "Olá $username!",
+                        textAlign: TextAlign.center,
+                        "Olá, $username!",
                         style: usernameStyle,
+                        overflow: TextOverflow.ellipsis,
                       ),
                       const SizedBox(height: 10),
                       Text(
