@@ -22,11 +22,9 @@ class ProfileCurrencyBox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final usernameStyle = Theme.of(context).textTheme.titleLarge?.copyWith(
-          // textAlign: TextAlign.center,
           color: AppColors.primaryColor,
           fontSize: 24,
           fontWeight: FontWeight.w500,
-          // overflow: TextOverflow.ellipsis,
         );
 
     final balanceStyle = Theme.of(context).textTheme.titleLarge?.copyWith(
