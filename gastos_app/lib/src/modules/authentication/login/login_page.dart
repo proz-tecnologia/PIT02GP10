@@ -9,6 +9,8 @@ import 'package:gastos_app/src/shared/components/custom_loading_icon.dart';
 import 'package:gastos_app/src/shared/components/custom_text_field.dart';
 import 'package:validatorless/validatorless.dart';
 
+import '../../../shared/components/password_field.dart';
+
 class LoginPage extends StatefulWidget {
   const LoginPage({
     Key? key,
@@ -76,7 +78,7 @@ class _LoginPageState extends State<LoginPage> {
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 60.0),
-                  child: CustomTextField(
+                  child: PasswordField(
                     label: "Senha",
                     controller: passwordController,
                     textInputType: TextInputType.visiblePassword,
@@ -87,6 +89,7 @@ class _LoginPageState extends State<LoginPage> {
                     validator: Validatorless.multiple([
                       Validatorless.required("Digite uma senha válido"),
                     ]),
+                    isPasswordVisible: false,
                   ),
                 ),
                 Padding(

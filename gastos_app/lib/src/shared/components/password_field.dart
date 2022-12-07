@@ -4,17 +4,18 @@ import 'package:gastos_app/src/core/app_colors.dart';
 import 'package:gastos_app/src/core/app_themes.dart';
 import 'package:gastos_app/src/shared/components/effectless_inkwell.dart';
 
-class PasswordTextField extends StatefulWidget {
-  const PasswordTextField({
+class PasswordField extends StatefulWidget {
+  const PasswordField({
     Key? key,
     required this.label,
+    required this.isPasswordVisible,
+    //  this.onTap,
     this.filledColor = AppColors.secondaryColor,
     this.textInputType = TextInputType.text,
     this.textInputAction = TextInputAction.done,
     this.suffixIcon,
     this.validator,
     this.onFieldSubmitted,
-    this.onTap,
     this.focusNode,
     this.controller,
     this.readOnly = false,
@@ -23,31 +24,33 @@ class PasswordTextField extends StatefulWidget {
 
   final String label;
   final Color filledColor;
-
   final TextInputType textInputType;
   final TextInputAction textInputAction;
   final Widget? suffixIcon;
   final FormFieldValidator<String>? validator;
   final void Function(String)? onFieldSubmitted;
-  final VoidCallback? onTap;
   final FocusNode? focusNode;
   final TextEditingController? controller;
   final bool readOnly;
   final List<TextInputFormatter>? inputFormatters;
+  final bool isPasswordVisible;
+  // final Function()? onTap;
 
   @override
-  State<PasswordTextField> createState() => _PasswordTextFieldState();
+  State<PasswordField> createState() => _PasswordFieldState();
 }
 
-class _PasswordTextFieldState extends State<PasswordTextField> {
+class _PasswordFieldState extends State<PasswordField> {
   late FocusNode focusNode;
   late TextEditingController controller;
+  late bool passwordHidden;
 
   @override
   void initState() {
+    super.initState();
     focusNode = widget.focusNode ?? FocusNode();
     controller = widget.controller ?? TextEditingController();
-    super.initState();
+    passwordHidden = widget.isPasswordVisible;
   }
 
   @override
@@ -91,12 +94,13 @@ class _PasswordTextFieldState extends State<PasswordTextField> {
         Stack(
           children: [
             TextFormField(
-              onTap: () {
-                setState(() {
-                  if (focusNode.hasPrimaryFocus) focusNode.unfocus();
-                });
-                if (widget.onTap != null) widget.onTap!();
-              },
+              /*  onTap: widget.onTap ??
+                  () {
+                    setState(() {
+                      if (focusNode.hasPrimaryFocus) focusNode.unfocus();
+                    });
+                    if (widget.onTap != null) widget.onTap!();
+                  }, */
               controller: controller,
               focusNode: focusNode,
               onChanged: (value) {
@@ -110,13 +114,23 @@ class _PasswordTextFieldState extends State<PasswordTextField> {
               style: valueTextStyle,
               inputFormatters: widget.inputFormatters,
               onFieldSubmitted: widget.onFieldSubmitted,
+              obscureText: passwordHidden,
               decoration: InputDecoration(
                 fillColor: widget.filledColor,
                 filled: true,
                 border: outlineBorder,
                 enabledBorder: outlineBorder,
                 focusedBorder: outlineBorder,
-                suffixIcon: widget.suffixIcon,
+                suffixIcon: InkWell(
+                  onTap: () {
+                    setState(() {
+                      passwordHidden = !passwordHidden;
+                    });
+                  },
+                  child: passwordHidden
+                      ? Icon(Icons.visibility)
+                      : Icon(Icons.visibility_off_outlined),
+                ),
                 errorMaxLines: 1,
                 errorStyle: focusedLabelStyle?.copyWith(
                   color: AppColors.errorColor,
