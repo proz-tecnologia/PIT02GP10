@@ -8,7 +8,6 @@ import 'package:gastos_app/src/shared/components/custom_elevated_button.dart';
 import 'package:gastos_app/src/shared/components/custom_loading_icon.dart';
 import 'package:gastos_app/src/shared/components/custom_text_field.dart';
 import 'package:validatorless/validatorless.dart';
-
 import '../../../shared/components/password_field.dart';
 
 class LoginPage extends StatefulWidget {
