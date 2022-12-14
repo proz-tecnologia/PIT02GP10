@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gastos_app/src/core/app_colors.dart';
 import 'package:gastos_app/src/models/expense_model.dart';
 import 'package:gastos_app/src/models/profit_model.dart';
 import 'package:gastos_app/src/models/user_model.dart';
@@ -6,7 +7,7 @@ import 'package:gastos_app/src/modules/home/components/home_fa_button.dart';
 import 'package:gastos_app/src/modules/home/components/profile_box/profile_currency_box.dart';
 import 'package:gastos_app/src/modules/home/components/profits_and_expenses_resumed_list.dart';
 
-class HomeBody extends StatelessWidget {
+class HomeBody extends StatefulWidget {
   const HomeBody({
     Key? key,
     required this.profits,
@@ -21,22 +22,42 @@ class HomeBody extends StatelessWidget {
   final VoidCallback onPopBack;
 
   @override
+  State<HomeBody> createState() => _HomeBodyState();
+}
+
+class _HomeBodyState extends State<HomeBody> {
+  Future<void> _refresh() {
+    return Future.delayed(
+      Duration(seconds: 1),
+    );
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Stack(
       fit: StackFit.expand,
       children: [
-        SingleChildScrollView(
-          child: Column(
+        RefreshIndicator(
+          triggerMode: RefreshIndicatorTriggerMode.onEdge,
+          edgeOffset: 2,
+          displacement: 2,
+          strokeWidth: 2,
+          color: AppColors.fontColor,
+          backgroundColor: AppColors.primaryColor,
+          onRefresh: _refresh,
+          child: ListView(
+            physics: const AlwaysScrollableScrollPhysics(),
+            shrinkWrap: false,
             children: [
               const SizedBox(height: 7),
               ProfileCurrencyBox(
-                profits: profits,
-                expenses: expenses,
-                username: loggedUser.name,
+                profits: widget.profits,
+                expenses: widget.expenses,
+                username: widget.loggedUser.name,
               ),
               ProfitsAndExpensesResumedList(
-                profits: profits,
-                expenses: expenses,
+                profits: widget.profits,
+                expenses: widget.expenses,
               ),
               const SizedBox(height: 100),
             ],
@@ -46,7 +67,7 @@ class HomeBody extends StatelessWidget {
           bottom: 10,
           right: 10,
           child: HomeFAButton(
-            onPopBack: onPopBack,
+            onPopBack: widget.onPopBack,
           ),
         ),
       ],
