@@ -33,7 +33,7 @@ class CreateExpenseController {
         );
 
         state = CreateExpenseStates.success;
-        Modular.to.pop();
+       Modular.to.pop(true);
       } catch (e) {
         AppNotifications.errorNotificationBanner(e);
         state = CreateExpenseStates.error;

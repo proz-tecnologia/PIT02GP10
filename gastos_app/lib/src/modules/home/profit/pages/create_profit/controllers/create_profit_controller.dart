@@ -33,7 +33,7 @@ class CreateProfitController {
         );
 
         state = CreateProfitStates.success;
-        Modular.to.pop();
+       Modular.to.pop(true);
       } catch (e) {
         AppNotifications.errorNotificationBanner(e);
         state = CreateProfitStates.error;

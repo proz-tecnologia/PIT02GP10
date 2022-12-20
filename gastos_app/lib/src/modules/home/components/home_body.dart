@@ -13,13 +13,13 @@ class HomeBody extends StatefulWidget {
     required this.profits,
     required this.expenses,
     required this.loggedUser,
-    required this.onPopBack,
+    required this.onRefresh,
   }) : super(key: key);
 
   final List<ProfitModel> profits;
   final List<ExpenseModel> expenses;
   final UserModel loggedUser;
-  final VoidCallback onPopBack;
+  final VoidCallback onRefresh;
 
   @override
   State<HomeBody> createState() => _HomeBodyState();
@@ -65,7 +65,7 @@ class _HomeBodyState extends State<HomeBody> {
           bottom: 10,
           right: 10,
           child: HomeFAButton(
-            onPopBack: widget.onPopBack,
+            onPopBack: onPopBack,
           ),
         ),
       ],

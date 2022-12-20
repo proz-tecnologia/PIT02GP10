@@ -6,10 +6,10 @@ import 'package:gastos_app/src/core/app_colors.dart';
 class HomeFAButton extends StatelessWidget {
   const HomeFAButton({
     Key? key,
-    required this.onPopBack,
+    required this.onRefresh,
   }) : super(key: key);
 
-  final VoidCallback onPopBack;
+  final VoidCallback onRefresh;
 
   @override
   Widget build(BuildContext context) {
@@ -28,9 +28,11 @@ class HomeFAButton extends StatelessWidget {
         children: [
           InkWell(
             onTap: () {
-              Modular.to.pushNamed(AppRoutes.createProfit).then(
-                    (value) => onPopBack(),
-                  );
+              Modular.to.pushNamed(AppRoutes.createProfit).then((value) {
+                if (value == true) {
+                  onRefresh();
+                }
+              });
             },
             child: Row(
               children: [
@@ -51,8 +53,12 @@ class HomeFAButton extends StatelessWidget {
           InkWell(
             onTap: () {
               Modular.to.pushNamed(AppRoutes.createExpense).then(
-                    (value) => onPopBack(),
-                  );
+                (value) {
+                  if (value == true) {
+                    onRefresh();
+                  }
+                },
+              );
             },
             child: Row(
               children: [
