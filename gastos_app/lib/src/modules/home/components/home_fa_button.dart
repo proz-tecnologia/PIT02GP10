@@ -50,9 +50,11 @@ class HomeFAButton extends StatelessWidget {
           const SizedBox(height: 18),
           InkWell(
             onTap: () {
-              Modular.to.pushNamed(AppRoutes.createExpense).then(
-                    (value) => onPopBack(),
-                  );
+              Modular.to.pushNamed(AppRoutes.createExpense).then((value) {
+                if (value == true) {
+                  onPopBack();
+                }
+              });
             },
             child: Row(
               children: [
