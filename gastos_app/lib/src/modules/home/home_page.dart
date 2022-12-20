@@ -35,9 +35,6 @@ class _HomePageState extends State<HomePage> {
           onOpenDrawer: () {
             _scaffoldKey.currentState?.openEndDrawer();
           },
-          onRefresh: () {
-            homeController.loadData();
-          },
         ),
         endDrawer: CustomDrawer(
           onLogout: () {
