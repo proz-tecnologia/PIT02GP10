@@ -27,7 +27,7 @@ class HomeBody extends StatefulWidget {
 
 class _HomeBodyState extends State<HomeBody> {
   Future<void> _refresh() async {
-    widget.onPopBack();
+    widget.onRefresh();
   }
 
   @override
@@ -65,7 +65,7 @@ class _HomeBodyState extends State<HomeBody> {
           bottom: 10,
           right: 10,
           child: HomeFAButton(
-            onPopBack: onPopBack,
+            onRefresh: widget.onRefresh,
           ),
         ),
       ],
