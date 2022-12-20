@@ -64,13 +64,18 @@ class ProfileCurrencyBox extends StatelessWidget {
                 Image.asset(
                   AppImages.profileImage,
                 ),
+                const SizedBox(
+                  width: 10,
+                ),
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Text(
-                        "Olá $username!",
+                        textAlign: TextAlign.center,
+                        "Olá, $username!",
                         style: usernameStyle,
+                        overflow: TextOverflow.ellipsis,
                       ),
                       const SizedBox(height: 10),
                       Text(

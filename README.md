@@ -29,7 +29,7 @@
 ## Sobre o Projeto
 
 <p align="center">
-  <img src="https://user-images.githubusercontent.com/77169506/198844471-543841a2-0aed-4e82-be8e-401e0816e37e.gif" width="250" alt="Auth Demo">
+  <img src=".github/demo_sprint2.gif" width="250" alt="Demo">
   </p>
   </br>
 
