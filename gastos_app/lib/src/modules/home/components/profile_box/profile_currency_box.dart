@@ -64,7 +64,7 @@ class ProfileCurrencyBox extends StatelessWidget {
                 Image.asset(
                   AppImages.profileImage,
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 10,
                 ),
                 Expanded(
