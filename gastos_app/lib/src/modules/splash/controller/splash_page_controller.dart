@@ -13,7 +13,7 @@ class SplashPageController {
   final mockedController = MockedController();
 
   Future<void> loadData() async {
-    mockedController.loadMockedData();
+    await mockedController.loadMockedData();
   }
 
   Future<void> isAuthenticated() async {
@@ -23,9 +23,8 @@ class SplashPageController {
     final response = await AuthRepository.isAuthenticated();
     if (response == true) {
       state = SplashPageStateAuthenticated();
-      Modular.to.pushReplacementNamed(AppRoutes.home);
     } else {
-      Modular.to.pushReplacementNamed(AppRoutes.login);
+      state = SplashPageStateUnauthenticated();
     }
   }
 
