@@ -29,7 +29,11 @@ class HomeFAButton extends StatelessWidget {
           InkWell(
             onTap: () {
               Modular.to.pushNamed(AppRoutes.createProfit).then(
-                    (value) => onPopBack(),
+                    (value) {
+                if (value == true) {
+                  onPopBack();
+                }
+              }
                   );
             },
             child: Row(
