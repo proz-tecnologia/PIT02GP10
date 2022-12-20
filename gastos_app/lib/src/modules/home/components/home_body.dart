@@ -26,10 +26,8 @@ class HomeBody extends StatefulWidget {
 }
 
 class _HomeBodyState extends State<HomeBody> {
-  Future<void> _refresh() {
-    return Future.delayed(
-      Duration(seconds: 1),
-    );
+  Future<void> _refresh() async {
+    widget.onPopBack();
   }
 
   @override
