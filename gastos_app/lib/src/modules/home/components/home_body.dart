@@ -12,13 +12,13 @@ class HomeBody extends StatelessWidget {
     required this.profits,
     required this.expenses,
     required this.loggedUser,
-    required this.onPopBack,
+    required this.onRefresh,
   }) : super(key: key);
 
   final List<ProfitModel> profits;
   final List<ExpenseModel> expenses;
   final UserModel loggedUser;
-  final VoidCallback onPopBack;
+  final VoidCallback onRefresh;
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +46,7 @@ class HomeBody extends StatelessWidget {
           bottom: 10,
           right: 10,
           child: HomeFAButton(
-            onPopBack: onPopBack,
+            onRefresh: onRefresh,
           ),
         ),
       ],

@@ -54,7 +54,7 @@ class _HomePageState extends State<HomePage> {
                 expenses: success.expensesList,
                 profits: success.profitsList,
                 loggedUser: success.loggedUser,
-                onPopBack: () {
+                onRefresh: () {
                   homeController.loadData();
                 },
               );
