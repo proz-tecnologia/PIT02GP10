@@ -122,7 +122,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     ]),
                     textInputAction: TextInputAction.next,
                     textInputType: TextInputType.visiblePassword,
-                    isPasswordVisible: false,
+                    isPasswordVisible: true,
                   ),
                 ),
                 Padding(
@@ -142,7 +142,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     },
                     textInputAction: TextInputAction.send,
                     textInputType: TextInputType.visiblePassword,
-                    isPasswordVisible: false,
+                    isPasswordVisible: true,
                   ),
                 ),
                 const SizedBox(height: 40),
