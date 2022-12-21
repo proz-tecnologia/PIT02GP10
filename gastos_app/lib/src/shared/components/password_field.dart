@@ -9,7 +9,6 @@ class PasswordField extends StatefulWidget {
     Key? key,
     required this.label,
     required this.isPasswordVisible,
-    //  this.onTap,
     this.filledColor = AppColors.secondaryColor,
     this.textInputType = TextInputType.text,
     this.textInputAction = TextInputAction.done,
@@ -34,7 +33,6 @@ class PasswordField extends StatefulWidget {
   final bool readOnly;
   final List<TextInputFormatter>? inputFormatters;
   final bool isPasswordVisible;
-  // final Function()? onTap;
 
   @override
   State<PasswordField> createState() => _PasswordFieldState();
@@ -57,7 +55,7 @@ class _PasswordFieldState extends State<PasswordField> {
   Widget build(BuildContext context) {
     final focusedLabelStyle = Theme.of(context).textTheme.bodyText1?.copyWith(
           fontSize: 15,
-          color: AppColors.fontColor,
+          color: AppColors.backgroundColor,
           fontWeight: FontWeight.w500,
         );
 
@@ -94,13 +92,6 @@ class _PasswordFieldState extends State<PasswordField> {
         Stack(
           children: [
             TextFormField(
-              /*  onTap: widget.onTap ??
-                  () {
-                    setState(() {
-                      if (focusNode.hasPrimaryFocus) focusNode.unfocus();
-                    });
-                    if (widget.onTap != null) widget.onTap!();
-                  }, */
               controller: controller,
               focusNode: focusNode,
               onChanged: (value) {

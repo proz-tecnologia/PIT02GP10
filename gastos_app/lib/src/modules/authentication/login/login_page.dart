@@ -88,7 +88,7 @@ class _LoginPageState extends State<LoginPage> {
                     validator: Validatorless.multiple([
                       Validatorless.required("Digite uma senha válido"),
                     ]),
-                    isPasswordVisible: false,
+                    isPasswordVisible: true,
                   ),
                 ),
                 Padding(
