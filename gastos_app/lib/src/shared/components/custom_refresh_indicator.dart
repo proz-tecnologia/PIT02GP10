@@ -12,15 +12,21 @@ class CustomRefreshIndicator extends StatelessWidget {
 
   final Widget child;
   final VoidCallback onRefresh;
-  final Color backgroundColor;
-  final Color foregroundColor;
+ final Color backgroundColor;
+ final Color foregroundColor;
 
   @override
   Widget build(BuildContext context) {
     return RefreshIndicator(
-      color: foregroundColor,
-      backgroundColor: backgroundColor,
-      onRefresh: () => Future.sync(() => onRefresh()),
+      triggerMode: RefreshIndicatorTriggerMode.onEdge,
+      edgeOffset: 2,
+      displacement: 2,
+      strokeWidth: 2,
+      color: AppColors.fontColor,
+     backgroundColor: backgroundColor,
+      onRefresh: () async {
+        onRefresh();
+      },
       child: child,
     );
   }
