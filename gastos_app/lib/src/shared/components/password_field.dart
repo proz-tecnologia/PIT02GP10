@@ -118,9 +118,12 @@ class _PasswordFieldState extends State<PasswordField> {
                       passwordHidden = !passwordHidden;
                     });
                   },
-                  child: passwordHidden
-                      ? Icon(Icons.visibility)
-                      : Icon(Icons.visibility_off_outlined),
+                  child: Icon(
+                    passwordHidden
+                        ? Icons.visibility
+                        : Icons.visibility_off_outlined,
+                    color: AppColors.backgroundColor,
+                  ),
                 ),
                 errorMaxLines: 1,
                 errorStyle: focusedLabelStyle?.copyWith(
