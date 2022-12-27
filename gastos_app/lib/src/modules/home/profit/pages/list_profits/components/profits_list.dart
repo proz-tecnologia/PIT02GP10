@@ -22,7 +22,7 @@ class ProfitsList extends StatelessWidget {
       backgroundColor: AppColors.profitColor,
       onRefresh: onRefresh,
       child: ListView.builder(
-        shrinkWrap: true,
+        shrinkWrap: false,
         itemBuilder: (context, index) {
           final profit = profits[index];
           return Column(

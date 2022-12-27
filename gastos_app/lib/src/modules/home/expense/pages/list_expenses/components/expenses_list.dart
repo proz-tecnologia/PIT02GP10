@@ -22,7 +22,7 @@ class ExpensesList extends StatelessWidget {
       backgroundColor: AppColors.expenseColor,
       onRefresh: onRefresh,
       child: ListView.builder(
-        shrinkWrap: true,
+        shrinkWrap: false,
         itemBuilder: (context, index) {
           final expense = expenses[index];
           return Column(
