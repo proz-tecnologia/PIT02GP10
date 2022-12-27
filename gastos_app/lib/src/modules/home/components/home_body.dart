@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:gastos_app/src/core/app_colors.dart';
 import 'package:gastos_app/src/models/expense_model.dart';
 import 'package:gastos_app/src/models/profit_model.dart';
 import 'package:gastos_app/src/models/user_model.dart';
 import 'package:gastos_app/src/modules/home/components/home_fa_button.dart';
 import 'package:gastos_app/src/modules/home/components/profile_box/profile_currency_box.dart';
 import 'package:gastos_app/src/modules/home/components/profits_and_expenses_resumed_list.dart';
+import 'package:gastos_app/src/shared/components/custom_refresh_indicator.dart';
 
 class HomeBody extends StatefulWidget {
   const HomeBody({
@@ -26,23 +26,13 @@ class HomeBody extends StatefulWidget {
 }
 
 class _HomeBodyState extends State<HomeBody> {
-  Future<void> _refresh() async {
-    widget.onRefresh();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Stack(
       fit: StackFit.expand,
       children: [
-        RefreshIndicator(
-          triggerMode: RefreshIndicatorTriggerMode.onEdge,
-          edgeOffset: 2,
-          displacement: 2,
-          strokeWidth: 2,
-          color: AppColors.fontColor,
-          backgroundColor: AppColors.primaryColor,
-          onRefresh: _refresh,
+        CustomRefreshIndicator(
+          onRefresh: widget.onRefresh,
           child: ListView(
             physics: const AlwaysScrollableScrollPhysics(),
             shrinkWrap: false,
