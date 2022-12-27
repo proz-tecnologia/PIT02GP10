@@ -25,7 +25,7 @@ class LoginController {
       );
 
       await AuthRepository.saveLoggedUser(response);
-      Modular.to.pushNamed(AppRoutes.splash);
+      Modular.to.pushReplacementNamed(AppRoutes.splash);
       loginState = LoginStates.success;
     } catch (e) {
       AppNotifications.errorNotificationBanner(e);
