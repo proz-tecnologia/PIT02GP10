@@ -8,6 +8,7 @@ import 'package:gastos_app/src/shared/components/custom_loading_icon.dart';
 import 'package:gastos_app/src/shared/components/custom_text_field.dart';
 import 'package:gastos_app/src/shared/utils/input_masks.dart';
 import 'package:validatorless/validatorless.dart';
+import '../../../shared/components/password_field.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({
@@ -109,7 +110,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                  child: CustomTextField(
+                  child: PasswordField(
                     label: "Senha",
                     controller: passwordController,
                     validator: Validatorless.multiple([
@@ -121,11 +122,12 @@ class _RegisterPageState extends State<RegisterPage> {
                     ]),
                     textInputAction: TextInputAction.next,
                     textInputType: TextInputType.visiblePassword,
+                    isPasswordVisible: true,
                   ),
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                  child: CustomTextField(
+                  child: PasswordField(
                     label: "Confirmar a senha",
                     controller: confirmPasswordController,
                     validator: Validatorless.multiple([
@@ -140,6 +142,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     },
                     textInputAction: TextInputAction.send,
                     textInputType: TextInputType.visiblePassword,
+                    isPasswordVisible: true,
                   ),
                 ),
                 const SizedBox(height: 40),

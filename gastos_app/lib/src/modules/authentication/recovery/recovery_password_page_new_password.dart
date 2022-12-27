@@ -7,6 +7,7 @@ import 'package:gastos_app/src/shared/components/custom_elevated_button.dart';
 import 'package:gastos_app/src/shared/components/custom_loading_icon.dart';
 import 'package:gastos_app/src/shared/components/custom_text_field.dart';
 import 'package:validatorless/validatorless.dart';
+import '../../../shared/components/password_field.dart';
 
 class RecoveryPasswordPageNewPassword extends StatefulWidget {
   const RecoveryPasswordPageNewPassword({
@@ -64,7 +65,7 @@ class _RecoveryPasswordPageNewPasswordState
                 const SizedBox(height: 20),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                  child: CustomTextField(
+                  child: PasswordField(
                     label: "Senha",
                     controller: passwordController,
                     textInputAction: TextInputAction.next,
@@ -75,11 +76,12 @@ class _RecoveryPasswordPageNewPasswordState
                         "As senhas devem ser iguais",
                       )
                     ]),
+                    isPasswordVisible: false,
                   ),
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                  child: CustomTextField(
+                  child: PasswordField(
                     label: "Confirmar Senha",
                     controller: confirmPasswordController,
                     onFieldSubmitted: (_) {
@@ -92,6 +94,7 @@ class _RecoveryPasswordPageNewPasswordState
                         "As senhas devem ser iguais",
                       )
                     ]),
+                    isPasswordVisible: false,
                   ),
                 ),
                 const SizedBox(height: 40),
