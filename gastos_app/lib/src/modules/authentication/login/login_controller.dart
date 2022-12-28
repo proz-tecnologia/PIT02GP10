@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_modular/flutter_modular.dart';
-import 'package:gastos_app/src/app/app_routes.dart';
+import 'package:gastos_app/src/modules/authentication/login/login_states.dart';
 import 'package:gastos_app/src/repositories/auth/auth_repository.dart';
 import 'package:gastos_app/src/shared/utils/app_notifications.dart';
 
 class LoginController {
-  final loginStateNotifier = ValueNotifier<LoginStates>(LoginStates.empty);
+  final loginStateNotifier = ValueNotifier<LoginStates>(
+    LoginStateEmpty(),
+  );
 
   LoginStates get loginState => loginStateNotifier.value;
   set loginState(LoginStates state) => loginStateNotifier.value = state;
@@ -15,7 +16,7 @@ class LoginController {
     required String password,
   }) async {
     try {
-      loginState = LoginStates.loading;
+      loginState = LoginStateLoading();
 
       await Future.delayed(const Duration(seconds: 2));
 
@@ -25,18 +26,11 @@ class LoginController {
       );
 
       await AuthRepository.saveLoggedUser(response);
-      Modular.to.pushNamed(AppRoutes.splash);
-      loginState = LoginStates.success;
+
+      loginState = LoginStateSuccess();
     } catch (e) {
       AppNotifications.errorNotificationBanner(e);
-      loginState = LoginStates.error;
+      loginState = LoginStateError(e);
     }
   }
-}
-
-enum LoginStates {
-  empty,
-  loading,
-  success,
-  error,
 }
