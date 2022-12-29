@@ -3,9 +3,11 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:gastos_app/src/core/app_colors.dart';
 import 'package:gastos_app/src/core/app_images.dart';
 import 'package:gastos_app/src/modules/authentication/register/register_controller.dart';
+import 'package:gastos_app/src/modules/authentication/register/register_states.dart';
 import 'package:gastos_app/src/shared/components/custom_elevated_button.dart';
 import 'package:gastos_app/src/shared/components/custom_loading_icon.dart';
 import 'package:gastos_app/src/shared/components/custom_text_field.dart';
+import 'package:gastos_app/src/shared/utils/app_notifications.dart';
 import 'package:gastos_app/src/shared/utils/input_masks.dart';
 import 'package:validatorless/validatorless.dart';
 import '../../../shared/components/password_field.dart';
@@ -41,6 +43,25 @@ class _RegisterPageState extends State<RegisterPage> {
   }
 
   @override
+  void initState() {
+    registerController.registerStateNotifier.addListener(() {
+      if (registerController.state is RegisterStateSuccess) {
+        Modular.to.pop();
+      } else if (registerController.state is RegisterStateError) {
+        final e = registerController.state as RegisterStateError;
+        AppNotifications.errorNotificationBanner(e.object);
+      }
+    });
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    registerController.registerStateNotifier.removeListener(() {});
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final textStyle = Theme.of(context).textTheme.bodyText1?.copyWith(
           fontWeight: FontWeight.w500,
@@ -57,9 +78,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 Align(
                   alignment: Alignment.centerLeft,
                   child: IconButton(
-                    onPressed: () {
-                      Modular.to.pop();
-                    },
+                    onPressed: () {},
                     icon: const Icon(Icons.arrow_back_ios),
                   ),
                 ),
@@ -155,7 +174,7 @@ class _RegisterPageState extends State<RegisterPage> {
                         valueListenable:
                             registerController.registerStateNotifier,
                         builder: (context, state, _) {
-                          if (state == RegisterStates.loading) {
+                          if (state == RegisterStateLoading()) {
                             return const CustomLoadingIcon(size: 16);
                           }
 
