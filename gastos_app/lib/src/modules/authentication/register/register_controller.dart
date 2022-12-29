@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_modular/flutter_modular.dart';
+import 'package:gastos_app/src/modules/authentication/register/register_states.dart';
 import 'package:gastos_app/src/repositories/auth/user_repository.dart';
 import 'package:gastos_app/src/shared/utils/app_notifications.dart';
 
 class RegisterController {
   final registerStateNotifier = ValueNotifier<RegisterStates>(
-    RegisterStates.empty,
+    RegisterStateEmpty(),
   );
 
   RegisterStates get state => registerStateNotifier.value;
@@ -19,7 +19,7 @@ class RegisterController {
   }) async {
     final userRespository = SharedPrefsUserRepository();
     try {
-      state = RegisterStates.loading;
+      state = RegisterStateLoading();
 
       await Future.delayed(const Duration(seconds: 2));
 
@@ -29,18 +29,10 @@ class RegisterController {
         name: name,
         phone: phone,
       );
-      state = RegisterStates.success;
-      Modular.to.pop();
+      state = RegisterStateSuccess();
     } catch (e) {
       AppNotifications.errorNotificationBanner(e);
-      state = RegisterStates.error;
+      state = RegisterStateError(e);
     }
   }
-}
-
-enum RegisterStates {
-  empty,
-  loading,
-  success,
-  error,
 }
