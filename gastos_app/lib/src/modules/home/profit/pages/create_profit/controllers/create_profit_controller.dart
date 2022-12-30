@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_modular/flutter_modular.dart';
+import 'package:gastos_app/src/modules/home/profit/pages/create_profit/controllers/create_profit_state.dart';
 import 'package:gastos_app/src/repositories/auth/auth_repository.dart';
 import 'package:gastos_app/src/repositories/profit/profit_repository.dart';
-import 'package:gastos_app/src/shared/utils/app_notifications.dart';
 
 class CreateProfitController {
   final createProfitStateNotifier = ValueNotifier<CreateProfitStates>(
-    CreateProfitStates.empty,
+    CreateProfitStateEmpty(),
   );
 
   CreateProfitStates get state => createProfitStateNotifier.value;
@@ -19,7 +18,7 @@ class CreateProfitController {
     required double value,
     required DateTime createdAt,
   }) async {
-    state = CreateProfitStates.loading;
+    state = CreateProfitStateLoading();
     final profitsRepository = SharedPreferencesProfitRepository();
     final loggedUser = await AuthRepository.getLoggedUser();
     if (loggedUser != null) {
@@ -32,21 +31,12 @@ class CreateProfitController {
           loggedUserId: loggedUser.id,
         );
 
-        state = CreateProfitStates.success;
-       Modular.to.pop(true);
+        state = CreateProfitStateSuccess();
       } catch (e) {
-        AppNotifications.errorNotificationBanner(e);
-        state = CreateProfitStates.error;
+        state = CreateProfitStateError(e);
       }
     } else {
       AuthRepository.logout();
     }
   }
-}
-
-enum CreateProfitStates {
-  empty,
-  loading,
-  error,
-  success,
 }
