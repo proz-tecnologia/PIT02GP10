@@ -3,10 +3,12 @@ import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:gastos_app/src/core/app_colors.dart';
 import 'package:gastos_app/src/modules/home/profit/pages/create_profit/controllers/create_profit_controller.dart';
+import 'package:gastos_app/src/modules/home/profit/pages/create_profit/controllers/create_profit_state.dart';
 import 'package:gastos_app/src/shared/components/custom_date_picker.dart';
 import 'package:gastos_app/src/shared/components/custom_elevated_button.dart';
 import 'package:gastos_app/src/shared/components/custom_loading_icon.dart';
 import 'package:gastos_app/src/shared/components/custom_text_field.dart';
+import 'package:gastos_app/src/shared/utils/app_notifications.dart';
 import 'package:validatorless/validatorless.dart';
 
 class CreateProfitPage extends StatefulWidget {
@@ -27,6 +29,26 @@ class _CreateProfitPageState extends State<CreateProfitPage> {
   );
   final descriptionController = TextEditingController();
   DateTime? chosenDate;
+
+
+  @override
+  void initState() {
+    createProfitController.createProfitStateNotifier.addListener(() {
+      if (createProfitController.state is CreateProfitStateSuccess) {
+        Modular.to.pop(true);
+      } else if (createProfitController.state is CreateProfitStateError) {
+        final e = createProfitController.state as CreateProfitStateError;
+        AppNotifications.errorNotificationBanner(e.object);
+      }
+    });
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    createProfitController.createProfitStateNotifier.removeListener(() {});
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -124,7 +146,7 @@ class _CreateProfitPageState extends State<CreateProfitPage> {
                             );
                           }
                         },
-                        child: state == CreateProfitStates.loading
+                        child: state == CreateProfitStateLoading()
                             ? const CustomLoadingIcon(size: 16)
                             : Text(
                                 "Finalizar",
