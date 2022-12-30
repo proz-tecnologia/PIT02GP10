@@ -174,7 +174,7 @@ class _RegisterPageState extends State<RegisterPage> {
                         valueListenable:
                             registerController.registerStateNotifier,
                         builder: (context, state, _) {
-                          if (state == RegisterStateLoading()) {
+                          if (Type == RegisterStateLoading()) {
                             return const CustomLoadingIcon(size: 16);
                           }
 
