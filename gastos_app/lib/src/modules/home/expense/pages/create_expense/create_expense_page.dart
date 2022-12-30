@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:gastos_app/src/app/app_routes.dart';
 import 'package:gastos_app/src/core/app_colors.dart';
 import 'package:gastos_app/src/modules/home/expense/pages/create_expense/controllers/create_expense_controller.dart';
+import 'package:gastos_app/src/modules/home/expense/pages/create_expense/controllers/create_expense_state.dart';
 import 'package:gastos_app/src/shared/components/custom_date_picker.dart';
 import 'package:gastos_app/src/shared/components/custom_elevated_button.dart';
 import 'package:gastos_app/src/shared/components/custom_loading_icon.dart';
 import 'package:gastos_app/src/shared/components/custom_text_field.dart';
+import 'package:gastos_app/src/shared/utils/app_notifications.dart';
 import 'package:validatorless/validatorless.dart';
 
 class CreateExpensePage extends StatefulWidget {
@@ -28,6 +31,25 @@ class _CreateExpensePageState extends State<CreateExpensePage> {
   );
   final descriptionController = TextEditingController();
   DateTime? chosenDate;
+
+  @override
+  void initState() {
+    createExpenseController.createExpenseStateNotifier.addListener(() {
+      if (createExpenseController.state is CreateExpenseStateSuccess) {
+        Modular.to.pop(true);
+      } else if (createExpenseController.state is CreateExpenseStateError) {
+        final e = createExpenseController.state as CreateExpenseStateError;
+        AppNotifications.errorNotificationBanner(e.object);
+      }
+    });
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    createExpenseController.createExpenseStateNotifier.removeListener(() {});
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -124,7 +146,7 @@ class _CreateExpensePageState extends State<CreateExpensePage> {
                             );
                           }
                         },
-                        child: state == CreateExpenseStates.loading
+                        child: state == CreateExpenseStateLoading()
                             ? const CustomLoadingIcon(
                                 size: 16,
                               )
