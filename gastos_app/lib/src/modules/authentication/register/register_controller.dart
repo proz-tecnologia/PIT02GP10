@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gastos_app/src/modules/authentication/register/register_states.dart';
 import 'package:gastos_app/src/repositories/auth/user_repository.dart';
-import 'package:gastos_app/src/shared/utils/app_notifications.dart';
 
 class RegisterController {
   final registerStateNotifier = ValueNotifier<RegisterStates>(
@@ -31,7 +30,6 @@ class RegisterController {
       );
       state = RegisterStateSuccess();
     } catch (e) {
-      AppNotifications.errorNotificationBanner(e);
       state = RegisterStateError(e);
     }
   }
