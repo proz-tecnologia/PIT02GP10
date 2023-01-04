@@ -30,7 +30,6 @@ class _CreateProfitPageState extends State<CreateProfitPage> {
   final descriptionController = TextEditingController();
   DateTime? chosenDate;
 
-
   @override
   void initState() {
     createProfitController.createProfitStateNotifier.addListener(() {
@@ -146,7 +145,7 @@ class _CreateProfitPageState extends State<CreateProfitPage> {
                             );
                           }
                         },
-                        child: state == CreateProfitStateLoading()
+                        child: state is CreateProfitStateLoading
                             ? const CustomLoadingIcon(size: 16)
                             : Text(
                                 "Finalizar",
