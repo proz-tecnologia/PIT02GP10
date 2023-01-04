@@ -10,6 +10,7 @@ import 'package:gastos_app/src/shared/components/custom_text_field.dart';
 import 'package:gastos_app/src/shared/utils/app_notifications.dart';
 import 'package:gastos_app/src/shared/utils/input_masks.dart';
 import 'package:validatorless/validatorless.dart';
+
 import '../../../shared/components/password_field.dart';
 
 class RegisterPage extends StatefulWidget {
@@ -78,7 +79,9 @@ class _RegisterPageState extends State<RegisterPage> {
                 Align(
                   alignment: Alignment.centerLeft,
                   child: IconButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Modular.to.pop();
+                    },
                     icon: const Icon(Icons.arrow_back_ios),
                   ),
                 ),
@@ -171,18 +174,18 @@ class _RegisterPageState extends State<RegisterPage> {
                     backgroundColor: AppColors.expenseColor,
                     onPressed: registerUser,
                     child: ValueListenableBuilder<RegisterStates>(
-                        valueListenable:
-                            registerController.registerStateNotifier,
-                        builder: (context, state, _) {
-                          if (Type == RegisterStateLoading()) {
-                            return const CustomLoadingIcon(size: 16);
-                          }
+                      valueListenable: registerController.registerStateNotifier,
+                      builder: (context, state, _) {
+                        if (state is RegisterStateLoading) {
+                          return const CustomLoadingIcon(size: 16);
+                        }
 
-                          return Text(
-                            "Cadastrar",
-                            style: textStyle,
-                          );
-                        }),
+                        return Text(
+                          "Cadastrar",
+                          style: textStyle,
+                        );
+                      },
+                    ),
                   ),
                 ),
                 const SizedBox(height: 40),
