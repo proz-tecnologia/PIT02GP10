@@ -23,7 +23,7 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
-  final loginController  = LoginController();
+  final loginController = LoginController();
   final formKey = GlobalKey<FormState>();
 
   void login() {
@@ -36,21 +36,23 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   @override
-  void initState(){
-    loginController.loginStateNotifier.addListener(() {
-       if(loginController.loginState is LoginStateSuccess){
-    Modular.to.pushNamed(AppRoutes.splash);
-   } else if(loginController.loginState is LoginStateError) {
-     final e = loginController.loginState as LoginStateError;
-     AppNotifications.errorNotificationBanner(e.object);
-   }
-   
-    });
+  void initState() {
+    loginController.loginStateNotifier.addListener(
+      () {
+        if (loginController.loginState is LoginStateSuccess) {
+          Modular.to.pushReplacementNamed(AppRoutes.splash);
+        } else if (loginController.loginState is LoginStateError) {
+          final e = loginController.loginState as LoginStateError;
+          AppNotifications.errorNotificationBanner(e.object);
+        }
+      },
+    );
+    super.initState();
   }
 
   @override
   void dispose() {
-    loginController.loginStateNotifier.removeListener(() { });
+    loginController.loginStateNotifier.removeListener(() {});
     super.dispose();
   }
 
@@ -137,7 +139,7 @@ class _LoginPageState extends State<LoginPage> {
                     child: ValueListenableBuilder(
                       valueListenable: loginController.loginStateNotifier,
                       builder: (context, state, _) {
-                        if (state == LoginStateLoading()) {
+                        if (state is LoginStateLoading) {
                           return const CustomLoadingIcon(size: 16);
                         }
 
