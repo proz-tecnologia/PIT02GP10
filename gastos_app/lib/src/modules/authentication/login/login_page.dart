@@ -4,9 +4,11 @@ import 'package:gastos_app/src/app/app_routes.dart';
 import 'package:gastos_app/src/core/app_colors.dart';
 import 'package:gastos_app/src/core/app_images.dart';
 import 'package:gastos_app/src/modules/authentication/login/login_controller.dart';
+import 'package:gastos_app/src/modules/authentication/login/login_states.dart';
 import 'package:gastos_app/src/shared/components/custom_elevated_button.dart';
 import 'package:gastos_app/src/shared/components/custom_loading_icon.dart';
 import 'package:gastos_app/src/shared/components/custom_text_field.dart';
+import 'package:gastos_app/src/shared/utils/app_notifications.dart';
 import 'package:validatorless/validatorless.dart';
 import '../../../shared/components/password_field.dart';
 
@@ -32,6 +34,27 @@ class _LoginPageState extends State<LoginPage> {
         password: passwordController.text,
       );
     }
+  }
+
+  @override
+  void initState() {
+    loginController.loginStateNotifier.addListener(
+      () {
+        if (loginController.loginState is LoginStateSuccess) {
+          Modular.to.pushReplacementNamed(AppRoutes.splash);
+        } else if (loginController.loginState is LoginStateError) {
+          final e = loginController.loginState as LoginStateError;
+          AppNotifications.errorNotificationBanner(e.object);
+        }
+      },
+    );
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    loginController.loginStateNotifier.removeListener(() {});
+    super.dispose();
   }
 
   @override
@@ -118,7 +141,7 @@ class _LoginPageState extends State<LoginPage> {
                     child: ValueListenableBuilder(
                       valueListenable: loginController.loginStateNotifier,
                       builder: (context, state, _) {
-                        if (state == LoginStates.loading) {
+                        if (state is LoginStateLoading) {
                           return const CustomLoadingIcon(size: 16);
                         }
 
