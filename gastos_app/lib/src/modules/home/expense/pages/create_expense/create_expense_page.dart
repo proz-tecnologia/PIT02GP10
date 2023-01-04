@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:gastos_app/src/app/app_routes.dart';
 import 'package:gastos_app/src/core/app_colors.dart';
 import 'package:gastos_app/src/modules/home/expense/pages/create_expense/controllers/create_expense_controller.dart';
 import 'package:gastos_app/src/modules/home/expense/pages/create_expense/controllers/create_expense_state.dart';
@@ -146,7 +145,7 @@ class _CreateExpensePageState extends State<CreateExpensePage> {
                             );
                           }
                         },
-                        child: state == CreateExpenseStateLoading()
+                        child: state is CreateExpenseStateLoading
                             ? const CustomLoadingIcon(
                                 size: 16,
                               )
