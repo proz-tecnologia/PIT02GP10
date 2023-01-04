@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_modular/flutter_modular.dart';
+import 'package:gastos_app/src/modules/home/expense/pages/create_expense/controllers/create_expense_state.dart';
 import 'package:gastos_app/src/repositories/auth/auth_repository.dart';
 import 'package:gastos_app/src/repositories/expense/expense_repository.dart';
-import 'package:gastos_app/src/shared/utils/app_notifications.dart';
 
 class CreateExpenseController {
   final createExpenseStateNotifier = ValueNotifier<CreateExpenseStates>(
-    CreateExpenseStates.empty,
+    CreateExpenseStateEmpty(),
   );
 
   CreateExpenseStates get state => createExpenseStateNotifier.value;
@@ -19,7 +18,7 @@ class CreateExpenseController {
     required double value,
     required DateTime createdAt,
   }) async {
-    state = CreateExpenseStates.loading;
+    state = CreateExpenseStateLoading();
     final expensesRepository = SharedPreferencesExpenseRepository();
     final loggedUser = await AuthRepository.getLoggedUser();
     if (loggedUser != null) {
@@ -32,11 +31,9 @@ class CreateExpenseController {
           loggedUserId: loggedUser.id,
         );
 
-        state = CreateExpenseStates.success;
-       Modular.to.pop(true);
+        state = CreateExpenseStateSuccess();
       } catch (e) {
-        AppNotifications.errorNotificationBanner(e);
-        state = CreateExpenseStates.error;
+        state = CreateExpenseStateError(e);
       }
     } else {
       AuthRepository.logout();
@@ -44,9 +41,4 @@ class CreateExpenseController {
   }
 }
 
-enum CreateExpenseStates {
-  empty,
-  loading,
-  error,
-  success,
-}
+
