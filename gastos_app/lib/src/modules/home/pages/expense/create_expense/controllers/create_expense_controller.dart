@@ -42,7 +42,7 @@ class CreateExpensePageController {
         state = CreateExpensePageStateError(e);
       }
     } else {
-      // AuthRepository.logout();
+      await AuthService().logout();
     }
   }
 }

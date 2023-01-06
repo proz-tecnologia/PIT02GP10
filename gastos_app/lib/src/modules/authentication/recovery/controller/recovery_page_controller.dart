@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:gastos_app/src/modules/authentication/repositories/recovery_repository.dart';
+import 'package:gastos_app/src/modules/authentication/recovery/repositories/recovery_repository.dart';
 import 'package:gastos_app/src/shared/utils/app_notifications.dart';
 
 class RecoveryPageController {
-  final recoreryRepository = RecoveryRepository();
+  final RecoveryRepository recoreryRepository;
 
   String? emailToRecover;
   String? token;
@@ -105,6 +105,10 @@ class RecoveryPageController {
       newPasswordPageStateNotifier.value;
   set newPasswordPageState(NewPasswordPageState page) =>
       newPasswordPageStateNotifier.value = page;
+
+  RecoveryPageController({
+    required this.recoreryRepository,
+  });
 }
 
 enum RecoveryPages {

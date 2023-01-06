@@ -2,11 +2,16 @@ import 'dart:math' as math;
 
 import 'package:gastos_app/src/models/app_error_model.dart';
 import 'package:gastos_app/src/models/recovery_token_model.dart';
-import 'package:gastos_app/src/modules/authentication/repositories/user_repository_shared_prefs.dart';
+import 'package:gastos_app/src/modules/authentication/repositories/user_repository.dart';
 import 'package:gastos_app/src/shared/config/shared_preferences_keys.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class RecoveryRepository {
+  final UserRepository userRepository;
+  RecoveryRepository({
+    required this.userRepository,
+  });
+
   final Duration expirationDuration = const Duration(minutes: 2);
 
   Future<RecoveryTokenModel> validateToken({
@@ -29,8 +34,6 @@ class RecoveryRepository {
   }) async {
     await validateToken(code: token, email: email);
 
-    final userRepository = UserRepositorySharedPrefs();
-
     await userRepository.updatePassword(email: email, newPassword: newPassword);
   }
 
@@ -38,8 +41,6 @@ class RecoveryRepository {
     required String email,
   }) async {
     final instance = await SharedPreferences.getInstance();
-
-    final userRepository = UserRepositorySharedPrefs();
 
     final user = await userRepository.findByEmail(email: email);
 

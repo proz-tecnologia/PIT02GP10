@@ -2,7 +2,6 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:gastos_app/src/modules/authentication/services/auth_service.dart';
 import 'package:gastos_app/src/modules/home/controllers/home_page_controller.dart';
 import 'package:gastos_app/src/modules/home/home_page.dart';
-import 'package:gastos_app/src/modules/home/home_routes.dart';
 import 'package:gastos_app/src/modules/home/pages/expense/create_expense/controllers/create_expense_controller.dart';
 
 import 'pages/expense/list_expenses/controllers/expenses_page_controller.dart';
@@ -31,6 +30,9 @@ class HomeModule extends Module {
 
   @override
   List<ModularRoute> get routes => [
-        ChildRoute(HomeRoutes.main, child: (context, _) => const HomePage()),
+        ChildRoute(
+          '/',
+          child: (context, _) => const HomePage(),
+        ),
       ];
 }

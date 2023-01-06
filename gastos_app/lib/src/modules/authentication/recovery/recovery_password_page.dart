@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:gastos_app/src/modules/authentication/recovery/controller/recovery_page_controller.dart';
 import 'package:gastos_app/src/modules/authentication/recovery/recovery_password_page_code.dart';
 import 'package:gastos_app/src/modules/authentication/recovery/recovery_password_page_email.dart';
@@ -12,7 +13,7 @@ class RecoveryPasswordPage extends StatefulWidget {
 }
 
 class _RecoveryPasswordPageState extends State<RecoveryPasswordPage> {
-  final recoveryPageController = RecoveryPageController();
+  final recoveryPageController = Modular.get<RecoveryPageController>();
 
   @override
   Widget build(BuildContext context) {

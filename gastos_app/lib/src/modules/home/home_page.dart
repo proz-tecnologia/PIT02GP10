@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:gastos_app/src/modules/authentication/services/auth_service.dart';
 import 'package:gastos_app/src/modules/home/components/bottom_navigation_bar/custom_bottom_navigation.dart';
 import 'package:gastos_app/src/modules/home/components/custom_app_bar.dart';
 import 'package:gastos_app/src/modules/home/components/drawer/custom_drawer.dart';
@@ -37,8 +38,8 @@ class _HomePageState extends State<HomePage> {
           },
         ),
         endDrawer: CustomDrawer(
-          onLogout: () {
-            // AuthRepository.logout();
+          onLogout: () async {
+            await AuthService().logout();
           },
         ),
         body: ValueListenableBuilder<HomePageState>(

@@ -123,7 +123,7 @@ class _LoginPageState extends State<LoginPage> {
                     alignment: Alignment.centerRight,
                     child: TextButton(
                       onPressed: () {
-                        // Modular.to.pushNamed(AppRoutes.recover);
+                        Modular.to.pushNamed(AuthenticationRoutes.recover);
                       },
                       child: Text(
                         "esqueci a senha",
@@ -176,7 +176,7 @@ class _LoginPageState extends State<LoginPage> {
                           ),
                         ),
                         onPressed: () {
-                          // Modular.to.pushNamed(AppRoutes.register);
+                          Modular.to.pushNamed(AuthenticationRoutes.register);
                         },
                       ),
                     ],

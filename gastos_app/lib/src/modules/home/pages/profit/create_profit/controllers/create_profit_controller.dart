@@ -41,7 +41,7 @@ class CreateProfitPageController {
         state = CreateProfitPageStateError(e);
       }
     } else {
-      // AuthRepository.logout();
+      await AuthService().logout();
     }
   }
 }

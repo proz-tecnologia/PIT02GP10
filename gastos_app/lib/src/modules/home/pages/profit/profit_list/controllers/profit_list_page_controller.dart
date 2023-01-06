@@ -46,7 +46,7 @@ class ProfitListPageController {
         state = ProfitPageStateError(error: e.toString());
       }
     } else {
-      // AuthRepository.logout();
+      await AuthService().logout();
     }
   }
 }

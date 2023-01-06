@@ -39,7 +39,7 @@ class HomePageController {
       );
     } else {
       state = HomePageStateError(error: "Erro ao carregar dados");
-      // await AuthRepository.logout();
+      await AuthService().logout();
     }
   }
 }

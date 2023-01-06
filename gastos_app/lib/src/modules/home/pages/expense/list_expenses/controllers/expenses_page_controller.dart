@@ -45,7 +45,7 @@ class ExpenseListPageController {
         state = ExpenseListPageStateError(error: e.toString());
       }
     } else {
-      // A.logout();
+      await AuthService().logout();
     }
   }
 }

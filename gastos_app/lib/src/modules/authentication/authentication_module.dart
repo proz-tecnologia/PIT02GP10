@@ -2,7 +2,9 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:gastos_app/src/modules/authentication/authentication_routes.dart';
 import 'package:gastos_app/src/modules/authentication/login/login_page.dart';
 import 'package:gastos_app/src/modules/authentication/login/login_page_controller.dart';
+import 'package:gastos_app/src/modules/authentication/recovery/controller/recovery_page_controller.dart';
 import 'package:gastos_app/src/modules/authentication/recovery/recovery_password_page.dart';
+import 'package:gastos_app/src/modules/authentication/recovery/repositories/recovery_repository.dart';
 import 'package:gastos_app/src/modules/authentication/register/register_page.dart';
 import 'package:gastos_app/src/modules/authentication/register/register_page_controller.dart';
 import 'package:gastos_app/src/modules/authentication/repositories/user_repository_shared_prefs.dart';
@@ -27,12 +29,19 @@ class AuthenticationModule extends Module {
             userRepository: UserRepositorySharedPrefs(),
           ),
         ),
+        Bind.factory<RecoveryPageController>(
+          (i) => RecoveryPageController(
+            recoreryRepository: RecoveryRepository(
+              userRepository: UserRepositorySharedPrefs(),
+            ),
+          ),
+        ),
       ];
 
   @override
   List<ModularRoute> get routes => [
         ChildRoute(
-          AuthenticationRoutes.splash,
+          '/',
           child: (context, _) => const SplashPage(),
           duration: animationDuration,
           transition: transitionType,
