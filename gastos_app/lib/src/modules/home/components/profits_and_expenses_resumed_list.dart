@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:gastos_app/src/core/app_colors.dart';
 import 'package:gastos_app/src/models/expense_model.dart';
 import 'package:gastos_app/src/models/profit_model.dart';
 import 'package:gastos_app/src/modules/home/components/field_value_box.dart';
+import 'package:gastos_app/src/modules/home/home_routes.dart';
 import 'package:gastos_app/src/shared/utils/currency_formatter.dart';
 import 'package:gastos_app/src/shared/utils/date_formatter.dart';
 
@@ -61,7 +63,7 @@ class ProfitsAndExpensesResumedList extends StatelessWidget {
         const Divider(),
         InkWell(
           onTap: () {
-            // Modular.to.pushNamed(AppRoutes.listProfit);
+            Modular.to.pushNamed(HomeRoutes.listProfit);
           },
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
@@ -112,7 +114,7 @@ class ProfitsAndExpensesResumedList extends StatelessWidget {
         const Divider(),
         InkWell(
           onTap: () {
-            // Modular.to.pushNamed(AppRoutes.listExpense);
+            Modular.to.pushNamed(HomeRoutes.listExpense);
           },
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
