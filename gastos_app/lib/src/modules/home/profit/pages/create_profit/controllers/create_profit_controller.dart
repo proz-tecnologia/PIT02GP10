@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:gastos_app/src/modules/authentication/services/auth_service.dart';
 import 'package:gastos_app/src/modules/home/profit/pages/create_profit/controllers/create_profit_state.dart';
-import 'package:gastos_app/src/repositories/auth/auth_repository.dart';
 import 'package:gastos_app/src/repositories/profit/profit_repository.dart';
 
 class CreateProfitController {
@@ -20,7 +20,7 @@ class CreateProfitController {
   }) async {
     state = CreateProfitStateLoading();
     final profitsRepository = SharedPreferencesProfitRepository();
-    final loggedUser = await AuthRepository.getLoggedUser();
+    final loggedUser = await AuthService.getLoggedUser();
     if (loggedUser != null) {
       try {
         await Future.delayed(const Duration(seconds: 2));
@@ -36,7 +36,7 @@ class CreateProfitController {
         state = CreateProfitStateError(e);
       }
     } else {
-      AuthRepository.logout();
+      // AuthRepository.logout();
     }
   }
 }

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:gastos_app/src/modules/authentication/services/auth_service.dart';
 import 'package:gastos_app/src/modules/home/home_states.dart';
-import 'package:gastos_app/src/repositories/auth/auth_repository.dart';
 import 'package:gastos_app/src/repositories/expense/expense_repository.dart';
 import 'package:gastos_app/src/repositories/profit/profit_repository.dart';
 
@@ -16,7 +16,7 @@ class HomeController {
   Future<void> loadData() async {
     state = HomeStateLoading();
     await Future.delayed(const Duration(seconds: 2));
-    final loggedUser = await AuthRepository.getLoggedUser();
+    final loggedUser = await AuthService.getLoggedUser();
 
     if (loggedUser != null) {
       final profits = await profitsRepository.listAll(
@@ -33,7 +33,7 @@ class HomeController {
       );
     } else {
       state = HomeStateError(error: "Erro ao carregar dados");
-      await AuthRepository.logout();
+      // await AuthRepository.logout();
     }
   }
 }

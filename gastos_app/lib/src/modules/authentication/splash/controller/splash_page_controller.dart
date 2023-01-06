@@ -1,24 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:gastos_app/src/mock/mocked_controller.dart';
-import 'package:gastos_app/src/modules/splash/controller/splash_page_state.dart';
-import 'package:gastos_app/src/repositories/auth/auth_repository.dart';
+import 'package:gastos_app/src/modules/authentication/services/auth_repository.dart';
+import 'package:gastos_app/src/modules/authentication/splash/controller/splash_page_state.dart';
 
 class SplashPageController {
   final splashPageStateNotifier = ValueNotifier<SplashPageState>(
     SplashPageStateEmpty(),
   );
 
-  final mockedController = MockedController();
-
-  Future<void> loadData() async {
-    await mockedController.loadMockedData();
-  }
-
   Future<void> isAuthenticated() async {
-    await loadData();
     await Future.delayed(const Duration(milliseconds: 2500));
 
-    final response = await AuthRepository.isAuthenticated();
+    final response = await AuthService.isAuthenticated();
     if (response == true) {
       state = SplashPageStateAuthenticated();
     } else {

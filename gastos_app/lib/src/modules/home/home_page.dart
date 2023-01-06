@@ -5,7 +5,6 @@ import 'package:gastos_app/src/modules/home/components/drawer/custom_drawer.dart
 import 'package:gastos_app/src/modules/home/components/home_body.dart';
 import 'package:gastos_app/src/modules/home/controller/home_controller.dart';
 import 'package:gastos_app/src/modules/home/home_states.dart';
-import 'package:gastos_app/src/repositories/auth/auth_repository.dart';
 import 'package:gastos_app/src/shared/components/custom_loading_icon.dart';
 
 class HomePage extends StatefulWidget {
@@ -38,7 +37,7 @@ class _HomePageState extends State<HomePage> {
         ),
         endDrawer: CustomDrawer(
           onLogout: () {
-            AuthRepository.logout();
+            // AuthRepository.logout();
           },
         ),
         body: ValueListenableBuilder<HomeStates>(

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:gastos_app/src/modules/splash/components/animated_cat.dart';
+import 'package:gastos_app/src/modules/authentication/splash/components/animated_cat.dart';
 
 class AnimatedCats extends StatefulWidget {
   const AnimatedCats({

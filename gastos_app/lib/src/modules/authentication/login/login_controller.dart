@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gastos_app/src/modules/authentication/login/login_states.dart';
-import 'package:gastos_app/src/repositories/auth/auth_repository.dart';
+import 'package:gastos_app/src/modules/authentication/services/auth_repository.dart';
 import 'package:gastos_app/src/shared/utils/app_notifications.dart';
 
 class LoginController {
@@ -20,12 +20,12 @@ class LoginController {
 
       await Future.delayed(const Duration(seconds: 2));
 
-      final response = await AuthRepository.authenticate(
+      final response = await AuthService.authenticate(
         email: email,
         password: password,
       );
 
-      await AuthRepository.saveLoggedUser(response);
+      await AuthService.saveLoggedUser(response);
 
       loginState = LoginStateSuccess();
     } catch (e) {

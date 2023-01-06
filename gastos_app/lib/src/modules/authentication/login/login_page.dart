@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_modular/flutter_modular.dart';
-import 'package:gastos_app/src/app/app_routes.dart';
 import 'package:gastos_app/src/core/app_colors.dart';
 import 'package:gastos_app/src/core/app_images.dart';
 import 'package:gastos_app/src/modules/authentication/login/login_controller.dart';
@@ -10,6 +8,7 @@ import 'package:gastos_app/src/shared/components/custom_loading_icon.dart';
 import 'package:gastos_app/src/shared/components/custom_text_field.dart';
 import 'package:gastos_app/src/shared/utils/app_notifications.dart';
 import 'package:validatorless/validatorless.dart';
+
 import '../../../shared/components/password_field.dart';
 
 class LoginPage extends StatefulWidget {
@@ -41,7 +40,7 @@ class _LoginPageState extends State<LoginPage> {
     loginController.loginStateNotifier.addListener(
       () {
         if (loginController.loginState is LoginStateSuccess) {
-          Modular.to.pushReplacementNamed(AppRoutes.splash);
+          // Modular.to.pushReplacementNamed(AppRoutes.splash);
         } else if (loginController.loginState is LoginStateError) {
           final e = loginController.loginState as LoginStateError;
           AppNotifications.errorNotificationBanner(e.object);
@@ -120,7 +119,7 @@ class _LoginPageState extends State<LoginPage> {
                     alignment: Alignment.centerRight,
                     child: TextButton(
                       onPressed: () {
-                        Modular.to.pushNamed(AppRoutes.recover);
+                        // Modular.to.pushNamed(AppRoutes.recover);
                       },
                       child: Text(
                         "esqueci a senha",
@@ -173,7 +172,7 @@ class _LoginPageState extends State<LoginPage> {
                           ),
                         ),
                         onPressed: () {
-                          Modular.to.pushNamed(AppRoutes.register);
+                          // Modular.to.pushNamed(AppRoutes.register);
                         },
                       ),
                     ],

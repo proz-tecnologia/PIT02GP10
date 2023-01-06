@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:gastos_app/src/modules/authentication/services/auth_service.dart';
 import 'package:gastos_app/src/modules/home/expense/pages/create_expense/controllers/create_expense_state.dart';
-import 'package:gastos_app/src/repositories/auth/auth_repository.dart';
 import 'package:gastos_app/src/repositories/expense/expense_repository.dart';
 
 class CreateExpenseController {
@@ -20,7 +20,7 @@ class CreateExpenseController {
   }) async {
     state = CreateExpenseStateLoading();
     final expensesRepository = SharedPreferencesExpenseRepository();
-    final loggedUser = await AuthRepository.getLoggedUser();
+    final loggedUser = await AuthService.getLoggedUser();
     if (loggedUser != null) {
       try {
         await Future.delayed(const Duration(seconds: 2));
@@ -36,9 +36,7 @@ class CreateExpenseController {
         state = CreateExpenseStateError(e);
       }
     } else {
-      AuthRepository.logout();
+      // AuthRepository.logout();
     }
   }
 }
-
-

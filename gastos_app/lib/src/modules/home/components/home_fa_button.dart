@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_modular/flutter_modular.dart';
-import 'package:gastos_app/src/app/app_routes.dart';
 import 'package:gastos_app/src/core/app_colors.dart';
 
 class HomeFAButton extends StatelessWidget {
@@ -28,11 +26,11 @@ class HomeFAButton extends StatelessWidget {
         children: [
           InkWell(
             onTap: () {
-              Modular.to.pushNamed(AppRoutes.createProfit).then((value) {
-                if (value == true) {
-                  onRefresh();
-                }
-              });
+              // Modular.to.pushNamed(AppRoutes.createProfit).then((value) {
+              //   if (value == true) {
+              //     onRefresh();
+              //   }
+              // });
             },
             child: Row(
               children: [
@@ -52,13 +50,13 @@ class HomeFAButton extends StatelessWidget {
           const SizedBox(height: 18),
           InkWell(
             onTap: () {
-              Modular.to.pushNamed(AppRoutes.createExpense).then(
-                (value) {
-                  if (value == true) {
-                    onRefresh();
-                  }
-                },
-              );
+              // Modular.to.pushNamed(AppRoutes.createExpense).then(
+              //   (value) {
+              //     if (value == true) {
+              //       onRefresh();
+              //     }
+              //   },
+              // );
             },
             child: Row(
               children: [
