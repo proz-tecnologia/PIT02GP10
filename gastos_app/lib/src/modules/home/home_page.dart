@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:gastos_app/src/modules/home/components/bottom_navigation_bar/custom_bottom_navigation.dart';
 import 'package:gastos_app/src/modules/home/components/custom_app_bar.dart';
 import 'package:gastos_app/src/modules/home/components/drawer/custom_drawer.dart';
 import 'package:gastos_app/src/modules/home/components/home_body.dart';
-import 'package:gastos_app/src/modules/home/controller/home_controller.dart';
-import 'package:gastos_app/src/modules/home/home_states.dart';
+import 'package:gastos_app/src/modules/home/controllers/home_page_controller.dart';
+import 'package:gastos_app/src/modules/home/controllers/home_page_states.dart';
 import 'package:gastos_app/src/shared/components/custom_loading_icon.dart';
 
 class HomePage extends StatefulWidget {
@@ -17,7 +18,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   final _scaffoldKey = GlobalKey<ScaffoldState>();
 
-  final homeController = HomeController();
+  final homeController = Modular.get<HomePageController>();
 
   @override
   void initState() {
@@ -40,10 +41,10 @@ class _HomePageState extends State<HomePage> {
             // AuthRepository.logout();
           },
         ),
-        body: ValueListenableBuilder<HomeStates>(
+        body: ValueListenableBuilder<HomePageState>(
           valueListenable: homeController.homeStateNotifier,
           builder: (context, state, _) {
-            if (state is HomeStateSuccess) {
+            if (state is HomePageStateSuccess) {
               final success = state;
 
               return HomeBody(
@@ -54,9 +55,9 @@ class _HomePageState extends State<HomePage> {
                   homeController.loadData();
                 },
               );
-            } else if (state is HomeStateError) {
+            } else if (state is HomePageStateError) {
               return Center(child: Text(state.error));
-            } else if (state is HomeStateLoading) {
+            } else if (state is HomePageStateLoading) {
               return const Center(child: CustomLoadingIcon());
             }
             return const SizedBox();

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:gastos_app/src/core/app_colors.dart';
 import 'package:gastos_app/src/core/app_images.dart';
-import 'package:gastos_app/src/modules/authentication/login/login_controller.dart';
+import 'package:gastos_app/src/modules/authentication/authentication_routes.dart';
+import 'package:gastos_app/src/modules/authentication/login/login_page_controller.dart';
 import 'package:gastos_app/src/modules/authentication/login/login_states.dart';
 import 'package:gastos_app/src/shared/components/custom_elevated_button.dart';
 import 'package:gastos_app/src/shared/components/custom_loading_icon.dart';
@@ -21,9 +23,10 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  final loginController = Modular.get<LoginPageController>();
+
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
-  final loginController = LoginController();
   final formKey = GlobalKey<FormState>();
 
   void login() {
@@ -40,7 +43,7 @@ class _LoginPageState extends State<LoginPage> {
     loginController.loginStateNotifier.addListener(
       () {
         if (loginController.loginState is LoginStateSuccess) {
-          // Modular.to.pushReplacementNamed(AppRoutes.splash);
+          Modular.to.pushReplacementNamed(AuthenticationRoutes.splash);
         } else if (loginController.loginState is LoginStateError) {
           final e = loginController.loginState as LoginStateError;
           AppNotifications.errorNotificationBanner(e.object);
@@ -53,6 +56,7 @@ class _LoginPageState extends State<LoginPage> {
   @override
   void dispose() {
     loginController.loginStateNotifier.removeListener(() {});
+    Modular.dispose<LoginPageController>();
     super.dispose();
   }
 

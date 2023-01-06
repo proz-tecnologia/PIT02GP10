@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:gastos_app/src/core/app_images.dart';
+import 'package:gastos_app/src/modules/authentication/authentication_routes.dart';
 import 'package:gastos_app/src/modules/authentication/splash/components/animated_cats.dart';
 import 'package:gastos_app/src/modules/authentication/splash/controller/splash_page_controller.dart';
 import 'package:gastos_app/src/modules/authentication/splash/controller/splash_page_state.dart';
+import 'package:gastos_app/src/modules/home/home_routes.dart';
 
 class SplashPage extends StatefulWidget {
   const SplashPage({super.key});
@@ -12,16 +15,16 @@ class SplashPage extends StatefulWidget {
 }
 
 class _SplashPageState extends State<SplashPage> {
-  final SplashPageController controller = SplashPageController();
+  final controller = Modular.get<SplashPageController>();
 
   @override
   void initState() {
     controller.isAuthenticated();
     controller.splashPageStateNotifier.addListener(() {
       if (controller.state is SplashPageStateAuthenticated) {
-        // Modular.to.pushReplacementNamed(AppRoutes.home);
+        Modular.to.pushReplacementNamed(HomeRoutes.main);
       } else if (controller.state is SplashPageStateUnauthenticated) {
-        // Modular.to.pushReplacementNamed(AppRoutes.login);
+        Modular.to.pushReplacementNamed(AuthenticationRoutes.login);
       }
     });
     super.initState();
@@ -30,6 +33,7 @@ class _SplashPageState extends State<SplashPage> {
   @override
   void dispose() {
     controller.splashPageStateNotifier.removeListener(() {});
+    Modular.dispose<SplashPageController>();
     super.dispose();
   }
 

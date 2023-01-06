@@ -1,15 +1,15 @@
 import 'package:gastos_app/src/models/app_error_model.dart';
 import 'package:gastos_app/src/models/user_model.dart';
-import 'package:gastos_app/src/repositories/auth/user_repository.dart';
+import 'package:gastos_app/src/modules/authentication/repositories/user_repository_shared_prefs.dart';
 import 'package:gastos_app/src/shared/config/shared_preferences_keys.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthService {
-  static Future<UserModel> authenticate({
+  Future<UserModel> authenticate({
     required String email,
     required String password,
   }) async {
-    final userRepository = SharedPrefsUserRepository();
+    final userRepository = UserRepositorySharedPrefs();
 
     final user = await userRepository.findByEmail(email: email);
 
@@ -20,17 +20,17 @@ class AuthService {
     return user;
   }
 
-  static Future<bool> isAuthenticated() async {
+  Future<bool> isAuthenticated() async {
     final sharedPreferences = await SharedPreferences.getInstance();
     return sharedPreferences.containsKey(SharedPreferencesKeys.loggedUser);
   }
 
-  static Future<void> saveLoggedUser(UserModel user) async {
+  Future<void> saveLoggedUser(UserModel user) async {
     final instance = await SharedPreferences.getInstance();
     await instance.setString(SharedPreferencesKeys.loggedUser, user.toJson());
   }
 
-  static Future<UserModel?> getLoggedUser() async {
+  Future<UserModel?> getLoggedUser() async {
     final instance = await SharedPreferences.getInstance();
     final String? userJson = instance.getString(
       SharedPreferencesKeys.loggedUser,
@@ -43,7 +43,7 @@ class AuthService {
     return UserModel.fromJson(userJson);
   }
 
-  static Future<void> clearLoggedUser() async {
+  Future<void> clearLoggedUser() async {
     final instance = await SharedPreferences.getInstance();
     await instance.remove(SharedPreferencesKeys.loggedUser);
   }

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:gastos_app/src/repositories/auth/recovery_repository.dart';
+import 'package:gastos_app/src/modules/authentication/repositories/recovery_repository.dart';
 import 'package:gastos_app/src/shared/utils/app_notifications.dart';
 
 class RecoveryPageController {

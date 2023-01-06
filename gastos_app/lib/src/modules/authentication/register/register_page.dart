@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:gastos_app/src/core/app_colors.dart';
 import 'package:gastos_app/src/core/app_images.dart';
-import 'package:gastos_app/src/modules/authentication/register/register_controller.dart';
+import 'package:gastos_app/src/modules/authentication/register/register_page_controller.dart';
 import 'package:gastos_app/src/modules/authentication/register/register_states.dart';
 import 'package:gastos_app/src/shared/components/custom_elevated_button.dart';
 import 'package:gastos_app/src/shared/components/custom_loading_icon.dart';
@@ -31,7 +31,7 @@ class _RegisterPageState extends State<RegisterPage> {
 
   final formKey = GlobalKey<FormState>();
 
-  final registerController = RegisterController();
+  final registerController = Modular.get<RegisterPageController>();
 
   void registerUser() {
     if (formKey.currentState!.validate()) {
@@ -59,6 +59,7 @@ class _RegisterPageState extends State<RegisterPage> {
   @override
   void dispose() {
     registerController.registerStateNotifier.removeListener(() {});
+    Modular.dispose<RegisterPageController>();
     super.dispose();
   }
 
