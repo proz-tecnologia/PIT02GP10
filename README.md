@@ -1,8 +1,11 @@
-# Projeto Gastos App
+
 
 <div align="center">
 <img src="https://user-images.githubusercontent.com/77169506/198666635-d19ea7d6-29b3-4031-bafd-ea9e3ee9c70c.png" />
 </div>
+
+
+  # Projeto Gastos App
 
   <p align="center">
     Repositório com os arquivos e a aplicação "Gastos" em desenvolvimento durante o Curso de formação de desenvolvedor mobile em Flutter da Proz Tecnologia.
@@ -29,7 +32,7 @@
 ## Sobre o Projeto
 
 <p align="center">
-  <img src=".github/demo_sprint2.gif" width="250" alt="Demo">
+  <img src="https://user-images.githubusercontent.com/77169506/198844471-543841a2-0aed-4e82-be8e-401e0816e37e.gif" width="250" alt="Auth Demo">
   </p>
   </br>
 
@@ -75,12 +78,3 @@ Gastos é um aplicativo mobile feito em Flutter para gerenciar e organizar a vid
 ## Licença
 
 Distributed under the MIT License. See `LICENSE` for more information.
-
-
-
-
-# Projeto Finances
-
-Projeto em Dart criado com o objetivo de praticar lógica de programação e a base da linguagem.
-
-Este projeto simula o funcionamento de um aplicativo de gestão financeira com funcionalidades de Login, Criar Conta, Home Page que informa o saldo do usuário e possibilidade de adicionar ganhos e despesas.
