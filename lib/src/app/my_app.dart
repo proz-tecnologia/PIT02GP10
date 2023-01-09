@@ -1,6 +1,4 @@
-import 'dart:developer';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -22,7 +20,7 @@ class _MyAppState extends State<MyApp> {
     WidgetsFlutterBinding.ensureInitialized().addPostFrameCallback((timeStamp) {
       init();
     });
-    
+
     super.initState();
   }
 
@@ -36,9 +34,6 @@ class _MyAppState extends State<MyApp> {
         projectId: "gastos-app-33002",
       ),
     );
-
-    FirebaseCrashlytics.instance.crash();
-    log('[LOG]' + instance.name);
   }
 
   @override
