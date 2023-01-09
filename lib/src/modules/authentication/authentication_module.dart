@@ -7,6 +7,7 @@ import 'package:gastos_app/src/modules/authentication/recovery/recovery_password
 import 'package:gastos_app/src/modules/authentication/recovery/repositories/recovery_repository.dart';
 import 'package:gastos_app/src/modules/authentication/register/register_page.dart';
 import 'package:gastos_app/src/modules/authentication/register/register_page_controller.dart';
+import 'package:gastos_app/src/modules/authentication/repositories/authentication_repository_impl.dart';
 import 'package:gastos_app/src/modules/authentication/repositories/user_repository_shared_prefs.dart';
 import 'package:gastos_app/src/modules/authentication/services/auth_service.dart';
 import 'package:gastos_app/src/modules/authentication/splash/controller/splash_page_controller.dart';
@@ -26,7 +27,8 @@ class AuthenticationModule extends Module {
         ),
         Bind.factory<RegisterPageController>(
           (i) => RegisterPageController(
-            userRepository: UserRepositorySharedPrefs(),
+            //userRepository: UserRepositorySharedPrefs(),
+            repositoryFirebase: AuthenticationRepositoryImpl(),
           ),
         ),
         Bind.factory<RecoveryPageController>(
