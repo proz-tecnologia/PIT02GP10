@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
-
 import 'package:gastos_app/src/modules/authentication/register/register_states.dart';
-
-import 'package:gastos_app/src/modules/authentication/repositories/user_repository_firebase.dart';
+import 'package:gastos_app/src/modules/authentication/repositories/auth_repository.dart';
 
 class RegisterPageController {
-  final UserRepositoryFirebase repositoryFirebase;
+  final AuthRepository repository;
 
   RegisterPageController({
-    required this.repositoryFirebase,
+    required this.repository,
   });
 
   final registerStateNotifier = ValueNotifier<RegisterStates>(
@@ -29,7 +27,7 @@ class RegisterPageController {
 
       await Future.delayed(const Duration(seconds: 2));
 
-      await repositoryFirebase.registerAccount(
+      await repository.registerAccount(
         email: email,
         password: password,
         name: name,

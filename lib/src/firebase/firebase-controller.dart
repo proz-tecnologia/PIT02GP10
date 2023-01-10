@@ -1,13 +1,11 @@
-import 'dart:developer';
-
 import 'package:firebase_core/firebase_core.dart';
 
 class FirebaseController {
   FirebaseController() {
-    init();
+    setup();
   }
 
-  Future<void> init() async {
+  Future<void> setup() async {
     final instance = await Firebase.initializeApp(
       name: 'Gastos-APP',
       options: const FirebaseOptions(
@@ -17,6 +15,5 @@ class FirebaseController {
         projectId: "gastos-app-33002",
       ),
     );
-    log('Firebase was configured');
   }
 }
