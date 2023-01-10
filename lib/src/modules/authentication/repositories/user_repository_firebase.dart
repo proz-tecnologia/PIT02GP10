@@ -21,12 +21,13 @@ abstract class UserRepositoryFirebase {
 
   //validateToken({required String code, required String email}) {}
 
-  changePassword(
-      {required String newPassword,
-      required String token,
-      required String email}) {}
+  // Future<void> changePassword({
+  //   required String newPassword,
+  //   required String token,
+  //   required String email,
+  // }) {}
 
 //User? hasUser();
 
-  //Future<void> logout();
+  Future<void> logout();
 }

@@ -4,7 +4,6 @@ import 'package:gastos_app/src/modules/authentication/repositories/user_reposito
 class AuthenticationRepositoryImpl implements UserRepositoryFirebase {
   FirebaseAuth get authentication => FirebaseAuth.instance;
 
-
   @override
   Future<void> registerAccount({
     required String name,
@@ -17,14 +16,12 @@ class AuthenticationRepositoryImpl implements UserRepositoryFirebase {
       password: password,
     );
 
-     await authentication.currentUser!.updateDisplayName(name);
-     await authentication.currentUser!.sendEmailVerification();
+    await authentication.currentUser!.updateDisplayName(name);
+    await authentication.currentUser!.sendEmailVerification();
   }
 
- 
-
-  @override
-  User? hasUser() => authentication.currentUser;
+  // @override
+  // User? hasUser() => authentication.currentUser;
 
   @override
   Future<void> login({
@@ -41,20 +38,28 @@ class AuthenticationRepositoryImpl implements UserRepositoryFirebase {
   }) async {
     return await authentication.sendPasswordResetEmail(email: email);
   }
-  
+
   @override
-  saveLoggedUser(void response) {
-  }
-  
+  saveLoggedUser(void response) {}
+
   @override
-  changePassword({required String newPassword, required String token, required String email}) {}
-  
+  changePassword(
+      {required String newPassword,
+      required String token,
+      required String email}) {}
+
   @override
   generateRecoveryToken({required String email}) {}
-  
+
   @override
   validateToken({required String code, required String email}) {}
-  
+
+  @override
+  Future<void> logout() {
+    // TODO: implement logout
+    throw UnimplementedError();
+  }
+
   /*@override
    Future<FirebaseApp> init() async {
     return await Firebase.initializeApp(
@@ -67,4 +72,4 @@ class AuthenticationRepositoryImpl implements UserRepositoryFirebase {
       ),
     );
   }*/
-  }
+}
