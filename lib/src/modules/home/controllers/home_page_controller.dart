@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:gastos_app/src/modules/authentication/services/auth_service.dart';
+import 'package:gastos_app/src/modules/authentication/repositories/auth_repository.dart';
 import 'package:gastos_app/src/modules/home/controllers/home_page_states.dart';
 import 'package:gastos_app/src/repositories/expense/expense_repository.dart';
 import 'package:gastos_app/src/repositories/profit/profit_repository.dart';
 
 class HomePageController {
-  final AuthService authService;
+  // final Auth authService;
+  final AuthRepository authRepository;
 
   HomePageController({
-    required this.authService,
+    required this.authRepository,
   });
 
   final homeStateNotifier = ValueNotifier<HomePageState>(HomePageStateEmpty());
@@ -22,24 +23,27 @@ class HomePageController {
   Future<void> loadData() async {
     state = HomePageStateLoading();
     await Future.delayed(const Duration(seconds: 2));
-    final loggedUser = await authService.getLoggedUser();
+    final loggedUser = authRepository.currentUser;
 
     if (loggedUser != null) {
       final profits = await profitsRepository.listAll(
-        loggedUserId: loggedUser.id,
+        loggedUserId: loggedUser.uid,
       );
       final expenses = await expensesRepository.listAll(
-        loggedUserId: loggedUser.id,
+        loggedUserId: loggedUser.uid,
       );
 
       state = HomePageStateSuccess(
         profitsList: profits ?? [],
         expensesList: expenses ?? [],
-        loggedUser: loggedUser,
+        // loggedUser: loggedUser,
       );
     } else {
       state = HomePageStateError(error: "Erro ao carregar dados");
-      await AuthService().logout();
     }
+  }
+
+  Future<void> logout() async {
+    await authRepository.logout();
   }
 }

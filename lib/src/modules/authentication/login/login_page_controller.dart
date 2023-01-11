@@ -1,13 +1,15 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:gastos_app/src/modules/authentication/login/login_states.dart';
-import 'package:gastos_app/src/modules/authentication/services/auth_service.dart';
+import 'package:gastos_app/src/modules/authentication/repositories/auth_repository.dart';
 import 'package:gastos_app/src/shared/utils/app_notifications.dart';
 
 class LoginPageController {
-  final AuthService authService;
+  final AuthRepository authRepository;
 
   LoginPageController({
-    required this.authService,
+    required this.authRepository,
   });
 
   final loginStateNotifier = ValueNotifier<LoginStates>(
@@ -26,14 +28,17 @@ class LoginPageController {
 
       await Future.delayed(const Duration(seconds: 2));
 
-      final response = await authService.authenticate(
+      final user = await authRepository.login(
         email: email,
         password: password,
       );
 
-      await authService.saveLoggedUser(response);
+      log(user.toString());
 
-      loginState = LoginStateSuccess();
+      // await authRepository.saveLoggedUser(response);
+
+      // loginState = LoginStateSuccess();
+      loginState = LoginStateEmpty();
     } catch (e) {
       AppNotifications.errorNotificationBanner(e);
       loginState = LoginStateError(e);

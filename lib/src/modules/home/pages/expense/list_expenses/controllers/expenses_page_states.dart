@@ -1,5 +1,4 @@
 import 'package:gastos_app/src/models/expense_model.dart';
-import 'package:gastos_app/src/models/user_model.dart';
 
 abstract class ExpenseListPageState {}
 
@@ -9,11 +8,11 @@ class ExpenseListPageStateLoading extends ExpenseListPageState {}
 
 class ExpenseListPageStateSuccess extends ExpenseListPageState {
   final List<ExpenseModel> expensesList;
-  final UserModel loggedUser;
+  // final UserModel loggedUser;
 
   ExpenseListPageStateSuccess({
     required this.expensesList,
-    required this.loggedUser,
+    // required this.loggedUser,
   });
 }
 

@@ -1,12 +1,8 @@
 import 'package:firebase_core/firebase_core.dart';
 
 class FirebaseController {
-  FirebaseController() {
-    setup();
-  }
-
   Future<void> setup() async {
-    final instance = await Firebase.initializeApp(
+    await Firebase.initializeApp(
       name: 'Gastos-APP',
       options: const FirebaseOptions(
         apiKey: "AIzaSyDwBadOMmrz38v9hAEfSnEE3Us7U2L8DBg",

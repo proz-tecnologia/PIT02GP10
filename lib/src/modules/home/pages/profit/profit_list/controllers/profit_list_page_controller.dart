@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:gastos_app/src/modules/authentication/services/auth_service.dart';
+import 'package:gastos_app/src/modules/authentication/repositories/auth_repository.dart';
 import 'package:gastos_app/src/modules/home/pages/profit/profit_list/controllers/profit_list_page_states.dart';
 import 'package:gastos_app/src/repositories/profit/profit_repository.dart';
 
 class ProfitListPageController {
-  final AuthService authService;
+  final AuthRepository authService;
 
   ProfitListPageController({
     required this.authService,
@@ -25,12 +25,12 @@ class ProfitListPageController {
 
     await Future.delayed(const Duration(seconds: 2));
 
-    final loggedUser = await authService.getLoggedUser();
+    final loggedUser = authService.currentUser;
 
     if (loggedUser != null) {
       try {
         final profits = await profitRepository.listAll(
-          loggedUserId: loggedUser.id,
+          loggedUserId: loggedUser.uid,
         );
 
         if (profits == null || profits.isEmpty) {
@@ -40,13 +40,13 @@ class ProfitListPageController {
         profits.sort((a, b) => b.createdAt.compareTo(a.createdAt));
         state = ProfitPageStateSuccess(
           profitsList: profits,
-          loggedUser: loggedUser,
+          // loggedUser: loggedUser,
         );
       } catch (e) {
         state = ProfitPageStateError(error: e.toString());
       }
     } else {
-      await AuthService().logout();
+      // await AuthService().logout();
     }
   }
 }

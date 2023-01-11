@@ -1,5 +1,4 @@
 import 'package:gastos_app/src/models/profit_model.dart';
-import 'package:gastos_app/src/models/user_model.dart';
 
 abstract class ProfitListPageState {}
 
@@ -9,11 +8,11 @@ class ProfitPageStateLoading extends ProfitListPageState {}
 
 class ProfitPageStateSuccess extends ProfitListPageState {
   final List<ProfitModel> profitsList;
-  final UserModel loggedUser;
+  // final UserModel loggedUser;
 
   ProfitPageStateSuccess({
     required this.profitsList,
-    required this.loggedUser,
+    // required this.loggedUser,
   });
 }
 

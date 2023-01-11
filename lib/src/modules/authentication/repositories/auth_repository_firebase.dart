@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:gastos_app/src/modules/authentication/repositories/auth_repository.dart';
 
@@ -14,27 +16,29 @@ class AuthRepositoryFirebase implements AuthRepository {
     String? phone,
     required String password,
   }) async {
-    await FirebaseAuth.instance.createUserWithEmailAndPassword(
+    final response = await FirebaseAuth.instance.createUserWithEmailAndPassword(
       email: email,
       password: password,
     );
+
+    log(response.toString());
 
     await firebaseAuthInstance.currentUser!.updateDisplayName(name);
     await firebaseAuthInstance.currentUser!.sendEmailVerification();
+
+    await firebaseAuthInstance.signOut();
   }
 
-  // @override
-  // User? hasUser() => authentication.currentUser;
-
   @override
-  Future<void> login({
+  Future<UserCredential> login({
     required String email,
     required String password,
   }) async {
-    await firebaseAuthInstance.signInWithEmailAndPassword(
+    final user = await firebaseAuthInstance.signInWithEmailAndPassword(
       email: email,
       password: password,
     );
+    return user;
   }
 
   @override
@@ -45,9 +49,6 @@ class AuthRepositoryFirebase implements AuthRepository {
   }
 
   @override
-  saveLoggedUser(void response) {}
-
-  @override
   changePassword({
     required String newPassword,
     required String token,
@@ -55,14 +56,10 @@ class AuthRepositoryFirebase implements AuthRepository {
   }) {}
 
   @override
-  generateRecoveryToken({required String email}) {}
-
-  @override
-  validateToken({required String code, required String email}) {}
-
-  @override
-  Future<void> logout() {
-    // TODO: implement logout
-    throw UnimplementedError();
+  Future<void> logout() async {
+    await firebaseAuthInstance.signOut();
   }
+
+  @override
+  User? get currentUser => firebaseAuthInstance.currentUser;
 }

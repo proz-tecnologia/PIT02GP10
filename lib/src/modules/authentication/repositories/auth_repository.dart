@@ -1,3 +1,5 @@
+import 'package:firebase_auth/firebase_auth.dart';
+
 abstract class AuthRepository {
   Future<void> registerAccount({
     required String name,
@@ -6,10 +8,12 @@ abstract class AuthRepository {
     required String password,
   });
 
-  Future<void> login({
+  Future<UserCredential> login({
     required String email,
     required String password,
   });
+
+  User? get currentUser;
 
   Future<void> recoveryPassword({required String email});
 

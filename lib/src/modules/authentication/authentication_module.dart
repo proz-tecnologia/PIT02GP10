@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:gastos_app/src/modules/authentication/authentication_routes.dart';
 import 'package:gastos_app/src/modules/authentication/login/login_page.dart';
@@ -6,8 +5,7 @@ import 'package:gastos_app/src/modules/authentication/login/login_page_controlle
 import 'package:gastos_app/src/modules/authentication/recovery/recovery_password_page.dart';
 import 'package:gastos_app/src/modules/authentication/register/register_page.dart';
 import 'package:gastos_app/src/modules/authentication/register/register_page_controller.dart';
-import 'package:gastos_app/src/modules/authentication/repositories/auth_repository_firebase.dart';
-import 'package:gastos_app/src/modules/authentication/services/auth_service.dart';
+import 'package:gastos_app/src/modules/authentication/repositories/auth_repository.dart';
 import 'package:gastos_app/src/modules/authentication/splash/controller/splash_page_controller.dart';
 import 'package:gastos_app/src/modules/authentication/splash/splash_page.dart';
 
@@ -17,21 +15,15 @@ class AuthenticationModule extends Module {
 
   @override
   List<Bind<Object>> get binds => [
-        Bind.factory<AuthService>((i) => AuthService()),
-        Bind.singleton<FirebaseAuth>((i) => FirebaseAuth.instance),
-        Bind.factory(
-          (i) => AuthRepositoryFirebase(
-              firebaseAuthInstance: i.get<FirebaseAuth>()),
-        ),
-        Bind.factory<SplashPageController>(
-          (i) => SplashPageController(authService: i.get<AuthService>()),
-        ),
+        Bind.factory<SplashPageController>((i) => SplashPageController()),
         Bind.factory<LoginPageController>(
-          (i) => LoginPageController(authService: i.get<AuthService>()),
+          (i) => LoginPageController(
+            authRepository: i.get<AuthRepository>(),
+          ),
         ),
         Bind.factory<RegisterPageController>(
           (i) => RegisterPageController(
-            repository: i.get<AuthRepositoryFirebase>(),
+            repository: i.get<AuthRepository>(),
           ),
         ),
       ];

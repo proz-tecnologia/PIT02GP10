@@ -1,5 +1,5 @@
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:gastos_app/src/modules/authentication/services/auth_service.dart';
+import 'package:gastos_app/src/modules/authentication/repositories/auth_repository.dart';
 import 'package:gastos_app/src/modules/home/controllers/home_page_controller.dart';
 import 'package:gastos_app/src/modules/home/home_page.dart';
 import 'package:gastos_app/src/modules/home/home_routes.dart';
@@ -19,19 +19,29 @@ class HomeModule extends Module {
   @override
   List<Bind<Object>> get binds => [
         Bind.factory(
-          (i) => HomePageController(authService: AuthService()),
+          (i) => HomePageController(
+            authRepository: i.get<AuthRepository>(),
+          ),
         ),
         Bind.factory(
-          (i) => ProfitListPageController(authService: AuthService()),
+          (i) => ProfitListPageController(
+            authService: i.get<AuthRepository>(),
+          ),
         ),
         Bind.factory(
-          (i) => CreateProfitPageController(authService: AuthService()),
+          (i) => CreateProfitPageController(
+            authService: i.get<AuthRepository>(),
+          ),
         ),
         Bind.factory(
-          (i) => ExpenseListPageController(authService: AuthService()),
+          (i) => ExpenseListPageController(
+            authRepository: i.get<AuthRepository>(),
+          ),
         ),
         Bind.factory(
-          (i) => CreateExpensePageController(authService: AuthService()),
+          (i) => CreateExpensePageController(
+            authRepository: i.get<AuthRepository>(),
+          ),
         ),
       ];
 
