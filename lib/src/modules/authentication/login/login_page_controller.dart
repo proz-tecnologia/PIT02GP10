@@ -35,10 +35,7 @@ class LoginPageController {
 
       log(user.toString());
 
-      // await authRepository.saveLoggedUser(response);
-
-      // loginState = LoginStateSuccess();
-      loginState = LoginStateEmpty();
+      loginState = LoginStateSuccess();
     } catch (e) {
       AppNotifications.errorNotificationBanner(e);
       loginState = LoginStateError(e);
