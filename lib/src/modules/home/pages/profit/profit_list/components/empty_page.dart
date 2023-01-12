@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_modular/flutter_modular.dart';
 import 'package:gastos_app/src/core/app_colors.dart';
-import 'package:gastos_app/src/modules/home/home_routes.dart';
 import 'package:gastos_app/src/shared/components/custom_elevated_button.dart';
 
 class EmptyPage extends StatelessWidget {
@@ -36,14 +34,7 @@ class EmptyPage extends StatelessWidget {
         ),
         const SizedBox(height: 20),
         CustomElevatedButton(
-          onPressed: (() {
-            Modular.to.pushNamed(HomeRoutes.createProfit).then((value) {
-              if (value == true) {
-                Modular.to.pushNamed(HomeRoutes.listProfit);
-              }
-              Modular.to.pop(onCreateProfit);
-            });
-          }),
+          onPressed: onCreateProfit,
           backgroundColor: AppColors.profitColor,
           child: const Text("Cadastrar ganho"),
         ),

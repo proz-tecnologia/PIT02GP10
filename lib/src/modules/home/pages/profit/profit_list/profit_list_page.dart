@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:gastos_app/src/core/app_colors.dart';
 import 'package:gastos_app/src/modules/authentication/authentication_routes.dart';
+import 'package:gastos_app/src/modules/home/controllers/home_page_controller.dart';
+import 'package:gastos_app/src/modules/home/home_routes.dart';
 import 'package:gastos_app/src/modules/home/pages/profit/profit_list/components/empty_page.dart';
 import 'package:gastos_app/src/modules/home/pages/profit/profit_list/components/error_page.dart';
 import 'package:gastos_app/src/modules/home/pages/profit/profit_list/components/profits_list.dart';
@@ -82,7 +84,18 @@ class _ProfitListPageState extends State<ProfitListPage> {
                     );
                   }
                   return EmptyPage(
-                    onCreateProfit: () {},
+                    onCreateProfit: () {
+                      Modular.to.pushNamed(HomeRoutes.createProfit).then(
+                        (value) {
+                          if (value == true) {
+                            if (value == true) {
+                              Modular.get<HomePageController>().loadData();
+                              Modular.to.pop();
+                            }
+                          }
+                        },
+                      );
+                    },
                   );
                 },
                 valueListenable:
