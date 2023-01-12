@@ -4,10 +4,10 @@ import 'package:gastos_app/src/modules/home/pages/profit/profit_list/controllers
 import 'package:gastos_app/src/repositories/profit/profit_repository.dart';
 
 class ProfitListPageController {
-  final AuthRepository authService;
+  final AuthRepository authRepository;
 
   ProfitListPageController({
-    required this.authService,
+    required this.authRepository,
   });
 
   final profitsPageStateNotifier = ValueNotifier<ProfitListPageState>(
@@ -25,7 +25,7 @@ class ProfitListPageController {
 
     await Future.delayed(const Duration(seconds: 2));
 
-    final loggedUser = authService.currentUser;
+    final loggedUser = authRepository.currentUser;
 
     if (loggedUser != null) {
       try {
@@ -40,13 +40,13 @@ class ProfitListPageController {
         profits.sort((a, b) => b.createdAt.compareTo(a.createdAt));
         state = ProfitPageStateSuccess(
           profitsList: profits,
-          // loggedUser: loggedUser,
         );
       } catch (e) {
         state = ProfitPageStateError(error: e.toString());
       }
     } else {
-      // await AuthService().logout();
+      await authRepository.logout();
+      state = ProfitPageStateError(shouldLogout: true);
     }
   }
 }

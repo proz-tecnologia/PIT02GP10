@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:gastos_app/src/modules/authentication/repositories/auth_repository.dart';
 
@@ -20,8 +18,6 @@ class AuthRepositoryFirebase implements AuthRepository {
       email: email,
       password: password,
     );
-
-    log(response.toString());
 
     await firebaseAuthInstance.currentUser!.updateDisplayName(name);
     await firebaseAuthInstance.currentUser!.sendEmailVerification();
@@ -47,13 +43,6 @@ class AuthRepositoryFirebase implements AuthRepository {
   }) async {
     return await firebaseAuthInstance.sendPasswordResetEmail(email: email);
   }
-
-  @override
-  changePassword({
-    required String newPassword,
-    required String token,
-    required String email,
-  }) {}
 
   @override
   Future<void> logout() async {

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:gastos_app/src/models/user_model.dart';
 import 'package:gastos_app/src/modules/authentication/authentication_routes.dart';
 import 'package:gastos_app/src/modules/authentication/repositories/auth_repository_firebase.dart';
 import 'package:gastos_app/src/modules/home/components/bottom_navigation_bar/custom_bottom_navigation.dart';
@@ -61,12 +60,7 @@ class _HomePageState extends State<HomePage> {
               return HomeBody(
                 expenses: success.expensesList,
                 profits: success.profitsList,
-                loggedUser: UserModel(
-                  email: '',
-                  id: '1',
-                  name: 'teste',
-                  password: '1123',
-                ),
+                username: success.username,
                 onRefresh: () {
                   homeController.loadData();
                 },

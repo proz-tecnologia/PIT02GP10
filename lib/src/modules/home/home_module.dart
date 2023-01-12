@@ -25,12 +25,12 @@ class HomeModule extends Module {
         ),
         Bind.factory(
           (i) => ProfitListPageController(
-            authService: i.get<AuthRepository>(),
+            authRepository: i.get<AuthRepository>(),
           ),
         ),
         Bind.factory(
           (i) => CreateProfitPageController(
-            authService: i.get<AuthRepository>(),
+            authRepository: i.get<AuthRepository>(),
           ),
         ),
         Bind.factory(

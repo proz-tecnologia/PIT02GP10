@@ -37,15 +37,12 @@ class ExpenseListPageController {
           return;
         }
         expenses.sort((a, b) => b.createdAt.compareTo(a.createdAt));
-        state = ExpenseListPageStateSuccess(
-          expensesList: expenses,
-          // loggedUser: loggedUser,
-        );
+        state = ExpenseListPageStateSuccess(expensesList: expenses);
       } catch (e) {
         state = ExpenseListPageStateError(error: e.toString());
       }
     } else {
-      // await authRepository().logout();
+      await authRepository.logout();
     }
   }
 }

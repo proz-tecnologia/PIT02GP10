@@ -10,12 +10,12 @@ class HomePageStateLoading extends HomePageState {}
 class HomePageStateSuccess extends HomePageState {
   final List<ProfitModel> profitsList;
   final List<ExpenseModel> expensesList;
-  // final UserModel loggedUser;
+  final String username;
 
   HomePageStateSuccess({
     required this.profitsList,
     required this.expensesList,
-    // required this.loggedUser,
+    required this.username,
   });
 }
 

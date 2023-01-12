@@ -11,8 +11,10 @@ class CreateProfitPageStateSuccess extends CreateProfitPageState {
 }
 
 class CreateProfitPageStateError extends CreateProfitPageState {
-  CreateProfitPageStateError(
-    this.object,
-  );
-  final Object object;
+  CreateProfitPageStateError({
+    this.error,
+    this.shouldLogout = false,
+  });
+  final Object? error;
+  final bool shouldLogout;
 }

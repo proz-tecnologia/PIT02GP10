@@ -8,18 +8,18 @@ class ProfitPageStateLoading extends ProfitListPageState {}
 
 class ProfitPageStateSuccess extends ProfitListPageState {
   final List<ProfitModel> profitsList;
-  // final UserModel loggedUser;
 
   ProfitPageStateSuccess({
     required this.profitsList,
-    // required this.loggedUser,
   });
 }
 
 class ProfitPageStateError extends ProfitListPageState {
-  final String error;
+  final String? error;
+  final bool shouldLogout;
 
   ProfitPageStateError({
-    required this.error,
+    this.error,
+    this.shouldLogout = false,
   });
 }

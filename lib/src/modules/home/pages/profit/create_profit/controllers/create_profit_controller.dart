@@ -4,9 +4,9 @@ import 'package:gastos_app/src/modules/home/pages/profit/create_profit/controlle
 import 'package:gastos_app/src/repositories/profit/profit_repository.dart';
 
 class CreateProfitPageController {
-  final AuthRepository authService;
+  final AuthRepository authRepository;
   CreateProfitPageController({
-    required this.authService,
+    required this.authRepository,
   });
 
   final createProfitStateNotifier = ValueNotifier<CreateProfitPageState>(
@@ -25,7 +25,7 @@ class CreateProfitPageController {
   }) async {
     state = CreateProfitPageStateLoading();
     final profitsRepository = SharedPreferencesProfitRepository();
-    final loggedUser = authService.currentUser;
+    final loggedUser = authRepository.currentUser;
     if (loggedUser != null) {
       try {
         await Future.delayed(const Duration(seconds: 2));
@@ -38,10 +38,11 @@ class CreateProfitPageController {
 
         state = CreateProfitPageStateSuccess();
       } catch (e) {
-        state = CreateProfitPageStateError(e);
+        state = CreateProfitPageStateError(error: e);
       }
     } else {
-      // await AuthService().logout();
+      await authRepository.logout();
+      state = CreateProfitPageStateError(shouldLogout: true);
     }
   }
 }

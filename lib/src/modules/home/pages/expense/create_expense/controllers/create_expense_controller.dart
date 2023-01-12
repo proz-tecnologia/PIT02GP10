@@ -39,10 +39,11 @@ class CreateExpensePageController {
 
         state = CreateExpensePageStateSuccess();
       } catch (e) {
-        state = CreateExpensePageStateError(e);
+        state = CreateExpensePageStateError(error: e);
       }
     } else {
-      // await AuthService().logout();
+      await authRepository.logout();
+      state = CreateExpensePageStateError(shouldLogout: true);
     }
   }
 }
