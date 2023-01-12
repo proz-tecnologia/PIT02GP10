@@ -1,9 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
-import 'package:flutter_modular/flutter_modular.dart';
-
 import 'package:gastos_app/src/core/app_colors.dart';
-import 'package:gastos_app/src/modules/home/home_routes.dart';
 import 'package:gastos_app/src/shared/components/custom_elevated_button.dart';
 
 class EmptyPage extends StatelessWidget {
@@ -38,14 +35,7 @@ class EmptyPage extends StatelessWidget {
         ),
         const SizedBox(height: 20),
         CustomElevatedButton(
-          onPressed: (() {
-            Modular.to.pushNamed(HomeRoutes.createExpense).then((value) {
-              if (value == true) {
-                Modular.to.pushNamed(HomeRoutes.listExpense);
-              }
-              Modular.to.pop(onCreateExpense);
-            });
-          }),
+          onPressed: onCreateExpense,
           backgroundColor: AppColors.expenseColor,
           child: const Text("Cadastrar despesa"),
         ),

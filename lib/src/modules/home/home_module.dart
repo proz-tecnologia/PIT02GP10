@@ -18,7 +18,7 @@ const String _moduleName = 'home/';
 class HomeModule extends Module {
   @override
   List<Bind<Object>> get binds => [
-        Bind.factory(
+        Bind.singleton(
           (i) => HomePageController(
             authRepository: i.get<AuthRepository>(),
           ),
