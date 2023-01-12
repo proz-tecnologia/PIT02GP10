@@ -19,7 +19,7 @@ class _SplashPageState extends State<SplashPage> {
 
   @override
   void initState() {
-    controller.isAuthenticated();
+    controller.setupFirebase();
     controller.splashPageStateNotifier.addListener(() {
       if (controller.state is SplashPageStateAuthenticated) {
         Modular.to.pushReplacementNamed(HomeRoutes.main);
