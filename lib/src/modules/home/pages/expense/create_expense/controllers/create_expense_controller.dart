@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:gastos_app/src/modules/authentication/services/auth_service.dart';
+import 'package:gastos_app/src/modules/authentication/repositories/auth_repository.dart';
 import 'package:gastos_app/src/modules/home/pages/expense/create_expense/controllers/create_expense_state.dart';
 import 'package:gastos_app/src/repositories/expense/expense_repository.dart';
 
 class CreateExpensePageController {
-  final AuthService authService;
+  final AuthRepository authRepository;
 
   CreateExpensePageController({
-    required this.authService,
+    required this.authRepository,
   });
 
   final createExpenseStateNotifier = ValueNotifier<CreateExpensePageState>(
@@ -26,7 +26,7 @@ class CreateExpensePageController {
   }) async {
     state = CreateExpensePageStateLoading();
     final expensesRepository = SharedPreferencesExpenseRepository();
-    final loggedUser = await authService.getLoggedUser();
+    final loggedUser = authRepository.currentUser;
     if (loggedUser != null) {
       try {
         await Future.delayed(const Duration(seconds: 2));
@@ -34,15 +34,16 @@ class CreateExpensePageController {
           title: title,
           value: value,
           createdAt: createdAt,
-          loggedUserId: loggedUser.id,
+          loggedUserId: loggedUser.uid,
         );
 
         state = CreateExpensePageStateSuccess();
       } catch (e) {
-        state = CreateExpensePageStateError(e);
+        state = CreateExpensePageStateError(error: e);
       }
     } else {
-      await AuthService().logout();
+      await authRepository.logout();
+      state = CreateExpensePageStateError(shouldLogout: true);
     }
   }
 }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:gastos_app/src/core/app_colors.dart';
+import 'package:gastos_app/src/modules/authentication/authentication_routes.dart';
 import 'package:gastos_app/src/modules/home/pages/profit/create_profit/controllers/create_profit_controller.dart';
 import 'package:gastos_app/src/modules/home/pages/profit/create_profit/controllers/create_profit_page_state.dart';
 import 'package:gastos_app/src/shared/components/custom_date_picker.dart';
@@ -37,7 +38,13 @@ class _CreateProfitPageState extends State<CreateProfitPage> {
         Modular.to.pop(true);
       } else if (createProfitController.state is CreateProfitPageStateError) {
         final e = createProfitController.state as CreateProfitPageStateError;
-        AppNotifications.errorNotificationBanner(e.object);
+        if (e.error != null) {
+          AppNotifications.errorNotificationBanner(e.error!);
+        }
+        if (e.shouldLogout) {
+          Modular.to.pop();
+          Modular.to.pushReplacementNamed(AuthenticationRoutes.splash);
+        }
       }
     });
     super.initState();

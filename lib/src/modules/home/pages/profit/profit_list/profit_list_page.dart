@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:gastos_app/src/core/app_colors.dart';
+import 'package:gastos_app/src/modules/authentication/authentication_routes.dart';
 import 'package:gastos_app/src/modules/home/pages/profit/profit_list/components/empty_page.dart';
 import 'package:gastos_app/src/modules/home/pages/profit/profit_list/components/error_page.dart';
 import 'package:gastos_app/src/modules/home/pages/profit/profit_list/components/profits_list.dart';
@@ -23,6 +24,17 @@ class _ProfitListPageState extends State<ProfitListPage> {
   @override
   void initState() {
     profitListPageController.getProfitsList();
+
+    profitListPageController.profitsPageStateNotifier.addListener(() {
+      if (profitListPageController.state is ProfitPageStateError) {
+        final state = profitListPageController.state as ProfitPageStateError;
+        if (state.shouldLogout) {
+          Modular.to.pop();
+          Modular.to.pushReplacementNamed(AuthenticationRoutes.splash);
+        }
+      }
+    });
+
     super.initState();
   }
 

@@ -3,12 +3,10 @@ import 'package:gastos_app/src/modules/authentication/authentication_routes.dart
 import 'package:gastos_app/src/modules/authentication/login/login_page.dart';
 import 'package:gastos_app/src/modules/authentication/login/login_page_controller.dart';
 import 'package:gastos_app/src/modules/authentication/recovery/controller/recovery_page_controller.dart';
-import 'package:gastos_app/src/modules/authentication/recovery/recovery_password_page.dart';
-import 'package:gastos_app/src/modules/authentication/recovery/repositories/recovery_repository.dart';
+import 'package:gastos_app/src/modules/authentication/recovery/recovery_password_page_email.dart';
 import 'package:gastos_app/src/modules/authentication/register/register_page.dart';
 import 'package:gastos_app/src/modules/authentication/register/register_page_controller.dart';
-import 'package:gastos_app/src/modules/authentication/repositories/user_repository_shared_prefs.dart';
-import 'package:gastos_app/src/modules/authentication/services/auth_service.dart';
+import 'package:gastos_app/src/modules/authentication/repositories/auth_repository.dart';
 import 'package:gastos_app/src/modules/authentication/splash/controller/splash_page_controller.dart';
 import 'package:gastos_app/src/modules/authentication/splash/splash_page.dart';
 
@@ -18,22 +16,20 @@ class AuthenticationModule extends Module {
 
   @override
   List<Bind<Object>> get binds => [
-        Bind.factory<SplashPageController>(
-          (i) => SplashPageController(authService: AuthService()),
-        ),
+        Bind.factory<SplashPageController>((i) => SplashPageController()),
         Bind.factory<LoginPageController>(
-          (i) => LoginPageController(authService: AuthService()),
+          (i) => LoginPageController(
+            authRepository: i.get<AuthRepository>(),
+          ),
         ),
         Bind.factory<RegisterPageController>(
           (i) => RegisterPageController(
-            userRepository: UserRepositorySharedPrefs(),
+            repository: i.get<AuthRepository>(),
           ),
         ),
         Bind.factory<RecoveryPageController>(
           (i) => RecoveryPageController(
-            recoreryRepository: RecoveryRepository(
-              userRepository: UserRepositorySharedPrefs(),
-            ),
+            authRepository: i.get<AuthRepository>(),
           ),
         ),
       ];
@@ -54,7 +50,7 @@ class AuthenticationModule extends Module {
         ),
         ChildRoute(
           AuthenticationRoutes.recover,
-          child: (context, __) => const RecoveryPasswordPage(),
+          child: (context, __) => const RecoveryPage(),
           duration: animationDuration,
           transition: transitionType,
         ),

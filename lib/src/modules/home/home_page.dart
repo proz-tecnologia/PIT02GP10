@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:gastos_app/src/modules/authentication/services/auth_service.dart';
+import 'package:gastos_app/src/modules/authentication/authentication_routes.dart';
+import 'package:gastos_app/src/modules/authentication/repositories/auth_repository_firebase.dart';
 import 'package:gastos_app/src/modules/home/components/bottom_navigation_bar/custom_bottom_navigation.dart';
 import 'package:gastos_app/src/modules/home/components/custom_app_bar.dart';
 import 'package:gastos_app/src/modules/home/components/drawer/custom_drawer.dart';
@@ -24,6 +25,13 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     homeController.loadData();
+    homeController.homeStateNotifier.addListener(() async {
+      if (homeController.state is HomePageStateError) {
+        await homeController.logout();
+        Modular.to.pushReplacementNamed(AuthenticationRoutes.splash);
+      }
+    });
+
     super.initState();
   }
 
@@ -39,7 +47,8 @@ class _HomePageState extends State<HomePage> {
         ),
         endDrawer: CustomDrawer(
           onLogout: () async {
-            await AuthService().logout();
+            Modular.get<AuthRepositoryFirebase>().logout();
+            Modular.to.pushReplacementNamed(AuthenticationRoutes.splash);
           },
         ),
         body: ValueListenableBuilder<HomePageState>(
@@ -51,7 +60,7 @@ class _HomePageState extends State<HomePage> {
               return HomeBody(
                 expenses: success.expensesList,
                 profits: success.profitsList,
-                loggedUser: success.loggedUser,
+                username: success.username,
                 onRefresh: () {
                   homeController.loadData();
                 },
