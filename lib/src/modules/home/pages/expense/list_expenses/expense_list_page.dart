@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:gastos_app/src/core/app_colors.dart';
 import 'package:gastos_app/src/modules/authentication/authentication_routes.dart';
+import 'package:gastos_app/src/modules/home/controllers/home_page_controller.dart';
+import 'package:gastos_app/src/modules/home/home_routes.dart';
 import 'package:gastos_app/src/modules/home/pages/expense/list_expenses/components/empty_page.dart';
 import 'package:gastos_app/src/modules/home/pages/expense/list_expenses/components/error_page.dart';
 import 'package:gastos_app/src/modules/home/pages/expense/list_expenses/components/expenses_list.dart';
@@ -82,7 +84,16 @@ class _ExpenseListPageState extends State<ExpenseListPage> {
                     );
                   }
                   return EmptyPage(
-                    onCreateExpense: () {},
+                    onCreateExpense: () {
+                      Modular.to.pushNamed(HomeRoutes.createExpense).then(
+                        (value) {
+                          if (value == true) {
+                            Modular.get<HomePageController>().loadData();
+                            Modular.to.pop();
+                          }
+                        },
+                      );
+                    },
                   );
                 },
                 valueListenable:

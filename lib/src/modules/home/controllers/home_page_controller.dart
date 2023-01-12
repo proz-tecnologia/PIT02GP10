@@ -5,7 +5,6 @@ import 'package:gastos_app/src/repositories/expense/expense_repository.dart';
 import 'package:gastos_app/src/repositories/profit/profit_repository.dart';
 
 class HomePageController {
-  // final Auth authService;
   final AuthRepository authRepository;
 
   HomePageController({
