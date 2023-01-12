@@ -11,8 +11,10 @@ class CreateExpensePageStateSuccess extends CreateExpensePageState {
 }
 
 class CreateExpensePageStateError extends CreateExpensePageState {
-  CreateExpensePageStateError(
-    this.object,
-  );
-  final Object object;
+  CreateExpensePageStateError({
+    this.error,
+    this.shouldLogout = false,
+  });
+  final Object? error;
+  final bool shouldLogout;
 }

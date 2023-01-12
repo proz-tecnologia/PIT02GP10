@@ -1,6 +1,5 @@
 import 'package:gastos_app/src/models/expense_model.dart';
 import 'package:gastos_app/src/models/profit_model.dart';
-import 'package:gastos_app/src/models/user_model.dart';
 
 abstract class HomePageState {}
 
@@ -11,12 +10,12 @@ class HomePageStateLoading extends HomePageState {}
 class HomePageStateSuccess extends HomePageState {
   final List<ProfitModel> profitsList;
   final List<ExpenseModel> expensesList;
-  final UserModel loggedUser;
+  final String username;
 
   HomePageStateSuccess({
     required this.profitsList,
     required this.expensesList,
-    required this.loggedUser,
+    required this.username,
   });
 }
 

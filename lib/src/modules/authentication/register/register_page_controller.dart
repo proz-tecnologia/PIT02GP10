@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:gastos_app/src/modules/authentication/register/register_states.dart';
-import 'package:gastos_app/src/modules/authentication/repositories/user_repository.dart';
+import 'package:gastos_app/src/modules/authentication/repositories/auth_repository.dart';
 
 class RegisterPageController {
-  final UserRepository userRepository;
+  final AuthRepository repository;
 
   RegisterPageController({
-    required this.userRepository,
+    required this.repository,
   });
 
   final registerStateNotifier = ValueNotifier<RegisterStates>(
@@ -27,7 +27,7 @@ class RegisterPageController {
 
       await Future.delayed(const Duration(seconds: 2));
 
-      await userRepository.create(
+      await repository.registerAccount(
         email: email,
         password: password,
         name: name,
