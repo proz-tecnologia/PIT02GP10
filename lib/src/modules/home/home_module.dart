@@ -8,6 +8,8 @@ import 'package:gastos_app/src/modules/home/pages/expense/create_expense/create_
 import 'package:gastos_app/src/modules/home/pages/expense/list_expenses/expense_list_page.dart';
 import 'package:gastos_app/src/modules/home/pages/profit/create_profit/create_profit_page.dart';
 import 'package:gastos_app/src/modules/home/pages/profit/profit_list/profit_list_page.dart';
+import 'package:gastos_app/src/repositories/expense/expense_repository.dart';
+import 'package:gastos_app/src/repositories/expense/expense_repository_firestore.dart';
 import 'package:gastos_app/src/repositories/profit/profit_repository.dart';
 import 'package:gastos_app/src/repositories/profit/profit_repository_firestore.dart';
 
@@ -21,11 +23,16 @@ class HomeModule extends Module {
   @override
   List<Bind<Object>> get binds => [
         Bind.lazySingleton<ProfitRepository>(
-            (i) => ProfitRepositoryFirestore()),
+          (i) => ProfitRepositoryFirestore(),
+        ),
+        Bind.lazySingleton<ExpenseRepository>(
+          (i) => ExpenseRepositoryFirestore(),
+        ),
         Bind.singleton(
           (i) => HomePageController(
             authRepository: i.get<AuthRepository>(),
             profitRepository: i.get<ProfitRepositoryFirestore>(),
+            expenseRepository: i.get<ExpenseRepositoryFirestore>(),
           ),
         ),
         Bind.factory(
@@ -43,11 +50,13 @@ class HomeModule extends Module {
         Bind.factory(
           (i) => ExpenseListPageController(
             authRepository: i.get<AuthRepository>(),
+            expenseRepository: i.get<ExpenseRepositoryFirestore>(),
           ),
         ),
         Bind.factory(
           (i) => CreateExpensePageController(
             authRepository: i.get<AuthRepository>(),
+            expenseRepository: i.get<ExpenseRepositoryFirestore>(),
           ),
         ),
       ];

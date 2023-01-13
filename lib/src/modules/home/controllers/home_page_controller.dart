@@ -7,18 +7,18 @@ import 'package:gastos_app/src/repositories/profit/profit_repository.dart';
 class HomePageController {
   final AuthRepository authRepository;
   final ProfitRepository profitRepository;
+  final ExpenseRepository expenseRepository;
 
   HomePageController({
     required this.authRepository,
     required this.profitRepository,
+    required this.expenseRepository,
   });
 
   final homeStateNotifier = ValueNotifier<HomePageState>(HomePageStateEmpty());
 
   set state(HomePageState state) => homeStateNotifier.value = state;
   HomePageState get state => homeStateNotifier.value;
-
-  final expensesRepository = SharedPreferencesExpenseRepository();
 
   Future<void> loadData() async {
     state = HomePageStateLoading();
@@ -29,7 +29,7 @@ class HomePageController {
       final profits = await profitRepository.listAll(
         loggedUserId: loggedUser.uid,
       );
-      final expenses = await expensesRepository.listAll(
+      final expenses = await expenseRepository.listAll(
         loggedUserId: loggedUser.uid,
       );
 
