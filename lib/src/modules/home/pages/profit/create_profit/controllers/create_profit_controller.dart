@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:gastos_app/src/modules/authentication/repositories/auth_repository.dart';
 import 'package:gastos_app/src/modules/home/pages/profit/create_profit/controllers/create_profit_page_state.dart';
-import 'package:gastos_app/src/repositories/profit/profit_repository_firestore.dart';
+import 'package:gastos_app/src/repositories/profit/profit_repository.dart';
 
 class CreateProfitPageController {
   final AuthRepository authRepository;
+  final ProfitRepository profitRepository;
   CreateProfitPageController({
     required this.authRepository,
+    required this.profitRepository,
   });
 
   final createProfitStateNotifier = ValueNotifier<CreateProfitPageState>(
@@ -24,12 +26,12 @@ class CreateProfitPageController {
     required DateTime createdAt,
   }) async {
     state = CreateProfitPageStateLoading();
-    final profitsRepository = ProfitRepositoryFirestore();
+
     final loggedUser = authRepository.currentUser;
     if (loggedUser != null) {
       try {
         await Future.delayed(const Duration(seconds: 2));
-        await profitsRepository.create(
+        await profitRepository.create(
           title: title,
           value: value,
           createdAt: createdAt,
