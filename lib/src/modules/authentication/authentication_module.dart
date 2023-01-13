@@ -9,6 +9,8 @@ import 'package:gastos_app/src/modules/authentication/register/register_page_con
 import 'package:gastos_app/src/modules/authentication/repositories/auth_repository.dart';
 import 'package:gastos_app/src/modules/authentication/splash/controller/splash_page_controller.dart';
 import 'package:gastos_app/src/modules/authentication/splash/splash_page.dart';
+import 'package:gastos_app/src/repositories/user_repository.dart';
+import 'package:gastos_app/src/repositories/user_repository_firebase.dart';
 
 class AuthenticationModule extends Module {
   final animationDuration = const Duration(milliseconds: 600);
@@ -17,6 +19,7 @@ class AuthenticationModule extends Module {
   @override
   List<Bind<Object>> get binds => [
         Bind.factory<SplashPageController>((i) => SplashPageController()),
+        Bind.factory<UserRepository>((i) => UserRepositoryFirebase()),
         Bind.factory<LoginPageController>(
           (i) => LoginPageController(
             authRepository: i.get<AuthRepository>(),
@@ -25,6 +28,7 @@ class AuthenticationModule extends Module {
         Bind.factory<RegisterPageController>(
           (i) => RegisterPageController(
             repository: i.get<AuthRepository>(),
+            userRepository: i.get<UserRepository>(),
           ),
         ),
         Bind.factory<RecoveryPageController>(

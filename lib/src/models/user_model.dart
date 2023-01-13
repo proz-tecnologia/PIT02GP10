@@ -6,7 +6,6 @@ class UserModel {
   final String email;
   final String? phone;
   final String? avatarUrl;
-  final String password;
 
   UserModel({
     required this.id,
@@ -14,7 +13,6 @@ class UserModel {
     required this.email,
     this.phone,
     this.avatarUrl,
-    required this.password,
   });
 
   UserModel copyWith({
@@ -23,7 +21,6 @@ class UserModel {
     String? email,
     String? phone,
     String? avatarUrl,
-    String? password,
   }) {
     return UserModel(
       id: id ?? this.id,
@@ -31,7 +28,6 @@ class UserModel {
       email: email ?? this.email,
       phone: phone ?? this.phone,
       avatarUrl: avatarUrl ?? this.avatarUrl,
-      password: password ?? this.password,
     );
   }
 
@@ -42,18 +38,16 @@ class UserModel {
       'email': email,
       'phone': phone,
       'avatarUrl': avatarUrl,
-      'password': password,
     };
   }
 
   factory UserModel.fromMap(Map<String, dynamic> map) {
     return UserModel(
-      id: map['id'],
-      name: map['name'],
-      email: map['email'],
+      id: map['id'] ?? '',
+      name: map['name'] ?? '',
+      email: map['email'] ?? '',
       phone: map['phone'],
       avatarUrl: map['avatarUrl'],
-      password: map['password'],
     );
   }
 
@@ -64,7 +58,7 @@ class UserModel {
 
   @override
   String toString() {
-    return 'UserModel(id: $id, name: $name, email: $email, phone: $phone, avatarUrl: $avatarUrl, password: $password)';
+    return 'UserModel(id: $id, name: $name, email: $email, phone: $phone, avatarUrl: $avatarUrl)';
   }
 
   @override
@@ -76,8 +70,7 @@ class UserModel {
         other.name == name &&
         other.email == email &&
         other.phone == phone &&
-        other.avatarUrl == avatarUrl &&
-        other.password == password;
+        other.avatarUrl == avatarUrl;
   }
 
   @override
@@ -86,7 +79,6 @@ class UserModel {
         name.hashCode ^
         email.hashCode ^
         phone.hashCode ^
-        avatarUrl.hashCode ^
-        password.hashCode;
+        avatarUrl.hashCode;
   }
 }
