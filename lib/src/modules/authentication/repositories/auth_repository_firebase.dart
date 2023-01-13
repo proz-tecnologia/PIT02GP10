@@ -8,7 +8,7 @@ class AuthRepositoryFirebase implements AuthRepository {
   });
 
   @override
-  Future<void> registerAccount({
+  Future<String> registerAccount({
     required String name,
     required String email,
     String? phone,
@@ -23,6 +23,8 @@ class AuthRepositoryFirebase implements AuthRepository {
     await firebaseAuthInstance.currentUser!.sendEmailVerification();
 
     await firebaseAuthInstance.signOut();
+
+    return response.user!.uid;
   }
 
   @override
