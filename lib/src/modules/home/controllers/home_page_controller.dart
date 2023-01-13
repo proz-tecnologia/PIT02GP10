@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gastos_app/src/modules/authentication/repositories/auth_repository.dart';
 import 'package:gastos_app/src/modules/home/controllers/home_page_states.dart';
 import 'package:gastos_app/src/repositories/expense/expense_repository.dart';
-import 'package:gastos_app/src/repositories/profit/profit_repository.dart';
+import 'package:gastos_app/src/repositories/profit/profit_repository_firestore.dart';
 
 class HomePageController {
   final AuthRepository authRepository;
@@ -16,7 +16,7 @@ class HomePageController {
   set state(HomePageState state) => homeStateNotifier.value = state;
   HomePageState get state => homeStateNotifier.value;
 
-  final profitsRepository = SharedPreferencesProfitRepository();
+  final profitsRepository = ProfitRepositoryFirestore();
   final expensesRepository = SharedPreferencesExpenseRepository();
 
   Future<void> loadData() async {

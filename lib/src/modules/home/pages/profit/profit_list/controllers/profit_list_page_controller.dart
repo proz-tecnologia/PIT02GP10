@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gastos_app/src/modules/authentication/repositories/auth_repository.dart';
 import 'package:gastos_app/src/modules/home/pages/profit/profit_list/controllers/profit_list_page_states.dart';
-import 'package:gastos_app/src/repositories/profit/profit_repository.dart';
+import 'package:gastos_app/src/repositories/profit/profit_repository_firestore.dart';
 
 class ProfitListPageController {
   final AuthRepository authRepository;
@@ -21,7 +21,7 @@ class ProfitListPageController {
 
   Future<void> getProfitsList() async {
     state = ProfitPageStateLoading();
-    final profitRepository = SharedPreferencesProfitRepository();
+    final profitRepository = ProfitRepositoryFirestore();
 
     await Future.delayed(const Duration(seconds: 2));
 
