@@ -6,11 +6,12 @@ import 'package:gastos_app/src/modules/home/home_routes.dart';
 import 'package:gastos_app/src/modules/home/pages/expense/create_expense/controllers/create_expense_controller.dart';
 import 'package:gastos_app/src/modules/home/pages/expense/create_expense/create_expense_page.dart';
 import 'package:gastos_app/src/modules/home/pages/expense/list_expenses/expense_list_page.dart';
+import 'package:gastos_app/src/modules/home/pages/profile/profile_user_controller.dart';
+import 'package:gastos_app/src/modules/home/pages/profit/create_profit/controllers/create_profit_controller.dart';
 import 'package:gastos_app/src/modules/home/pages/profit/create_profit/create_profit_page.dart';
 import 'package:gastos_app/src/modules/home/pages/profit/profit_list/profit_list_page.dart';
-
+import 'package:gastos_app/src/modules/home/pages/profile/profile_user_page.dart';
 import 'pages/expense/list_expenses/controllers/expenses_page_controller.dart';
-import 'pages/profit/create_profit/controllers/create_profit_controller.dart';
 import 'pages/profit/profit_list/controllers/profit_list_page_controller.dart';
 
 const String _moduleName = 'home/';
@@ -43,6 +44,11 @@ class HomeModule extends Module {
             authRepository: i.get<AuthRepository>(),
           ),
         ),
+        Bind.factory(
+          (i) => ProfileUserController(
+            repository: i.get<AuthRepository>(),
+          ),
+        ),
       ];
 
   @override
@@ -66,6 +72,10 @@ class HomeModule extends Module {
         ChildRoute(
           routeNameFormatter(HomeRoutes.listProfit),
           child: (context, _) => const ProfitListPage(),
+        ),
+        ChildRoute(
+          routeNameFormatter(HomeRoutes.profileUserPage),
+          child: (context, _) => const ProfileUserPage(),
         ),
       ];
 
