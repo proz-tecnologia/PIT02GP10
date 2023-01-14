@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:gastos_app/src/modules/authentication/repositories/auth_repository.dart';
-import 'package:gastos_app/src/modules/home/pages/expense/create_expense/controllers/create_expense_state.dart';
+import 'package:gastos_app/src/modules/home/pages/expense/create_expense/controllers/create_expense_page_state.dart';
 import 'package:gastos_app/src/repositories/expense/expense_repository.dart';
 
 class CreateExpensePageController {
   final AuthRepository authRepository;
+  final ExpenseRepository expenseRepository;
 
   CreateExpensePageController({
     required this.authRepository,
+    required this.expenseRepository,
   });
 
   final createExpenseStateNotifier = ValueNotifier<CreateExpensePageState>(
@@ -25,12 +27,12 @@ class CreateExpensePageController {
     required DateTime createdAt,
   }) async {
     state = CreateExpensePageStateLoading();
-    final expensesRepository = SharedPreferencesExpenseRepository();
+
     final loggedUser = authRepository.currentUser;
     if (loggedUser != null) {
       try {
         await Future.delayed(const Duration(seconds: 2));
-        await expensesRepository.create(
+        await expenseRepository.create(
           title: title,
           value: value,
           createdAt: createdAt,

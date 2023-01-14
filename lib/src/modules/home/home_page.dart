@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:gastos_app/src/modules/authentication/authentication_routes.dart';
 import 'package:gastos_app/src/modules/authentication/repositories/auth_repository_firebase.dart';
-import 'package:gastos_app/src/modules/home/components/bottom_navigation_bar/custom_bottom_navigation.dart';
 import 'package:gastos_app/src/modules/home/components/custom_app_bar.dart';
 import 'package:gastos_app/src/modules/home/components/drawer/custom_drawer.dart';
 import 'package:gastos_app/src/modules/home/components/home_body.dart';
@@ -73,7 +72,6 @@ class _HomePageState extends State<HomePage> {
             return const SizedBox();
           },
         ),
-        bottomNavigationBar: const CustomBottomNavigationBar(),
       ),
     );
   }

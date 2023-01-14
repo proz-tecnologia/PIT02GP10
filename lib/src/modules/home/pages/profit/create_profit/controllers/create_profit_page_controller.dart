@@ -5,8 +5,10 @@ import 'package:gastos_app/src/repositories/profit/profit_repository.dart';
 
 class CreateProfitPageController {
   final AuthRepository authRepository;
+  final ProfitRepository profitRepository;
   CreateProfitPageController({
     required this.authRepository,
+    required this.profitRepository,
   });
 
   final createProfitStateNotifier = ValueNotifier<CreateProfitPageState>(
@@ -24,12 +26,12 @@ class CreateProfitPageController {
     required DateTime createdAt,
   }) async {
     state = CreateProfitPageStateLoading();
-    final profitsRepository = SharedPreferencesProfitRepository();
+
     final loggedUser = authRepository.currentUser;
     if (loggedUser != null) {
       try {
         await Future.delayed(const Duration(seconds: 2));
-        await profitsRepository.create(
+        await profitRepository.create(
           title: title,
           value: value,
           createdAt: createdAt,

@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:gastos_app/src/modules/authentication/repositories/auth_repository.dart';
-import 'package:gastos_app/src/modules/home/pages/expense/list_expenses/controllers/expenses_page_states.dart';
+import 'package:gastos_app/src/modules/home/pages/expense/list_expenses/controllers/expense_list_page_states.dart';
 import 'package:gastos_app/src/repositories/expense/expense_repository.dart';
 
 class ExpenseListPageController {
   final AuthRepository authRepository;
+  final ExpenseRepository expenseRepository;
   ExpenseListPageController({
     required this.authRepository,
+    required this.expenseRepository,
   });
 
   final expensesPageStateNotifier = ValueNotifier<ExpenseListPageState>(
@@ -20,7 +22,6 @@ class ExpenseListPageController {
 
   Future<void> getExpensesList() async {
     state = ExpenseListPageStateLoading();
-    final expenseRepository = SharedPreferencesExpenseRepository();
 
     await Future.delayed(const Duration(seconds: 2));
 

@@ -3,7 +3,7 @@ import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:gastos_app/src/core/app_colors.dart';
 import 'package:gastos_app/src/modules/authentication/authentication_routes.dart';
-import 'package:gastos_app/src/modules/home/pages/profit/create_profit/controllers/create_profit_controller.dart';
+import 'package:gastos_app/src/modules/home/pages/profit/create_profit/controllers/create_profit_page_controller.dart';
 import 'package:gastos_app/src/modules/home/pages/profit/create_profit/controllers/create_profit_page_state.dart';
 import 'package:gastos_app/src/shared/components/custom_date_picker.dart';
 import 'package:gastos_app/src/shared/components/custom_elevated_button.dart';

@@ -1,13 +1,11 @@
 import 'dart:convert';
 
 class ExpenseModel {
-  final String id;
   final String title;
   final double value;
   final DateTime createdAt;
   final String createdBy;
   ExpenseModel({
-    required this.id,
     required this.title,
     required this.value,
     required this.createdAt,
@@ -15,14 +13,12 @@ class ExpenseModel {
   });
 
   ExpenseModel copyWith({
-    String? id,
     String? title,
     double? value,
     DateTime? createdAt,
     String? createdBy,
   }) {
     return ExpenseModel(
-      id: id ?? this.id,
       title: title ?? this.title,
       value: value ?? this.value,
       createdAt: createdAt ?? this.createdAt,
@@ -32,7 +28,6 @@ class ExpenseModel {
 
   Map<String, dynamic> toMap() {
     return {
-      'id': id,
       'title': title,
       'value': value,
       'createdAt': createdAt.toIso8601String(),
@@ -42,7 +37,6 @@ class ExpenseModel {
 
   factory ExpenseModel.fromMap(Map<String, dynamic> map) {
     return ExpenseModel(
-      id: map['id'] ?? '',
       title: map['title'] ?? '',
       value: map['value']?.toDouble() ?? 0.0,
       createdAt: DateTime.parse(map['createdAt']),
@@ -57,7 +51,7 @@ class ExpenseModel {
 
   @override
   String toString() {
-    return 'ExpenseModel(id: $id, title: $title, value: $value, createdAt: $createdAt, createdBy: $createdBy)';
+    return 'ExpenseModel(title: $title, value: $value, createdAt: $createdAt, createdBy: $createdBy)';
   }
 
   @override
@@ -65,7 +59,6 @@ class ExpenseModel {
     if (identical(this, other)) return true;
 
     return other is ExpenseModel &&
-        other.id == id &&
         other.title == title &&
         other.value == value &&
         other.createdAt == createdAt &&
@@ -74,8 +67,7 @@ class ExpenseModel {
 
   @override
   int get hashCode {
-    return id.hashCode ^
-        title.hashCode ^
+    return title.hashCode ^
         value.hashCode ^
         createdAt.hashCode ^
         createdBy.hashCode;

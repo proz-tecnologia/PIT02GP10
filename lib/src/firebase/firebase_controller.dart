@@ -1,15 +1,43 @@
+import 'dart:async';
+import 'dart:isolate';
+
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
+import 'package:flutter/foundation.dart';
+import 'package:gastos_app/firebase_options.dart';
 
 class FirebaseController {
   Future<void> setup() async {
-    await Firebase.initializeApp(
-      name: 'Gastos-APP',
-      options: const FirebaseOptions(
-        apiKey: "AIzaSyDwBadOMmrz38v9hAEfSnEE3Us7U2L8DBg",
-        appId: "1:1042540631912:android:c215afe6aa51a104e928dd",
-        messagingSenderId: "1042540631912",
-        projectId: "gastos-app-33002",
-      ),
+    runZonedGuarded<Future<void>>(
+      () async {
+        await Firebase.initializeApp(
+          options: DefaultFirebaseOptions.currentPlatform,
+        );
+
+        await FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(
+          true,
+        );
+
+        FlutterError.onError = (errorDetails) {
+          FirebaseCrashlytics.instance.recordFlutterFatalError(errorDetails);
+        };
+
+        PlatformDispatcher.instance.onError = (error, stack) {
+          FirebaseCrashlytics.instance.recordError(error, stack);
+          return true;
+        };
+
+        Isolate.current.addErrorListener(RawReceivePort((pair) async {
+          final List<dynamic> errorAndStacktrace = pair;
+          await FirebaseCrashlytics.instance.recordError(
+            errorAndStacktrace.first,
+            errorAndStacktrace.last,
+          );
+        }).sendPort);
+      },
+      (error, stack) {
+        FirebaseCrashlytics.instance.recordError(error, stack);
+      },
     );
   }
 }

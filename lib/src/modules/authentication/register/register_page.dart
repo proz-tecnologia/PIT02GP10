@@ -7,8 +7,8 @@ import 'package:gastos_app/src/modules/authentication/register/register_states.d
 import 'package:gastos_app/src/shared/components/custom_elevated_button.dart';
 import 'package:gastos_app/src/shared/components/custom_loading_icon.dart';
 import 'package:gastos_app/src/shared/components/custom_text_field.dart';
+import 'package:gastos_app/src/shared/utils/app_input_masks.dart';
 import 'package:gastos_app/src/shared/utils/app_notifications.dart';
-import 'package:gastos_app/src/shared/utils/input_masks.dart';
 import 'package:validatorless/validatorless.dart';
 
 import '../../../shared/components/password_field.dart';

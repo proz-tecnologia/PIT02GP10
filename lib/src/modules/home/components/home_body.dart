@@ -51,8 +51,8 @@ class _HomeBodyState extends State<HomeBody> {
           ),
         ),
         Positioned(
-          bottom: 10,
-          right: 10,
+          bottom: 20,
+          right: 20,
           child: HomeFAButton(
             onRefresh: widget.onRefresh,
           ),
