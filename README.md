@@ -21,7 +21,6 @@
       <ul>
         <li><a href="#tecnologias-utilizadas">Tecnologias utilizadas</a></li>
         <li><a href="#layout-figma">Figma</a></li>
-        <li><a href="#notion">Notion</a></li>
       </ul>
     </li>
     <li><a href="#instalação">Instalação</a></li>
