@@ -48,9 +48,6 @@ Gastos é um aplicativo mobile feito em Flutter para gerenciar e organizar a vid
 
 - [Figma](https://www.figma.com/file/hE8uwEG4TxEFMSUk1xaRYt/Gastos?node-id=0%3A1)
 
-### Notion
-
-- [Notion](https://patrickdiegoas.notion.site/patrickdiegoas/PIT02GP10-Aplica-o-de-gest-o-financeira-4553887cf7584d6abc6424086594d221)
 
 ## Instalação
 
