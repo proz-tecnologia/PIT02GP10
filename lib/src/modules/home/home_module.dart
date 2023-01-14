@@ -14,7 +14,7 @@ import 'package:gastos_app/src/repositories/profit/profit_repository.dart';
 import 'package:gastos_app/src/repositories/profit/profit_repository_firestore.dart';
 
 import 'pages/expense/list_expenses/controllers/expense_list_page_controller.dart';
-import 'pages/profit/create_profit/controllers/create_profit_controller.dart';
+import 'pages/profit/create_profit/controllers/create_profit_page_controller.dart';
 import 'pages/profit/profit_list/controllers/profit_list_page_controller.dart';
 
 const String _moduleName = 'home/';
