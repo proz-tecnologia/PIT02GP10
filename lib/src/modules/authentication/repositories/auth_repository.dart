@@ -8,6 +8,13 @@ abstract class AuthRepository {
     required String password,
   });
 
+  Future<void> updateUser({
+    required String name,
+    required String customName,
+    String? phone,
+    required String password,
+  });
+
   Future<UserCredential> login({
     required String email,
     required String password,
