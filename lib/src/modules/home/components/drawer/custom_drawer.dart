@@ -37,20 +37,6 @@ class CustomDrawer extends StatelessWidget {
                   ),
                   DrawerMenuItem(
                     onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    icon: Icons.settings_outlined,
-                    title: "Configurações",
-                  ),
-                  DrawerMenuItem(
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    icon: Icons.contact_support_outlined,
-                    title: "Ajuda",
-                  ),
-                  DrawerMenuItem(
-                    onPressed: () {
                       onLogout();
                       Navigator.pop(context);
                     },
