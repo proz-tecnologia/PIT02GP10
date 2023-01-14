@@ -3,7 +3,7 @@ import 'package:gastos_app/src/modules/authentication/repositories/auth_reposito
 import 'package:gastos_app/src/modules/home/controllers/home_page_controller.dart';
 import 'package:gastos_app/src/modules/home/home_page.dart';
 import 'package:gastos_app/src/modules/home/home_routes.dart';
-import 'package:gastos_app/src/modules/home/pages/expense/create_expense/controllers/create_expense_controller.dart';
+import 'package:gastos_app/src/modules/home/pages/expense/create_expense/controllers/create_expense_page_controller.dart';
 import 'package:gastos_app/src/modules/home/pages/expense/create_expense/create_expense_page.dart';
 import 'package:gastos_app/src/modules/home/pages/expense/list_expenses/expense_list_page.dart';
 import 'package:gastos_app/src/modules/home/pages/profit/create_profit/create_profit_page.dart';
@@ -13,7 +13,7 @@ import 'package:gastos_app/src/repositories/expense/expense_repository_firestore
 import 'package:gastos_app/src/repositories/profit/profit_repository.dart';
 import 'package:gastos_app/src/repositories/profit/profit_repository_firestore.dart';
 
-import 'pages/expense/list_expenses/controllers/expenses_page_controller.dart';
+import 'pages/expense/list_expenses/controllers/expense_list_page_controller.dart';
 import 'pages/profit/create_profit/controllers/create_profit_controller.dart';
 import 'pages/profit/profit_list/controllers/profit_list_page_controller.dart';
 

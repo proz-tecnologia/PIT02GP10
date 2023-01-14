@@ -3,7 +3,7 @@ import 'package:gastos_app/src/modules/authentication/authentication_routes.dart
 import 'package:gastos_app/src/modules/authentication/login/login_page.dart';
 import 'package:gastos_app/src/modules/authentication/login/login_page_controller.dart';
 import 'package:gastos_app/src/modules/authentication/recovery/controller/recovery_page_controller.dart';
-import 'package:gastos_app/src/modules/authentication/recovery/recovery_password_page_email.dart';
+import 'package:gastos_app/src/modules/authentication/recovery/recovery_page.dart';
 import 'package:gastos_app/src/modules/authentication/register/register_page.dart';
 import 'package:gastos_app/src/modules/authentication/register/register_page_controller.dart';
 import 'package:gastos_app/src/modules/authentication/repositories/auth_repository.dart';

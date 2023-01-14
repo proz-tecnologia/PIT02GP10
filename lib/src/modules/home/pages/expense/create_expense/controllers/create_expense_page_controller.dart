@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gastos_app/src/modules/authentication/repositories/auth_repository.dart';
-import 'package:gastos_app/src/modules/home/pages/expense/create_expense/controllers/create_expense_state.dart';
+import 'package:gastos_app/src/modules/home/pages/expense/create_expense/controllers/create_expense_page_state.dart';
 import 'package:gastos_app/src/repositories/expense/expense_repository.dart';
 
 class CreateExpensePageController {
