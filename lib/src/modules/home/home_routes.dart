@@ -6,4 +6,6 @@ class HomeRoutes {
 
   static const String listProfit = "/home/profits/list";
   static const String createProfit = "/home/profits/create";
+  static const String profileUserPage = "/home/profile";
+
 }
