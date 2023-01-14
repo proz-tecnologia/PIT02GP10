@@ -7,12 +7,16 @@ import 'package:gastos_app/src/modules/home/pages/expense/create_expense/control
 import 'package:gastos_app/src/modules/home/pages/expense/create_expense/create_expense_page.dart';
 import 'package:gastos_app/src/modules/home/pages/expense/list_expenses/expense_list_page.dart';
 import 'package:gastos_app/src/modules/home/pages/profile/profile_user_controller.dart';
-import 'package:gastos_app/src/modules/home/pages/profit/create_profit/controllers/create_profit_controller.dart';
+import 'package:gastos_app/src/modules/home/pages/profile/profile_user_page.dart';
 import 'package:gastos_app/src/modules/home/pages/profit/create_profit/create_profit_page.dart';
 import 'package:gastos_app/src/modules/home/pages/profit/profit_list/profit_list_page.dart';
+import 'package:gastos_app/src/repositories/expense/expense_repository.dart';
+import 'package:gastos_app/src/repositories/expense/expense_repository_firestore.dart';
+import 'package:gastos_app/src/repositories/profit/profit_repository.dart';
+import 'package:gastos_app/src/repositories/profit/profit_repository_firestore.dart';
 
-import 'pages/expense/list_expenses/controllers/expenses_page_controller.dart';
-import 'pages/profit/create_profit/controllers/create_profit_controller.dart';
+import 'pages/expense/list_expenses/controllers/expense_list_page_controller.dart';
+import 'pages/profit/create_profit/controllers/create_profit_page_controller.dart';
 import 'pages/profit/profit_list/controllers/profit_list_page_controller.dart';
 
 const String _moduleName = 'home/';
