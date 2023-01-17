@@ -87,7 +87,7 @@ class _ProfileUserStates extends State<ProfileUserPage> {
                   ),
                 ),
                 const SizedBox(height: 16),
-                Image.asset(AppImages.profileImage),
+                //Image.asset(AppImages.profileImage),
                 const SizedBox(height: 16),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20.0),
@@ -103,7 +103,7 @@ class _ProfileUserStates extends State<ProfileUserPage> {
                   padding: const EdgeInsets.symmetric(horizontal: 20.0),
                   child: CustomTextField(
                     label: "Nome de Preferência",
-                    controller: nameController,
+                    controller: customNameController,
                     validator: Validatorless.required("Digite um nome válido"),
                     textInputAction: TextInputAction.next,
                     textInputType: TextInputType.text,
