@@ -38,10 +38,10 @@ class ProfileValue extends StatelessWidget {
           width: double.infinity,
           padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
           decoration: BoxDecoration(
-            color: AppColors.primaryColor,
+            color: AppColors.secondaryColor,
             borderRadius: AppThemes.defaultBorderRadius,
             border: Border.all(
-              color: AppColors.primaryColor,
+              color: AppColors.secondaryColor,
             ),
           ),
           child: Text(

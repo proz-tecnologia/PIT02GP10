@@ -23,6 +23,7 @@ class ProfilePageController {
 
   Future<void> getUserData() async {
     state = ProfilePageStateLoading();
+    await Future.delayed(const Duration(seconds: 2));
     try {
       final loggedUser = authRepository.currentUser!;
 
