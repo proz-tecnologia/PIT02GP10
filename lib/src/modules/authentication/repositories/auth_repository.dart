@@ -8,12 +8,9 @@ abstract class AuthRepository {
     required String password,
   });
 
-  Future<void> updateUser({
-    required String name,
-    required String customName,
-    String? phone,
-    required String password,
-  });
+  Future<void> updatePassword({required String password});
+
+  Future<void> updateName({required String name});
 
   Future<UserCredential> login({
     required String email,
