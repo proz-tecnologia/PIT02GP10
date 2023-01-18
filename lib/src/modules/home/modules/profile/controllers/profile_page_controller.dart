@@ -4,8 +4,6 @@ import 'package:gastos_app/src/modules/home/modules/profile/controllers/profile_
 import 'package:gastos_app/src/repositories/user_repository.dart';
 
 class ProfilePageController {
-  // name, nickname, telefone, avatarUrl
-
   final profilePageStateNotifier = ValueNotifier<ProfilePageState>(
     ProfilePageStateEmpty(),
   );

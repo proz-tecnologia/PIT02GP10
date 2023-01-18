@@ -10,4 +10,19 @@ abstract class UserRepository {
   });
 
   Future<UserModel> getUserDataById({required String userId});
+
+  Future<void> updateUserName({
+    required String userId,
+    required String name,
+  });
+
+  Future<void> updateNickname({
+    required String userId,
+    required String nickname,
+  });
+
+  Future<void> updatePhone({
+    required String userId,
+    required String phone,
+  });
 }

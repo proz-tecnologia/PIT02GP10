@@ -21,7 +21,10 @@ class ProfileModule extends Module {
           ),
         ),
         Bind.factory(
-          (i) => EditProfileController(repository: i.get<AuthRepository>()),
+          (i) => EditProfileController(
+            authRepository: i.get<AuthRepository>(),
+            userRepository: i.get<UserRepository>(),
+          ),
         ),
       ];
 

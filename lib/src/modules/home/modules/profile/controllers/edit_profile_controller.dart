@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:gastos_app/src/modules/authentication/repositories/auth_repository.dart';
 import 'package:gastos_app/src/modules/home/modules/profile/controllers/edit_profile_state.dart';
+import 'package:gastos_app/src/repositories/user_repository.dart';
 
 class EditProfileController {
-  final AuthRepository repository;
+  final UserRepository userRepository;
+  final AuthRepository authRepository;
 
   EditProfileController({
-    required this.repository,
+    required this.userRepository,
+    required this.authRepository,
   });
 
   final profileUserStateNotifier = ValueNotifier<EditProfileState>(
@@ -18,7 +21,7 @@ class EditProfileController {
 
   Future<void> updateUserData({
     String? name,
-    String? customName,
+    String? nickname,
     String? phone,
     String? password,
   }) async {
@@ -27,18 +30,26 @@ class EditProfileController {
 
       await Future.delayed(const Duration(seconds: 2));
 
-      //Firebase Authentication
-      //name, phone, password
+      final user = authRepository.currentUser!;
 
-      //Firestore
-      // name, nickname, phone,
+      if (name != null) {
+        await authRepository.updateName(name: name);
 
-      // await repository.updateUser(
-      //   customName: customName,
-      //   password: password,
-      //   name: name,
-      //   phone: phone,
-      // );
+        await userRepository.updateUserName(userId: user.uid, name: name);
+      }
+      if (nickname != null) {
+        await userRepository.updateNickname(
+          userId: user.uid,
+          nickname: nickname,
+        );
+      }
+      if (phone != null) {
+        await userRepository.updatePhone(userId: user.uid, phone: phone);
+      }
+      if (password != null) {
+        await authRepository.updatePassword(password: password);
+      }
+
       state = EditProfileStateSuccess();
     } catch (e) {
       state = EditProfileStateError(e);

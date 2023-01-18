@@ -22,7 +22,7 @@ class EditProfilePage extends StatefulWidget {
 
 class _EditProfileStates extends State<EditProfilePage> {
   final nameController = TextEditingController();
-  final customNameController = TextEditingController();
+  final nicknameController = TextEditingController();
   final phoneController = TextEditingController();
   final passwordController = TextEditingController();
   final confirmPasswordController = TextEditingController();
@@ -33,12 +33,14 @@ class _EditProfileStates extends State<EditProfilePage> {
 
   void updateUserData() {
     if (formKey.currentState!.validate()) {
-      // profileUserController.profileUser(
-      //   name: nameController.text,
-      //   customName: customNameController.text,
-      //   phone: phoneController.text,
-      //   password: passwordController.text,
-      // );
+      profileUserController.updateUserData(
+        name: nameController.text.isNotEmpty ? nameController.text : null,
+        nickname:
+            nicknameController.text.isNotEmpty ? nicknameController.text : null,
+        phone: phoneController.text.isNotEmpty ? phoneController.text : null,
+        password:
+            passwordController.text.isNotEmpty ? passwordController.text : null,
+      );
     }
   }
 
@@ -46,7 +48,7 @@ class _EditProfileStates extends State<EditProfilePage> {
   void initState() {
     profileUserController.profileUserStateNotifier.addListener(() {
       if (profileUserController.state is EditProfileStateSuccess) {
-        // Modular.to.pop();
+        Modular.to.pop(true);
       } else if (profileUserController.state is EditProfileStateError) {
         final e = profileUserController.state as EditProfileStateError;
         AppNotifications.errorNotificationBanner(e.object);
@@ -76,24 +78,36 @@ class _EditProfileStates extends State<EditProfilePage> {
             key: formKey,
             child: Column(
               children: [
-                Align(
-                  alignment: Alignment.centerLeft,
-                  child: IconButton(
-                    onPressed: () {
-                      Modular.to.pop();
-                    },
-                    icon: const Icon(Icons.arrow_back_ios),
-                  ),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    IconButton(
+                      onPressed: () {
+                        Modular.to.pop();
+                      },
+                      icon: const Icon(Icons.arrow_back_ios),
+                    ),
+                    Expanded(
+                      child: Text(
+                        "Editar Perfil",
+                        textAlign: TextAlign.center,
+                        style: textStyle?.copyWith(fontSize: 20),
+                      ),
+                    ),
+                    const SizedBox(width: 48)
+                  ],
                 ),
-                const SizedBox(height: 16),
-                //Image.asset(AppImages.profileImage),
-                const SizedBox(height: 16),
+                const SizedBox(height: 30),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20.0),
                   child: CustomTextField(
                     label: "Nome",
                     controller: nameController,
-                    validator: Validatorless.required("Digite um nome válido"),
+                    validator: Validatorless.multiple(
+                      [
+                        Validatorless.min(4, "Digite um nome válido"),
+                      ],
+                    ),
                     textInputAction: TextInputAction.next,
                     textInputType: TextInputType.text,
                   ),
@@ -101,9 +115,13 @@ class _EditProfileStates extends State<EditProfilePage> {
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20.0),
                   child: CustomTextField(
-                    label: "Nome de Preferência",
-                    controller: customNameController,
-                    validator: Validatorless.required("Digite um nome válido"),
+                    label: "Apelido",
+                    controller: nicknameController,
+                    validator: Validatorless.multiple(
+                      [
+                        Validatorless.min(2, "Digite um apelido válido"),
+                      ],
+                    ),
                     textInputAction: TextInputAction.next,
                     textInputType: TextInputType.text,
                   ),
@@ -116,8 +134,11 @@ class _EditProfileStates extends State<EditProfilePage> {
                     inputFormatters: [
                       AppInputMasks.phoneMask,
                     ],
-                    validator: Validatorless.required(
-                      "Digite um telefone válido",
+                    validator: Validatorless.multiple(
+                      [
+                        Validatorless.min(15, "Digite um telefone válido"),
+                        Validatorless.max(15, "Digite um telefone válido"),
+                      ],
                     ),
                     textInputAction: TextInputAction.next,
                     textInputType: TextInputType.number,
@@ -129,7 +150,14 @@ class _EditProfileStates extends State<EditProfilePage> {
                     label: "Senha",
                     controller: passwordController,
                     validator: Validatorless.multiple([
-                      Validatorless.required("Digite uma senha válida"),
+                      Validatorless.min(
+                        6,
+                        "Digite uma senha de no mínimo seis digitos",
+                      ),
+                      Validatorless.compare(
+                        passwordController,
+                        "A senhas precisam ser iguais",
+                      ),
                     ]),
                     textInputAction: TextInputAction.next,
                     textInputType: TextInputType.visiblePassword,
@@ -142,7 +170,10 @@ class _EditProfileStates extends State<EditProfilePage> {
                     label: "Confirmar a senha",
                     controller: confirmPasswordController,
                     validator: Validatorless.multiple([
-                      Validatorless.required("Digite uma senha válida"),
+                      Validatorless.min(
+                        6,
+                        "Digite uma senha de no mínimo seis digitos",
+                      ),
                       Validatorless.compare(
                         passwordController,
                         "A senhas precisam ser iguais",

@@ -51,4 +51,61 @@ class UserRepositoryFirebase implements UserRepository {
       rethrow;
     }
   }
+
+  @override
+  Future<void> updateNickname({
+    required String userId,
+    required String nickname,
+  }) async {
+    final response = await _firestore.where('id', isEqualTo: userId).get();
+
+    if (response.docs.isNotEmpty) {
+      final docs = response.docs;
+
+      final user = docs.first;
+
+      await _firestore.doc(user.id).update({'nickname': nickname});
+      return;
+    }
+
+    throw AppErrorModel(message: 'Usuário não encontrado', statusCode: 404);
+  }
+
+  @override
+  Future<void> updatePhone({
+    required String userId,
+    required String phone,
+  }) async {
+    final response = await _firestore.where('id', isEqualTo: userId).get();
+
+    if (response.docs.isNotEmpty) {
+      final docs = response.docs;
+
+      final user = docs.first;
+
+      await _firestore.doc(user.id).update({'phone': phone});
+      return;
+    }
+
+    throw AppErrorModel(message: 'Usuário não encontrado', statusCode: 404);
+  }
+
+  @override
+  Future<void> updateUserName({
+    required String userId,
+    required String name,
+  }) async {
+    final response = await _firestore.where('id', isEqualTo: userId).get();
+
+    if (response.docs.isNotEmpty) {
+      final docs = response.docs;
+
+      final user = docs.first;
+
+      await _firestore.doc(user.id).update({'name': name});
+      return;
+    }
+
+    throw AppErrorModel(message: 'Usuário não encontrado', statusCode: 404);
+  }
 }
