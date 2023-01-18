@@ -1,8 +1,17 @@
+import 'package:flutter/material.dart';
 import 'package:gastos_app/src/modules/authentication/repositories/auth_repository.dart';
+import 'package:gastos_app/src/modules/home/modules/profile/controllers/profile_page_state.dart';
 import 'package:gastos_app/src/repositories/user_repository.dart';
 
 class ProfilePageController {
   // name, nickname, telefone, avatarUrl
+
+  final profilePageStateNotifier = ValueNotifier<ProfilePageState>(
+    ProfilePageStateEmpty(),
+  );
+
+  ProfilePageState get state => profilePageStateNotifier.value;
+  set state(ProfilePageState state) => profilePageStateNotifier.value = state;
 
   final UserRepository userRepository;
   final AuthRepository authRepository;
@@ -13,10 +22,19 @@ class ProfilePageController {
   });
 
   Future<void> getUserData() async {
-    final loggedUser = authRepository.currentUser!;
+    state = ProfilePageStateLoading();
+    try {
+      final loggedUser = authRepository.currentUser!;
 
-    final response = await userRepository.getUserDataById(
-      userId: loggedUser.uid,
-    );
+      final response = await userRepository.getUserDataById(
+        userId: loggedUser.uid,
+      );
+
+      state = ProfilePageStateSuccess(
+        user: response,
+      );
+    } catch (e) {
+      state = ProfilePageStateError(error: e);
+    }
   }
 }

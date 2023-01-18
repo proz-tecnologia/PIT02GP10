@@ -1,3 +1,5 @@
+import 'package:gastos_app/src/models/user_model.dart';
+
 abstract class UserRepository {
   Future<void> createUser({
     required String id,
@@ -7,5 +9,5 @@ abstract class UserRepository {
     String? avatarUrl,
   });
 
-  Future<void> getUserDataById({required String userId});
+  Future<UserModel> getUserDataById({required String userId});
 }
