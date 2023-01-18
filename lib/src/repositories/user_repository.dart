@@ -6,4 +6,6 @@ abstract class UserRepository {
     String? phone,
     String? avatarUrl,
   });
+
+  Future<void> getUserDataById({required String userId});
 }

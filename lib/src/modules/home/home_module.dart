@@ -3,11 +3,10 @@ import 'package:gastos_app/src/modules/authentication/repositories/auth_reposito
 import 'package:gastos_app/src/modules/home/controllers/home_page_controller.dart';
 import 'package:gastos_app/src/modules/home/home_page.dart';
 import 'package:gastos_app/src/modules/home/home_routes.dart';
+import 'package:gastos_app/src/modules/home/modules/profile/profile_module.dart';
 import 'package:gastos_app/src/modules/home/pages/expense/create_expense/controllers/create_expense_page_controller.dart';
 import 'package:gastos_app/src/modules/home/pages/expense/create_expense/create_expense_page.dart';
 import 'package:gastos_app/src/modules/home/pages/expense/list_expenses/expense_list_page.dart';
-import 'package:gastos_app/src/modules/home/pages/profile/profile_user_controller.dart';
-import 'package:gastos_app/src/modules/home/pages/profile/profile_user_page.dart';
 import 'package:gastos_app/src/modules/home/pages/profit/create_profit/create_profit_page.dart';
 import 'package:gastos_app/src/modules/home/pages/profit/profit_list/profit_list_page.dart';
 import 'package:gastos_app/src/repositories/expense/expense_repository.dart';
@@ -61,11 +60,6 @@ class HomeModule extends Module {
             expenseRepository: i.get<ExpenseRepositoryFirestore>(),
           ),
         ),
-        Bind.factory(
-          (i) => ProfileUserController(
-            repository: i.get<AuthRepository>(),
-          ),
-        ),
       ];
 
   @override
@@ -90,10 +84,14 @@ class HomeModule extends Module {
           routeNameFormatter(HomeRoutes.listProfit),
           child: (context, _) => const ProfitListPage(),
         ),
-        ChildRoute(
-          routeNameFormatter(HomeRoutes.profileUserPage),
-          child: (context, _) => const ProfileUserPage(),
+        ModuleRoute(
+          routeNameFormatter(HomeRoutes.profile),
+          module: ProfileModule(),
         ),
+        // ChildRoute(
+        //   routeNameFormatter(HomeRoutes.profileUserPage),
+        //   child: (context, _) => const ProfileUserPage(),
+        // ),
       ];
 
   String routeNameFormatter(String route) => route.replaceAll(_moduleName, '');

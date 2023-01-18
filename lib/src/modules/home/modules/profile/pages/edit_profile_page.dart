@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:gastos_app/src/core/app_colors.dart';
-import 'package:gastos_app/src/core/app_images.dart';
-import 'package:gastos_app/src/modules/home/pages/profile/profile_user_controller.dart';
-import 'package:gastos_app/src/modules/home/pages/profile/profile_user_states.dart';
+import 'package:gastos_app/src/modules/home/modules/profile/controllers/edit_profile_controller.dart';
+import 'package:gastos_app/src/modules/home/modules/profile/controllers/edit_profile_state.dart';
 import 'package:gastos_app/src/shared/components/custom_elevated_button.dart';
 import 'package:gastos_app/src/shared/components/custom_loading_icon.dart';
 import 'package:gastos_app/src/shared/components/custom_text_field.dart';
@@ -12,16 +11,16 @@ import 'package:gastos_app/src/shared/utils/app_input_masks.dart';
 import 'package:gastos_app/src/shared/utils/app_notifications.dart';
 import 'package:validatorless/validatorless.dart';
 
-class ProfileUserPage extends StatefulWidget {
-  const ProfileUserPage({
+class EditProfilePage extends StatefulWidget {
+  const EditProfilePage({
     Key? key,
   }) : super(key: key);
 
   @override
-  State<ProfileUserPage> createState() => _ProfileUserStates();
+  State<EditProfilePage> createState() => _EditProfileStates();
 }
 
-class _ProfileUserStates extends State<ProfileUserPage> {
+class _EditProfileStates extends State<EditProfilePage> {
   final nameController = TextEditingController();
   final customNameController = TextEditingController();
   final phoneController = TextEditingController();
@@ -30,26 +29,26 @@ class _ProfileUserStates extends State<ProfileUserPage> {
 
   final formKey = GlobalKey<FormState>();
 
-  final profileUserController = Modular.get<ProfileUserController>();
+  final profileUserController = Modular.get<EditProfileController>();
 
-  void profileUser() {
+  void updateUserData() {
     if (formKey.currentState!.validate()) {
-      profileUserController.profileUser(
-        name: nameController.text,
-        customName: customNameController.text,
-        phone: phoneController.text,
-        password: passwordController.text,
-      );
+      // profileUserController.profileUser(
+      //   name: nameController.text,
+      //   customName: customNameController.text,
+      //   phone: phoneController.text,
+      //   password: passwordController.text,
+      // );
     }
   }
 
   @override
   void initState() {
     profileUserController.profileUserStateNotifier.addListener(() {
-      if (profileUserController.state is ProfileUserStateSuccess) {
-        Modular.to.pop();
-      } else if (profileUserController.state is ProfileUserStateError) {
-        final e = profileUserController.state as ProfileUserStateError;
+      if (profileUserController.state is EditProfileStateSuccess) {
+        // Modular.to.pop();
+      } else if (profileUserController.state is EditProfileStateError) {
+        final e = profileUserController.state as EditProfileStateError;
         AppNotifications.errorNotificationBanner(e.object);
       }
     });
@@ -59,7 +58,7 @@ class _ProfileUserStates extends State<ProfileUserPage> {
   @override
   void dispose() {
     profileUserController.profileUserStateNotifier.removeListener(() {});
-    Modular.dispose<ProfileUserController>();
+    Modular.dispose<EditProfileController>();
     super.dispose();
   }
 
@@ -159,12 +158,12 @@ class _ProfileUserStates extends State<ProfileUserPage> {
                   width: 136,
                   child: CustomElevatedButton(
                     backgroundColor: AppColors.expenseColor,
-                    onPressed: profileUser,
-                    child: ValueListenableBuilder<ProfileUserStates>(
+                    onPressed: updateUserData,
+                    child: ValueListenableBuilder<EditProfileState>(
                       valueListenable:
                           profileUserController.profileUserStateNotifier,
                       builder: (context, state, _) {
-                        if (state is ProfileUserStateLoading) {
+                        if (state is EditProfileStateLoading) {
                           return const CustomLoadingIcon(size: 16);
                         }
                         return Text(
