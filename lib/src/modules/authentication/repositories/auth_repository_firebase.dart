@@ -53,4 +53,19 @@ class AuthRepositoryFirebase implements AuthRepository {
 
   @override
   User? get currentUser => firebaseAuthInstance.currentUser;
+
+  @override
+  Future<void> updateName({required String name}) async {
+    await firebaseAuthInstance.currentUser!.updateDisplayName(name);
+  }
+
+  @override
+  Future<void> updatePassword({required String password}) async {
+    await firebaseAuthInstance.currentUser!.updatePassword(password);
+  }
+
+  @override
+  Future<void> updatePhotoUrl({required String photoUrl}) async {
+    await firebaseAuthInstance.currentUser!.updatePhotoURL(photoUrl);
+  }
 }

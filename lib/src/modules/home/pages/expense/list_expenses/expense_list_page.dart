@@ -8,7 +8,7 @@ import 'package:gastos_app/src/modules/home/pages/expense/list_expenses/componen
 import 'package:gastos_app/src/modules/home/pages/expense/list_expenses/components/error_page.dart';
 import 'package:gastos_app/src/modules/home/pages/expense/list_expenses/components/expenses_list.dart';
 import 'package:gastos_app/src/modules/home/pages/expense/list_expenses/controllers/expense_list_page_controller.dart';
-import 'package:gastos_app/src/modules/home/pages/expense/list_expenses/controllers/expense_list_page_states.dart';
+import 'package:gastos_app/src/modules/home/pages/expense/list_expenses/controllers/expense_list_page_state.dart';
 import 'package:gastos_app/src/shared/components/custom_loading_icon.dart';
 
 class ExpenseListPage extends StatefulWidget {
