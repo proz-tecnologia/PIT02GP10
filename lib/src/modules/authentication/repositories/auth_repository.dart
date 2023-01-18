@@ -10,6 +10,8 @@ abstract class AuthRepository {
 
   Future<void> updatePassword({required String password});
 
+  Future<void> updatePhotoUrl({required String photoUrl});
+
   Future<void> updateName({required String name});
 
   Future<UserCredential> login({
