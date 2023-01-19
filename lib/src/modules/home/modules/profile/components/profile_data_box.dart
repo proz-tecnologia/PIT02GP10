@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gastos_app/src/core/app_colors.dart';
-import 'package:gastos_app/src/core/app_images.dart';
+import 'package:gastos_app/src/media/components/picture_box.dart';
 import 'package:gastos_app/src/models/user_model.dart';
 import 'package:gastos_app/src/modules/home/modules/profile/components/profile_value.dart';
 import 'package:gastos_app/src/shared/components/custom_elevated_button.dart';
@@ -22,9 +22,8 @@ class ProfileDataBox extends StatelessWidget {
       children: [
         SizedBox(
           height: MediaQuery.of(context).size.height * 0.20,
-          child: Image.asset(
-            AppImages.profileImage,
-            fit: BoxFit.fitHeight,
+          child: Center(
+            child: PictureBox(pictureUrl: user.avatarUrl),
           ),
         ),
         const SizedBox(height: 20),

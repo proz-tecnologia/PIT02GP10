@@ -6,14 +6,25 @@ import 'package:gastos_app/src/shared/components/effectless_inkwell.dart';
 import 'package:gastos_app/src/shared/components/image_network_builder.dart';
 
 class PictureBox extends StatefulWidget {
-  const PictureBox({Key? key}) : super(key: key);
+  const PictureBox({
+    Key? key,
+    required this.pictureUrl,
+  }) : super(key: key);
+
+  final String? pictureUrl;
 
   @override
   State<PictureBox> createState() => _PictureBoxState();
 }
 
 class _PictureBoxState extends State<PictureBox> {
-  final controller = PictureController();
+  late final PictureController controller;
+
+  @override
+  void initState() {
+    controller = PictureController(photoUrl: widget.pictureUrl);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +45,7 @@ class _PictureBoxState extends State<PictureBox> {
                     color: AppColors.primaryColor,
                     width: 2.0,
                   ),
-                  borderRadius: const BorderRadius.all(Radius.circular(200)),
+                  shape: BoxShape.circle,
                 ),
                 child: EffectlessInkWell(
                   onTap: () {

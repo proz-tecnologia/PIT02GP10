@@ -8,28 +8,33 @@ class MediaUtils {
     VoidCallback? onChooseFromGallery,
     VoidCallback? onRemovePicture,
   }) {
+    const backgroundColor = AppColors.primaryColor;
+    const iconColor = AppColors.fontColor;
+    const borderRadius = 20.0;
+
     showModalBottomSheet(
       context: context,
-      backgroundColor: AppColors.primaryColor,
+      backgroundColor: backgroundColor,
       elevation: 5.0,
       isScrollControlled: true,
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(0),
-          topRight: Radius.circular(0),
+          topLeft: Radius.circular(borderRadius),
+          topRight: Radius.circular(borderRadius),
         ),
       ),
       barrierColor: Colors.black.withAlpha(90),
       builder: (BuildContext context) {
         final sizes = MediaQuery.of(context).size;
+
         return SafeArea(
           child: Container(
             constraints: BoxConstraints(maxHeight: sizes.height * 0.5),
             decoration: const BoxDecoration(
-              color: AppColors.backgroundColor,
+              color: backgroundColor,
               borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(0),
-                topRight: Radius.circular(0),
+                topLeft: Radius.circular(borderRadius),
+                topRight: Radius.circular(borderRadius),
               ),
             ),
             child: Stack(
@@ -44,7 +49,7 @@ class MediaUtils {
                           ListTile(
                             leading: const Icon(
                               Icons.add_a_photo,
-                              color: AppColors.primaryColor,
+                              color: iconColor,
                             ),
                             title: const Text("Tirar foto"),
                             onTap: onTakePicture,
@@ -53,7 +58,7 @@ class MediaUtils {
                           ListTile(
                             leading: const Icon(
                               Icons.photo_album,
-                              color: AppColors.primaryColor,
+                              color: iconColor,
                             ),
                             title: const Text("Usar foto existente"),
                             onTap: onChooseFromGallery,
@@ -62,7 +67,7 @@ class MediaUtils {
                           ListTile(
                             leading: const Icon(
                               Icons.delete,
-                              color: AppColors.primaryColor,
+                              color: iconColor,
                             ),
                             title: const Text("Remover foto"),
                             onTap: onRemovePicture,
@@ -78,10 +83,10 @@ class MediaUtils {
                   top: 0,
                   child: Container(
                     decoration: const BoxDecoration(
-                      color: AppColors.backgroundColor,
+                      color: backgroundColor,
                       borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(0),
-                        topRight: Radius.circular(0),
+                        topLeft: Radius.circular(borderRadius),
+                        topRight: Radius.circular(borderRadius),
                       ),
                     ),
                     child: Column(

@@ -10,15 +10,15 @@ import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 
 class PictureController extends ChangeNotifier {
-  MediaFile picture = MediaFile();
+  final picture = MediaFile();
   final mediaRepository = MediaRepository();
 
   final changePictureNotifier = ValueNotifier<bool>(true);
 
-  PictureController() {
-    // if (patient.picture != null) {
-    //   picture = MediaFile(uploadUrl: patient.picture);
-    // }
+  PictureController({required String? photoUrl}) {
+    if (photoUrl != null) {
+      picture.uploadUrl = photoUrl;
+    }
     changePictureNotifier.value = false;
   }
 
@@ -26,11 +26,11 @@ class PictureController extends ChangeNotifier {
     MediaUtils.openMediaSelectModal(
       context: context,
       onTakePicture: () {
-        pickImage(source: ImageSource.camera, context: context);
+        pickImage(source: ImageSource.camera);
         if (Navigator.canPop(context)) Navigator.pop(context);
       },
       onChooseFromGallery: () {
-        pickImage(source: ImageSource.gallery, context: context);
+        pickImage(source: ImageSource.gallery);
         if (Navigator.canPop(context)) Navigator.pop(context);
       },
       onRemovePicture: () {
@@ -42,11 +42,9 @@ class PictureController extends ChangeNotifier {
 
   final picker = ImagePicker();
   final cropper = ImageCropper();
-  // final mediaService = MediaService();
 
   Future<void> pickImage({
     required ImageSource source,
-    required BuildContext context,
   }) async {
     changePictureNotifier.value = true;
 
@@ -62,36 +60,13 @@ class PictureController extends ChangeNotifier {
         log("size : ${size / 1000000.0}mb");
 
         if (size < 50000000) {
-          picture = MediaFile(photo: croppedFile);
-
-          final response = await uploadPicture(picture);
-
-          if (response != null) {
-            await updateProfilePicture(response);
-          }
+          picture.photo = croppedFile;
         } else {
           AppNotifications.errorNotificationBanner('Arquivo muito grande');
         }
       }
     }
     changePictureNotifier.value = false;
-  }
-
-  Future updateProfilePicture(String pictureUrl) async {
-    // change picture in user auth
-    // change picture in user firestore
-  }
-
-  Future<String?> uploadPicture(MediaFile media) async {
-    try {
-      final response = await mediaRepository.uploadFile(file: media.photo!);
-      if (response.statusCode == 200) {
-        return response.url;
-      }
-    } catch (e) {
-      AppNotifications.errorNotificationBanner(e);
-    }
-    return null;
   }
 
   Future removePicture() async {
