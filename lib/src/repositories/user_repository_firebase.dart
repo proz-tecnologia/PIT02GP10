@@ -108,4 +108,21 @@ class UserRepositoryFirebase implements UserRepository {
 
     throw AppErrorModel(message: 'Usuário não encontrado', statusCode: 404);
   }
+
+  @override
+  Future<void> updateUserAvatar(
+      {required String userId, required String url}) async {
+    final response = await _firestore.where('id', isEqualTo: userId).get();
+
+    if (response.docs.isNotEmpty) {
+      final docs = response.docs;
+
+      final user = docs.first;
+
+      await _firestore.doc(user.id).update({'avatarUrl': url});
+      return;
+    }
+
+    throw AppErrorModel(message: 'Usuário não encontrado', statusCode: 404);
+  }
 }

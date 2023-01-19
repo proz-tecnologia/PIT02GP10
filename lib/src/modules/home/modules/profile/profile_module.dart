@@ -1,4 +1,5 @@
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:gastos_app/src/media/media_repository.dart';
 import 'package:gastos_app/src/modules/authentication/repositories/auth_repository.dart';
 import 'package:gastos_app/src/modules/home/modules/profile/controllers/edit_profile_controller.dart';
 import 'package:gastos_app/src/modules/home/modules/profile/controllers/profile_page_controller.dart';
@@ -13,12 +14,13 @@ const String _moduleName = 'home/profile/';
 class ProfileModule extends Module {
   @override
   List<Bind<Object>> get binds => [
+        Bind.factory<MediaRepository>((i) => MediaRepository()),
         Bind.factory<UserRepository>((i) => UserRepositoryFirebase()),
         Bind.factory<ProfilePageController>(
           (i) => ProfilePageController(
-            authRepository: i.get<AuthRepository>(),
-            userRepository: i.get<UserRepository>(),
-          ),
+              authRepository: i.get<AuthRepository>(),
+              userRepository: i.get<UserRepository>(),
+              mediaRepository: i.get<MediaRepository>()),
         ),
         Bind.factory(
           (i) => EditProfileController(

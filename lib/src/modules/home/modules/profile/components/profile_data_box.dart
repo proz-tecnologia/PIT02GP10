@@ -1,19 +1,27 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:gastos_app/src/core/app_colors.dart';
-import 'package:gastos_app/src/media/components/picture_box.dart';
 import 'package:gastos_app/src/models/user_model.dart';
 import 'package:gastos_app/src/modules/home/modules/profile/components/profile_value.dart';
 import 'package:gastos_app/src/shared/components/custom_elevated_button.dart';
+import 'package:gastos_app/src/shared/components/picture_pick_box/components/picture_box.dart';
 
 class ProfileDataBox extends StatelessWidget {
   const ProfileDataBox({
     Key? key,
     required this.user,
     required this.onEditUser,
+    this.onRemovePicture,
+    required this.onPictureChanged,
+    this.onPictureUpload,
   }) : super(key: key);
 
   final UserModel user;
   final VoidCallback onEditUser;
+  final VoidCallback? onRemovePicture;
+  final void Function(File? picture) onPictureChanged;
+  final Future<void> Function(File file)? onPictureUpload;
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +31,12 @@ class ProfileDataBox extends StatelessWidget {
         SizedBox(
           height: MediaQuery.of(context).size.height * 0.20,
           child: Center(
-            child: PictureBox(pictureUrl: user.avatarUrl),
+            child: PictureBox(
+              pictureUrl: user.avatarUrl,
+              onPictureChange: onPictureChanged,
+              onRemovePicture: onRemovePicture,
+              onPictureUpload: onPictureUpload,
+            ),
           ),
         ),
         const SizedBox(height: 20),
@@ -51,7 +64,7 @@ class ProfileDataBox extends StatelessWidget {
           child: CustomElevatedButton(
             backgroundColor: AppColors.expenseColor,
             onPressed: onEditUser,
-            child: const Text("Editar"),
+            child: const Text("Editar Perfil"),
           ),
         ),
         const SizedBox(height: 20),
