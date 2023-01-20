@@ -1,7 +1,11 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:gastos_app/src/media/media_repository.dart';
 import 'package:gastos_app/src/modules/authentication/repositories/auth_repository.dart';
 import 'package:gastos_app/src/modules/home/modules/profile/controllers/profile_page_state.dart';
 import 'package:gastos_app/src/repositories/user_repository.dart';
+import 'package:gastos_app/src/shared/utils/app_notifications.dart';
 
 class ProfilePageController {
   final profilePageStateNotifier = ValueNotifier<ProfilePageState>(
@@ -13,10 +17,12 @@ class ProfilePageController {
 
   final UserRepository userRepository;
   final AuthRepository authRepository;
+  final MediaRepository mediaRepository;
 
   ProfilePageController({
     required this.userRepository,
     required this.authRepository,
+    required this.mediaRepository,
   });
 
   Future<void> getUserData() async {
@@ -35,5 +41,19 @@ class ProfilePageController {
     } catch (e) {
       state = ProfilePageStateError(error: e);
     }
+  }
+
+  Future<String?> updateAvatar(File file) async {
+    try {
+      final response = await mediaRepository.uploadFile(file: file);
+      final user = authRepository.currentUser!;
+      await authRepository.updatePhotoUrl(photoUrl: response);
+      await userRepository.updateUserAvatar(userId: user.uid, url: response);
+
+      return response;
+    } catch (e) {
+      AppNotifications.errorNotificationBanner(e);
+    }
+    return null;
   }
 }

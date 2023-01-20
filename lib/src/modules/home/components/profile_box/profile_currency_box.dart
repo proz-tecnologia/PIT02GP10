@@ -1,21 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:gastos_app/src/core/app_colors.dart';
-import 'package:gastos_app/src/core/app_images.dart';
 import 'package:gastos_app/src/models/expense_model.dart';
 import 'package:gastos_app/src/models/profit_model.dart';
 import 'package:gastos_app/src/modules/home/components/profile_box/income_outcome_box.dart';
+import 'package:gastos_app/src/shared/components/image_network_builder.dart';
 import 'package:gastos_app/src/shared/utils/currency_formatter.dart';
 
 class ProfileCurrencyBox extends StatelessWidget {
   const ProfileCurrencyBox({
     Key? key,
     required this.username,
+    this.avatarUrl,
     required this.profits,
     required this.expenses,
   }) : super(key: key);
 
   final String username;
-
+  final String? avatarUrl;
   final List<ProfitModel> profits;
   final List<ExpenseModel> expenses;
 
@@ -61,9 +62,17 @@ class ProfileCurrencyBox extends StatelessWidget {
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Image.asset(
-                  AppImages.profileImage,
-                ),
+                if (avatarUrl != null)
+                  SizedBox(
+                    height: 70,
+                    width: 70,
+                    child: ClipRRect(
+                      borderRadius: const BorderRadius.all(
+                        Radius.circular(500),
+                      ),
+                      child: ImageNetworkBuilder(avatarUrl!),
+                    ),
+                  ),
                 const SizedBox(
                   width: 10,
                 ),

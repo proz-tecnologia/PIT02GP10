@@ -11,11 +11,13 @@ class HomePageStateSuccess extends HomePageState {
   final List<ProfitModel> profitsList;
   final List<ExpenseModel> expensesList;
   final String username;
+  final String? avatarUrl;
 
   HomePageStateSuccess({
     required this.profitsList,
     required this.expensesList,
     required this.username,
+    this.avatarUrl,
   });
 }
 

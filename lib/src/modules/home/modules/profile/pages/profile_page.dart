@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:gastos_app/src/modules/home/controllers/home_page_controller.dart';
 import 'package:gastos_app/src/modules/home/modules/profile/components/profile_data_box.dart';
 import 'package:gastos_app/src/modules/home/modules/profile/controllers/profile_page_controller.dart';
 import 'package:gastos_app/src/modules/home/modules/profile/controllers/profile_page_state.dart';
@@ -54,14 +55,13 @@ class _ProfilePageState extends State<ProfilePage> {
                     onRefresh: controller.getUserData,
                     child: ProfileDataBox(
                       user: user,
+                      onPictureUpload: (file) async {
+                        final url = await controller.updateAvatar(file);
+                        await Modular.get<HomePageController>().loadData();
+                        return url;
+                      },
                       onEditUser: () {
-                        Modular.to.pushNamed(ProfileRoutes.editProfile).then(
-                          (value) {
-                            if (value == true) {
-                              controller.getUserData();
-                            }
-                          },
-                        );
+                        Modular.to.pushNamed(ProfileRoutes.editProfile);
                       },
                     ),
                   );
