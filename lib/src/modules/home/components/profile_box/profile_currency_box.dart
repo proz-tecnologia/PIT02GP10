@@ -70,7 +70,10 @@ class ProfileCurrencyBox extends StatelessWidget {
                       borderRadius: const BorderRadius.all(
                         Radius.circular(500),
                       ),
-                      child: ImageNetworkBuilder(avatarUrl!),
+                      child: ImageNetworkBuilder(
+                        avatarUrl!,
+                        boxFit: BoxFit.cover,
+                      ),
                     ),
                   ),
                 const SizedBox(
