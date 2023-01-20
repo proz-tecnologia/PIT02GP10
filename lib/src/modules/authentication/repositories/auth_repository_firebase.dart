@@ -20,7 +20,7 @@ class AuthRepositoryFirebase implements AuthRepository {
     );
 
     await firebaseAuthInstance.currentUser!.updateDisplayName(name);
-   
+    await firebaseAuthInstance.currentUser!.sendEmailVerification();
 
     await firebaseAuthInstance.signOut();
 

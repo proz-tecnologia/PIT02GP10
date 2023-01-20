@@ -138,6 +138,10 @@ class _RegisterPageState extends State<RegisterPage> {
                     controller: passwordController,
                     validator: Validatorless.multiple([
                       Validatorless.required("Digite uma senha válida"),
+                      Validatorless.min(
+                        6,
+                        "Digite uma senha de no mínimo seis digitos",
+                      ),
                       Validatorless.compare(
                         confirmPasswordController,
                         "A senhas precisam ser iguais",
@@ -155,6 +159,10 @@ class _RegisterPageState extends State<RegisterPage> {
                     controller: confirmPasswordController,
                     validator: Validatorless.multiple([
                       Validatorless.required("Digite uma senha válida"),
+                      Validatorless.min(
+                        6,
+                        "Digite uma senha de no mínimo seis digitos",
+                      ),
                       Validatorless.compare(
                         passwordController,
                         "A senhas precisam ser iguais",

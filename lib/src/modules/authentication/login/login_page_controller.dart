@@ -26,16 +26,13 @@ class LoginPageController {
 
       await Future.delayed(const Duration(seconds: 2));
 
-      final user = await authRepository.login(
+      final userCredential = await authRepository.login(
         email: email,
         password: password,
       );
 
-      if (user.user != null) {
-        {
-          loginState = LoginStateSuccess();
-          return;
-        }
+      if (userCredential.user != null) {
+        loginState = LoginStateSuccess();
       }
     } catch (e) {
       AppNotifications.errorNotificationBanner(e);
