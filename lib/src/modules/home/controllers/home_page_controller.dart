@@ -3,14 +3,17 @@ import 'package:gastos_app/src/modules/authentication/repositories/auth_reposito
 import 'package:gastos_app/src/modules/home/controllers/home_page_states.dart';
 import 'package:gastos_app/src/repositories/expense/expense_repository.dart';
 import 'package:gastos_app/src/repositories/profit/profit_repository.dart';
+import 'package:gastos_app/src/repositories/user_repository.dart';
 
 class HomePageController {
   final AuthRepository authRepository;
+  final UserRepository userRepository;
   final ProfitRepository profitRepository;
   final ExpenseRepository expenseRepository;
 
   HomePageController({
     required this.authRepository,
+    required this.userRepository,
     required this.profitRepository,
     required this.expenseRepository,
   });
@@ -26,6 +29,9 @@ class HomePageController {
     final loggedUser = authRepository.currentUser;
 
     if (loggedUser != null) {
+      final userData =
+          await userRepository.getUserDataById(userId: loggedUser.uid);
+
       final profits = await profitRepository.listAll(
         loggedUserId: loggedUser.uid,
       );
@@ -36,7 +42,7 @@ class HomePageController {
       state = HomePageStateSuccess(
         profitsList: profits ?? [],
         expensesList: expenses ?? [],
-        username: loggedUser.displayName ?? loggedUser.email!,
+        username: userData.nickname ?? userData.name,
         avatarUrl: loggedUser.photoURL,
       );
     } else {

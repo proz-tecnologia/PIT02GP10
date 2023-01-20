@@ -7,7 +7,6 @@ import 'package:gastos_app/src/modules/home/modules/profile/pages/edit_profile_p
 import 'package:gastos_app/src/modules/home/modules/profile/pages/profile_page.dart';
 import 'package:gastos_app/src/modules/home/modules/profile/profile_routes.dart';
 import 'package:gastos_app/src/repositories/user_repository.dart';
-import 'package:gastos_app/src/repositories/user_repository_firebase.dart';
 
 const String _moduleName = 'home/profile/';
 
@@ -15,8 +14,7 @@ class ProfileModule extends Module {
   @override
   List<Bind<Object>> get binds => [
         Bind.factory<MediaRepository>((i) => MediaRepository()),
-        Bind.factory<UserRepository>((i) => UserRepositoryFirebase()),
-        Bind.factory<ProfilePageController>(
+        Bind.singleton<ProfilePageController>(
           (i) => ProfilePageController(
               authRepository: i.get<AuthRepository>(),
               userRepository: i.get<UserRepository>(),

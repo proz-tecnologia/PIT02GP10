@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:gastos_app/src/modules/authentication/register/register_states.dart';
 import 'package:gastos_app/src/modules/authentication/repositories/auth_repository.dart';
@@ -48,7 +46,6 @@ class RegisterPageController {
 
       state = RegisterStateSuccess();
     } catch (e) {
-      log(e.toString());
       state = RegisterStateError(e);
     }
   }

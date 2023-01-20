@@ -63,10 +63,13 @@ class ProfileCurrencyBox extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 if (avatarUrl != null)
-                  ClipRRect(
-                    borderRadius: const BorderRadius.all(Radius.circular(500)),
-                    child: SizedBox(
-                      height: 70,
+                  SizedBox(
+                    height: 70,
+                    width: 70,
+                    child: ClipRRect(
+                      borderRadius: const BorderRadius.all(
+                        Radius.circular(500),
+                      ),
                       child: ImageNetworkBuilder(avatarUrl!),
                     ),
                   ),

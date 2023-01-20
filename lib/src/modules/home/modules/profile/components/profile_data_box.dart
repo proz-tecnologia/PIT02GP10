@@ -13,14 +13,13 @@ class ProfileDataBox extends StatelessWidget {
     required this.user,
     required this.onEditUser,
     this.onRemovePicture,
-    // required this.onPictureChanged,
     this.onPictureUpload,
   }) : super(key: key);
 
   final UserModel user;
   final VoidCallback onEditUser;
   final VoidCallback? onRemovePicture;
-  // final void Function(File? picture) onPictureChanged;
+
   final Future<String?> Function(File file)? onPictureUpload;
 
   @override
@@ -33,7 +32,6 @@ class ProfileDataBox extends StatelessWidget {
           child: Center(
             child: PictureBox(
               pictureUrl: user.avatarUrl,
-              // onPictureChange: onPictureChanged,
               onRemovePicture: onRemovePicture,
               onPictureUpload: onPictureUpload,
             ),

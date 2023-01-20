@@ -61,13 +61,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         return url;
                       },
                       onEditUser: () {
-                        Modular.to.pushNamed(ProfileRoutes.editProfile).then(
-                          (value) {
-                            if (value == true) {
-                              controller.getUserData();
-                            }
-                          },
-                        );
+                        Modular.to.pushNamed(ProfileRoutes.editProfile);
                       },
                     ),
                   );

@@ -1,13 +1,3 @@
-// import 'package:flutter/material.dart';
-// import 'package:flutter_modular/flutter_modular.dart';
-// import 'package:gastos_app/src/core/app_colors.dart';
-// import 'package:gastos_app/src/core/app_images.dart';
-// import 'package:gastos_app/src/modules/authentication/recovery/controller/recovery_page_controller.dart';
-// import 'package:gastos_app/src/shared/components/custom_elevated_button.dart';
-// import 'package:gastos_app/src/shared/components/custom_loading_icon.dart';
-// import 'package:gastos_app/src/shared/components/custom_text_field.dart';
-// import 'package:validatorless/validatorless.dart';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:gastos_app/src/core/app_colors.dart';
