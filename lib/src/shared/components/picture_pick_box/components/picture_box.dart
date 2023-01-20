@@ -17,13 +17,11 @@ class PictureBox extends StatefulWidget {
     required this.pictureUrl,
     this.onRemovePicture,
     this.onPictureUpload,
-    required this.onPictureChange,
   }) : super(key: key);
 
   final String? pictureUrl;
   final void Function()? onRemovePicture;
-  final Future<void> Function(File file)? onPictureUpload;
-  final void Function(File? picture) onPictureChange;
+  final Future<String?> Function(File file)? onPictureUpload;
 
   @override
   State<PictureBox> createState() => _PictureBoxState();
@@ -34,7 +32,7 @@ class _PictureBoxState extends State<PictureBox> {
 
   @override
   void initState() {
-    controller = PictureController(photoUrl: widget.pictureUrl);
+    controller = PictureController(widget.pictureUrl);
     super.initState();
   }
 
@@ -42,19 +40,19 @@ class _PictureBoxState extends State<PictureBox> {
     MediaUtils.openMediaSelectModal(
       context: context,
       onTakePicture: () async {
-        final file = await controller.pickImage(
+        await controller.pickImage(
           source: ImageSource.camera,
           onPictureUpload: widget.onPictureUpload,
         );
-        widget.onPictureChange(file);
+
         if (Navigator.canPop(context)) Navigator.pop(context);
       },
       onChooseFromGallery: () async {
-        final file = await controller.pickImage(
+        await controller.pickImage(
           source: ImageSource.gallery,
           onPictureUpload: widget.onPictureUpload,
         );
-        widget.onPictureChange(file);
+
         if (Navigator.canPop(context)) Navigator.pop(context);
       },
       onRemovePicture: widget.onRemovePicture != null
@@ -90,7 +88,7 @@ class _PictureBoxState extends State<PictureBox> {
                   onTap: togglePicture,
                   child: ClipRRect(
                     borderRadius: const BorderRadius.all(Radius.circular(200)),
-                    child: controller.picture.uploadUrl == null
+                    child: controller.pictureUrl == null
                         ? const Center(
                             child: Icon(
                               Icons.person,
@@ -99,7 +97,7 @@ class _PictureBoxState extends State<PictureBox> {
                             ),
                           )
                         : ImageNetworkBuilder(
-                            controller.picture.uploadUrl!,
+                            controller.pictureUrl!,
                             boxFit: BoxFit.cover,
                           ),
                   ),

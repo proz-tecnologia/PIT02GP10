@@ -29,7 +29,7 @@ class HomeModule extends Module {
         Bind.lazySingleton<ExpenseRepository>(
           (i) => ExpenseRepositoryFirestore(),
         ),
-        Bind.singleton(
+        Bind.singleton<HomePageController>(
           (i) => HomePageController(
             authRepository: i.get<AuthRepository>(),
             profitRepository: i.get<ProfitRepositoryFirestore>(),

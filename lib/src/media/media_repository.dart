@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'dart:io';
 
 import 'package:firebase_storage/firebase_storage.dart';
@@ -6,7 +5,6 @@ import 'package:firebase_storage/firebase_storage.dart';
 class MediaRepository {
   final storage = FirebaseStorage.instance;
   Future<String> uploadFile({required File file}) async {
-    log('ta chamando');
     final storageRef = FirebaseStorage.instance.ref();
     final fileNameRef = "avatar-${DateTime.now().millisecondsSinceEpoch}.jpg";
 

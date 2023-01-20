@@ -37,6 +37,7 @@ class HomePageController {
         profitsList: profits ?? [],
         expensesList: expenses ?? [],
         username: loggedUser.displayName ?? loggedUser.email!,
+        avatarUrl: loggedUser.photoURL,
       );
     } else {
       state = HomePageStateError(error: "Erro ao carregar dados");

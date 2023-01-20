@@ -60,6 +60,7 @@ class _HomePageState extends State<HomePage> {
                 expenses: success.expensesList,
                 profits: success.profitsList,
                 username: success.username,
+                avatarUrl: success.avatarUrl,
                 onRefresh: () {
                   homeController.loadData();
                 },
