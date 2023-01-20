@@ -113,6 +113,10 @@ class _LoginPageState extends State<LoginPage> {
                     },
                     validator: Validatorless.multiple([
                       Validatorless.required("Digite uma senha válido"),
+                      Validatorless.min(
+                        6,
+                        "Digite uma senha de no mínimo seis digitos",
+                      ),
                     ]),
                     isPasswordVisible: true,
                   ),
