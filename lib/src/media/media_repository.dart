@@ -8,21 +8,21 @@ class MediaRepository {
     final storageRef = FirebaseStorage.instance.ref();
     final fileNameRef = "avatar-${DateTime.now().millisecondsSinceEpoch}.jpg";
 
-    final mountainsRef = storageRef.child(fileNameRef);
+    final uploadRef = storageRef.child(fileNameRef);
 
-    final mountainImagesRef = storageRef.child("images/$fileNameRef");
+    final uploadImagesRef = storageRef.child("images/$fileNameRef");
 
-    assert(mountainsRef.name == mountainImagesRef.name);
-    assert(mountainsRef.fullPath != mountainImagesRef.fullPath);
+    assert(uploadRef.name == uploadImagesRef.name);
+    assert(uploadRef.fullPath != uploadImagesRef.fullPath);
 
     try {
-      await mountainsRef.putFile(
+      await uploadRef.putFile(
         file,
         SettableMetadata(
           contentType: "image/jpeg",
         ),
       );
-      final url = await mountainsRef.getDownloadURL();
+      final url = await uploadRef.getDownloadURL();
       return url;
     } catch (e) {
       rethrow;
