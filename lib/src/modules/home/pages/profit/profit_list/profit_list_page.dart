@@ -8,7 +8,7 @@ import 'package:gastos_app/src/modules/home/pages/profit/profit_list/components/
 import 'package:gastos_app/src/modules/home/pages/profit/profit_list/components/error_page.dart';
 import 'package:gastos_app/src/modules/home/pages/profit/profit_list/components/profits_list.dart';
 import 'package:gastos_app/src/modules/home/pages/profit/profit_list/controllers/profit_list_page_controller.dart';
-import 'package:gastos_app/src/modules/home/pages/profit/profit_list/controllers/profit_list_page_states.dart';
+import 'package:gastos_app/src/modules/home/pages/profit/profit_list/controllers/profit_list_page_state.dart';
 import 'package:gastos_app/src/shared/components/custom_loading_icon.dart';
 
 class ProfitListPage extends StatefulWidget {

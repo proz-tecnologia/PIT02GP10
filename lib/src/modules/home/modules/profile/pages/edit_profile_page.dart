@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:gastos_app/src/core/app_colors.dart';
+import 'package:gastos_app/src/modules/home/controllers/home_page_controller.dart';
 import 'package:gastos_app/src/modules/home/modules/profile/controllers/edit_profile_controller.dart';
 import 'package:gastos_app/src/modules/home/modules/profile/controllers/edit_profile_state.dart';
+import 'package:gastos_app/src/modules/home/modules/profile/controllers/profile_page_controller.dart';
 import 'package:gastos_app/src/shared/components/custom_elevated_button.dart';
 import 'package:gastos_app/src/shared/components/custom_loading_icon.dart';
 import 'package:gastos_app/src/shared/components/custom_text_field.dart';
@@ -46,9 +48,11 @@ class _EditProfileStates extends State<EditProfilePage> {
 
   @override
   void initState() {
-    profileUserController.profileUserStateNotifier.addListener(() {
+    profileUserController.profileUserStateNotifier.addListener(() async {
       if (profileUserController.state is EditProfileStateSuccess) {
-        Modular.to.pop(true);
+        Modular.get<ProfilePageController>().getUserData();
+        Modular.get<HomePageController>().loadData();
+        Modular.to.pop();
       } else if (profileUserController.state is EditProfileStateError) {
         final e = profileUserController.state as EditProfileStateError;
         AppNotifications.errorNotificationBanner(e.object);

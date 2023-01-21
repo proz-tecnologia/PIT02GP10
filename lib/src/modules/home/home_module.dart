@@ -13,6 +13,8 @@ import 'package:gastos_app/src/repositories/expense/expense_repository.dart';
 import 'package:gastos_app/src/repositories/expense/expense_repository_firestore.dart';
 import 'package:gastos_app/src/repositories/profit/profit_repository.dart';
 import 'package:gastos_app/src/repositories/profit/profit_repository_firestore.dart';
+import 'package:gastos_app/src/repositories/user_repository.dart';
+import 'package:gastos_app/src/repositories/user_repository_firebase.dart';
 
 import 'pages/expense/list_expenses/controllers/expense_list_page_controller.dart';
 import 'pages/profit/create_profit/controllers/create_profit_page_controller.dart';
@@ -29,11 +31,13 @@ class HomeModule extends Module {
         Bind.lazySingleton<ExpenseRepository>(
           (i) => ExpenseRepositoryFirestore(),
         ),
-        Bind.singleton(
+        Bind.lazySingleton<UserRepository>((i) => UserRepositoryFirebase()),
+        Bind.singleton<HomePageController>(
           (i) => HomePageController(
             authRepository: i.get<AuthRepository>(),
             profitRepository: i.get<ProfitRepositoryFirestore>(),
             expenseRepository: i.get<ExpenseRepositoryFirestore>(),
+            userRepository: i.get<UserRepository>(),
           ),
         ),
         Bind.factory(
@@ -88,10 +92,6 @@ class HomeModule extends Module {
           routeNameFormatter(HomeRoutes.profile),
           module: ProfileModule(),
         ),
-        // ChildRoute(
-        //   routeNameFormatter(HomeRoutes.profileUserPage),
-        //   child: (context, _) => const ProfileUserPage(),
-        // ),
       ];
 
   String routeNameFormatter(String route) => route.replaceAll(_moduleName, '');

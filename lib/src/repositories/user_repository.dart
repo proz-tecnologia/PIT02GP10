@@ -25,4 +25,9 @@ abstract class UserRepository {
     required String userId,
     required String phone,
   });
+
+  Future<void> updateUserAvatar({
+    required String userId,
+    required String url,
+  });
 }
