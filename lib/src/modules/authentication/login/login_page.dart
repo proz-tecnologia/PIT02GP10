@@ -4,7 +4,7 @@ import 'package:gastos_app/src/core/app_colors.dart';
 import 'package:gastos_app/src/core/app_images.dart';
 import 'package:gastos_app/src/modules/authentication/authentication_routes.dart';
 import 'package:gastos_app/src/modules/authentication/login/login_page_controller.dart';
-import 'package:gastos_app/src/modules/authentication/login/login_states.dart';
+import 'package:gastos_app/src/modules/authentication/login/login_state.dart';
 import 'package:gastos_app/src/shared/components/custom_elevated_button.dart';
 import 'package:gastos_app/src/shared/components/custom_loading_icon.dart';
 import 'package:gastos_app/src/shared/components/custom_text_field.dart';

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:gastos_app/src/modules/authentication/login/login_states.dart';
+import 'package:gastos_app/src/modules/authentication/login/login_state.dart';
 import 'package:gastos_app/src/modules/authentication/repositories/auth_repository.dart';
 import 'package:gastos_app/src/shared/utils/app_notifications.dart';
 
@@ -10,12 +10,12 @@ class LoginPageController {
     required this.authRepository,
   });
 
-  final loginStateNotifier = ValueNotifier<LoginStates>(
+  final loginStateNotifier = ValueNotifier<LoginState>(
     LoginStateEmpty(),
   );
 
-  LoginStates get loginState => loginStateNotifier.value;
-  set loginState(LoginStates state) => loginStateNotifier.value = state;
+  LoginState get loginState => loginStateNotifier.value;
+  set loginState(LoginState state) => loginStateNotifier.value = state;
 
   Future<void> login({
     required String email,

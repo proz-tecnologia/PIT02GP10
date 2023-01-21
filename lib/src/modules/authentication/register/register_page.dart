@@ -3,7 +3,7 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:gastos_app/src/core/app_colors.dart';
 import 'package:gastos_app/src/core/app_images.dart';
 import 'package:gastos_app/src/modules/authentication/register/register_page_controller.dart';
-import 'package:gastos_app/src/modules/authentication/register/register_states.dart';
+import 'package:gastos_app/src/modules/authentication/register/register_state.dart';
 import 'package:gastos_app/src/shared/components/custom_elevated_button.dart';
 import 'package:gastos_app/src/shared/components/custom_loading_icon.dart';
 import 'package:gastos_app/src/shared/components/custom_text_field.dart';
@@ -182,7 +182,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   child: CustomElevatedButton(
                     backgroundColor: AppColors.expenseColor,
                     onPressed: registerUser,
-                    child: ValueListenableBuilder<RegisterStates>(
+                    child: ValueListenableBuilder<RegisterState>(
                       valueListenable: registerController.registerStateNotifier,
                       builder: (context, state, _) {
                         if (state is RegisterStateLoading) {
