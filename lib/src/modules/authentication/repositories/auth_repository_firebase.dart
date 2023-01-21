@@ -14,7 +14,7 @@ class AuthRepositoryFirebase implements AuthRepository {
     String? phone,
     required String password,
   }) async {
-    final response = await FirebaseAuth.instance.createUserWithEmailAndPassword(
+    final response = await firebaseAuthInstance.createUserWithEmailAndPassword(
       email: email,
       password: password,
     );

@@ -1,68 +1,107 @@
+import 'package:faker/faker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:gastos_app/src/models/user_model.dart';
 import 'package:gastos_app/src/modules/authentication/repositories/auth_repository_firebase.dart';
 import 'package:mocktail/mocktail.dart';
 
-class MockAuthRepositoryFirebase extends Mock
-    implements AuthRepositoryFirebase {}
+class MockFirebaseAuth extends Mock implements FirebaseAuth {
+  final User user;
+  MockFirebaseAuth({
+    required this.user,
+  });
 
-class MockFirebaseAuth extends Mock implements FirebaseAuth {}
+  @override
+  User? get currentUser => user;
+}
+
+class MockUserCredential extends Mock implements UserCredential {
+  final User mockedUser;
+
+  MockUserCredential(this.mockedUser);
+
+  @override
+  User? get user => mockedUser;
+}
+
+class MockUser extends Mock implements User {}
 
 void main() {
-  late MockAuthRepositoryFirebase mockAuthRepositoryFirebase;
-  late UserModel user;
+  late AuthRepositoryFirebase authRepositoryFirebase;
+  late MockUserCredential mockUserCredential;
+  late MockFirebaseAuth mockFirebaseAuth;
+  late MockUser mockUser;
+
+  final userId = faker.guid.random.string(50);
+  final email = faker.internet.email();
+  final password = faker.internet.password();
+  final name = faker.person.name();
+
   setUp(
     () {
-      mockAuthRepositoryFirebase = MockAuthRepositoryFirebase();
-      user = UserModel(
-        name: 'User',
-        email: 'user@email.com',
-        id: '1a2b3c4d5e',
+      mockUser = MockUser();
+      mockUserCredential = MockUserCredential(mockUser);
+      mockFirebaseAuth = MockFirebaseAuth(user: mockUser);
+      authRepositoryFirebase = AuthRepositoryFirebase(
+        firebaseAuthInstance: mockFirebaseAuth,
       );
     },
   );
 
   group('Tests register account', () {
     test('Test Register Account success', () async {
+      when(() => mockUserCredential.user!.uid).thenReturn(userId);
+      when(() => mockFirebaseAuth.currentUser!.updateDisplayName(name))
+          .thenAnswer(
+        (_) async => {},
+      );
+      when(() => mockFirebaseAuth.currentUser!.sendEmailVerification())
+          .thenAnswer(
+        (_) async => {},
+      );
+
+      when(() => mockFirebaseAuth.signOut()).thenAnswer(
+        (_) async => {},
+      );
+
       when(
-        () => mockAuthRepositoryFirebase.registerAccount(
-          name: 'User',
-          email: 'user@email.com',
-          password: 'user123',
+        () => authRepositoryFirebase.firebaseAuthInstance
+            .createUserWithEmailAndPassword(
+          email: email,
+          password: password,
         ),
-      ).thenAnswer(
-        (_) async => '123',
+      ).thenAnswer((_) async => mockUserCredential);
+
+      final result = await authRepositoryFirebase.registerAccount(
+        name: name,
+        email: email,
+        password: password,
       );
 
-      final result = await mockAuthRepositoryFirebase.registerAccount(
-        name: 'User',
-        email: 'user@email.com',
-        password: 'user123',
-      );
-
-      expect(result, '123');
+      expect(result, userId);
     });
-
-    // test('Test Register Account failure', () async {
-    //   when(
-    //     () => mockAuthRepositoryFirebase.registerAccount(
-    //       name: 'User',
-    //       email: 'user@email.com',
-    //       password: 'user@123',
-    //     ),
-    //   ).thenThrow(
-    //     Exception(),
-    //   );
-
-    //   expect(
-    //     () => mockAuthRepositoryFirebase.registerAccount(
-    //       name: 'User',
-    //       email: 'user@email.com',
-    //       password: 'user@123',
-    //     ),
-    //     throwsException,
-    //   );
-    // });
   });
+
+  group(
+    'Test Login',
+    () {
+      test(
+        'login success',
+        () async {
+          when(() => mockUserCredential.user!.uid).thenReturn(userId);
+
+          when(() => mockFirebaseAuth.signInWithEmailAndPassword(
+              email: email, password: password)).thenAnswer(
+            (_) async => mockUserCredential,
+          );
+
+          final result = await authRepositoryFirebase.login(
+            email: email,
+            password: password,
+          );
+
+          expect(result.user!.uid, userId);
+        },
+      );
+    },
+  );
 }
