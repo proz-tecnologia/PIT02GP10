@@ -8,7 +8,7 @@
   # Projeto Gastos App
 
   <p align="center">
-    Repositório com os arquivos e a aplicação "Gastos" em desenvolvimento durante o Curso de formação de desenvolvedor mobile em Flutter da Proz Tecnologia.
+    Repositório com os arquivos e a aplicação "Gastos" desenvolvido durante o Curso de formação de desenvolvedor mobile em Flutter da Proz Tecnologia.
     <br />
   </p>
 </p>
