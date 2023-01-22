@@ -104,4 +104,41 @@ void main() {
       );
     },
   );
+
+  group(
+    ' Test Register password ',
+    () {
+      test(
+        'Recovery Password success',
+        () async {
+          when(() => mockUserCredential.user!.uid).thenReturn(userId);
+
+          when(() => mockFirebaseAuth.sendPasswordResetEmail(email: email))
+              .thenAnswer(
+            (_) async => mockUserCredential,
+          );
+
+          expect(userId, isA<String>());
+        },
+      );
+    },
+  );
+
+  group(
+    ' Test Logout ',
+    () {
+      test(
+        'Logout success',
+        () async {
+          when(() => mockUserCredential.user!.uid).thenReturn(userId);
+
+          when(() => mockFirebaseAuth.signOut()).thenAnswer(
+            (_) async => mockUserCredential,
+          );
+
+          expect(userId, isA<String>());
+        },
+      );
+    },
+  );
 }
