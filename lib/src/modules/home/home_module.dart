@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:gastos_app/src/modules/authentication/repositories/auth_repository.dart';
 import 'package:gastos_app/src/modules/home/controllers/home_page_controller.dart';
@@ -31,7 +32,11 @@ class HomeModule extends Module {
         Bind.lazySingleton<ExpenseRepository>(
           (i) => ExpenseRepositoryFirestore(),
         ),
-        Bind.lazySingleton<UserRepository>((i) => UserRepositoryFirebase()),
+        Bind.lazySingleton<UserRepository>(
+          (i) => UserRepositoryFirebase(
+            collection: i.get<FirebaseFirestore>().collection('users'),
+          ),
+        ),
         Bind.singleton<HomePageController>(
           (i) => HomePageController(
             authRepository: i.get<AuthRepository>(),
