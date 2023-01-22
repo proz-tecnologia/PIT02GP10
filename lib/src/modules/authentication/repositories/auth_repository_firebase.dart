@@ -14,7 +14,7 @@ class AuthRepositoryFirebase implements AuthRepository {
     String? phone,
     required String password,
   }) async {
-    final response = await FirebaseAuth.instance.createUserWithEmailAndPassword(
+    final response = await firebaseAuthInstance.createUserWithEmailAndPassword(
       email: email,
       password: password,
     );
@@ -43,7 +43,7 @@ class AuthRepositoryFirebase implements AuthRepository {
   Future<void> recoveryPassword({
     required String email,
   }) async {
-    return await firebaseAuthInstance.sendPasswordResetEmail(email: email);
+    await firebaseAuthInstance.sendPasswordResetEmail(email: email);
   }
 
   @override
