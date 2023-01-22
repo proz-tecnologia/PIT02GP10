@@ -43,7 +43,7 @@ class AuthRepositoryFirebase implements AuthRepository {
   Future<void> recoveryPassword({
     required String email,
   }) async {
-    return await firebaseAuthInstance.sendPasswordResetEmail(email: email);
+    await firebaseAuthInstance.sendPasswordResetEmail(email: email);
   }
 
   @override

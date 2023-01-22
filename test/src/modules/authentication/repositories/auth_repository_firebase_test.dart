@@ -1,8 +1,9 @@
-import 'package:faker/faker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:gastos_app/src/modules/authentication/repositories/auth_repository_firebase.dart';
 import 'package:mocktail/mocktail.dart';
+
+import '../../../../fixtures/auth_repository_fixtures.dart';
 
 class MockFirebaseAuth extends Mock implements FirebaseAuth {
   final User user;
@@ -31,10 +32,7 @@ void main() {
   late MockFirebaseAuth mockFirebaseAuth;
   late MockUser mockUser;
 
-  final userId = faker.guid.random.string(50);
-  final email = faker.internet.email();
-  final password = faker.internet.password();
-  final name = faker.person.name();
+  final authRepositoryFixtures = AuthRepositoryFixtures();
 
   setUp(
     () {
@@ -49,9 +47,10 @@ void main() {
 
   group('Tests register account', () {
     test('Test Register Account success', () async {
-      when(() => mockUserCredential.user!.uid).thenReturn(userId);
-      when(() => mockFirebaseAuth.currentUser!.updateDisplayName(name))
-          .thenAnswer(
+      when(() => mockUserCredential.user!.uid)
+          .thenReturn(authRepositoryFixtures.testData.id);
+      when(() => mockFirebaseAuth.currentUser!
+          .updateDisplayName(authRepositoryFixtures.testData.name)).thenAnswer(
         (_) async => {},
       );
       when(() => mockFirebaseAuth.currentUser!.sendEmailVerification())
@@ -66,18 +65,18 @@ void main() {
       when(
         () => authRepositoryFirebase.firebaseAuthInstance
             .createUserWithEmailAndPassword(
-          email: email,
-          password: password,
+          email: authRepositoryFixtures.testData.email,
+          password: authRepositoryFixtures.testData.password,
         ),
       ).thenAnswer((_) async => mockUserCredential);
 
       final result = await authRepositoryFirebase.registerAccount(
-        name: name,
-        email: email,
-        password: password,
+        name: authRepositoryFixtures.testData.name,
+        email: authRepositoryFixtures.testData.email,
+        password: authRepositoryFixtures.testData.password,
       );
 
-      expect(result, userId);
+      expect(result, authRepositoryFixtures.testData.id);
     });
   });
 
@@ -87,56 +86,204 @@ void main() {
       test(
         'login success',
         () async {
-          when(() => mockUserCredential.user!.uid).thenReturn(userId);
+          when(() => mockUserCredential.user!.uid)
+              .thenReturn(authRepositoryFixtures.testData.id);
 
-          when(() => mockFirebaseAuth.signInWithEmailAndPassword(
-              email: email, password: password)).thenAnswer(
+          when(
+            () => mockFirebaseAuth.signInWithEmailAndPassword(
+              email: authRepositoryFixtures.testData.email,
+              password: authRepositoryFixtures.testData.password,
+            ),
+          ).thenAnswer(
             (_) async => mockUserCredential,
           );
 
           final result = await authRepositoryFirebase.login(
-            email: email,
-            password: password,
+            email: authRepositoryFixtures.testData.email,
+            password: authRepositoryFixtures.testData.password,
           );
 
-          expect(result.user!.uid, userId);
+          expect(result.user!.uid, authRepositoryFixtures.testData.id);
         },
       );
     },
   );
 
   group(
-    ' Test Register password ',
+    ' Test Recovery password',
     () {
       test(
         'Recovery Password success',
         () async {
-          when(() => mockUserCredential.user!.uid).thenReturn(userId);
-
-          when(() => mockFirebaseAuth.sendPasswordResetEmail(email: email))
-              .thenAnswer(
-            (_) async => mockUserCredential,
+          when(() => mockFirebaseAuth.sendPasswordResetEmail(
+              email: authRepositoryFixtures.testData.email)).thenAnswer(
+            (_) async {},
           );
 
-          expect(userId, isA<String>());
+          await authRepositoryFirebase.recoveryPassword(
+              email: authRepositoryFixtures.testData.email);
+
+          expectSync(
+            () => authRepositoryFirebase.recoveryPassword(
+                email: authRepositoryFixtures.testData.email),
+            returnsNormally,
+          );
+
+          verify(() => mockFirebaseAuth.sendPasswordResetEmail(
+              email: authRepositoryFixtures.testData.email)).called(2);
         },
       );
     },
   );
 
   group(
-    ' Test Logout ',
+    ' Test Logout',
     () {
       test(
         'Logout success',
         () async {
-          when(() => mockUserCredential.user!.uid).thenReturn(userId);
-
           when(() => mockFirebaseAuth.signOut()).thenAnswer(
-            (_) async => mockUserCredential,
+            (_) async {},
           );
 
-          expect(userId, isA<String>());
+          await authRepositoryFirebase.logout();
+
+          expectSync(
+            () => authRepositoryFirebase.logout(),
+            returnsNormally,
+          );
+
+          verify(() => mockFirebaseAuth.signOut()).called(2);
+        },
+      );
+    },
+  );
+
+  group(
+    ' Test Logout',
+    () {
+      test(
+        'Logout success',
+        () async {
+          when(() => mockFirebaseAuth.signOut()).thenAnswer(
+            (_) async {},
+          );
+
+          await authRepositoryFirebase.logout();
+
+          expectSync(
+            () => authRepositoryFirebase.logout(),
+            returnsNormally,
+          );
+
+          verify(() => mockFirebaseAuth.signOut()).called(2);
+        },
+      );
+    },
+  );
+
+  group(
+    ' Test currentUser getter',
+    () {
+      test(
+        'getting current user',
+        () async {
+          final currentUser = authRepositoryFirebase.currentUser;
+
+          expect(currentUser, equals(mockUser));
+        },
+      );
+    },
+  );
+
+  group(
+    ' Test update name',
+    () {
+      test(
+        'update name test',
+        () async {
+          when(() => mockFirebaseAuth.currentUser!
+                  .updateDisplayName(authRepositoryFixtures.testData.name))
+              .thenAnswer(
+            (_) async {},
+          );
+
+          await authRepositoryFirebase.updateName(
+              name: authRepositoryFixtures.testData.name);
+
+          expectSync(
+            () => authRepositoryFirebase.updateName(
+                name: authRepositoryFixtures.testData.name),
+            returnsNormally,
+          );
+
+          verify(() => mockFirebaseAuth.currentUser!
+                  .updateDisplayName(authRepositoryFixtures.testData.name))
+              .called(2);
+        },
+      );
+    },
+  );
+
+  group(
+    ' Test update password',
+    () {
+      test(
+        'update password test',
+        () async {
+          when(
+            () => mockFirebaseAuth.currentUser!.updatePassword(
+              authRepositoryFixtures.testData.password,
+            ),
+          ).thenAnswer(
+            (_) async {},
+          );
+
+          await authRepositoryFirebase.updatePassword(
+            password: authRepositoryFixtures.testData.password,
+          );
+
+          expectSync(
+            () => authRepositoryFirebase.updatePassword(
+              password: authRepositoryFixtures.testData.password,
+            ),
+            returnsNormally,
+          );
+
+          verify(
+            () => mockFirebaseAuth.currentUser!.updatePassword(
+              authRepositoryFixtures.testData.password,
+            ),
+          ).called(2);
+        },
+      );
+    },
+  );
+
+  group(
+    ' Test update photo url',
+    () {
+      test(
+        'update photo url test',
+        () async {
+          when(() => mockFirebaseAuth.currentUser!
+                  .updatePhotoURL(authRepositoryFixtures.testData.avatarUrl))
+              .thenAnswer(
+            (_) async {},
+          );
+
+          await authRepositoryFirebase.updatePhotoUrl(
+              photoUrl: authRepositoryFixtures.testData.avatarUrl);
+
+          expectSync(
+            () => authRepositoryFirebase.updatePhotoUrl(
+                photoUrl: authRepositoryFixtures.testData.avatarUrl),
+            returnsNormally,
+          );
+
+          verify(() => mockFirebaseAuth.currentUser!
+                  .updatePhotoURL(authRepositoryFixtures.testData.avatarUrl))
+              .called(2);
         },
       );
     },
