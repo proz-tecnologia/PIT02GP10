@@ -31,7 +31,7 @@
 ## Sobre o Projeto
 
 <p align="center">
-  <img src=".github/sprint4_demo.gif" width="250" alt="Auth Demo">
+  <img src=".github/sprint4_appdemo.gif" width="250" alt="Auth Demo">
   </p>
   </br>
 
