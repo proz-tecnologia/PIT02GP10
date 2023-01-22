@@ -4,14 +4,9 @@ import 'package:gastos_app/src/models/user_model.dart';
 import 'package:gastos_app/src/repositories/user_repository.dart';
 
 class UserRepositoryFirebase implements UserRepository {
-  // CollectionReference get collection => FirebaseFirestore.instance.collection(
-  //       'users',
-  //     );
+  final CollectionReference<Map<String, dynamic>> collection;
 
-  final CollectionReference collection;
-  UserRepositoryFirebase({
-    required this.collection,
-  });
+  UserRepositoryFirebase({required this.collection});
 
   @override
   Future<void> createUser({
@@ -46,7 +41,7 @@ class UserRepositoryFirebase implements UserRepository {
 
         final userData = docs.first;
 
-        final user = UserModel.fromMap(userData.data() as Map<String, dynamic>);
+        final user = UserModel.fromMap(userData.data());
 
         return user;
       }

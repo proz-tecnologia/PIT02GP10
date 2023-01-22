@@ -42,6 +42,7 @@ dev_dependencies:
 
   flutter_lints: ^2.0.0
   flutter_launcher_icons: ^0.11.0
+  fake_cloud_firestore: ^2.3.0+3
 
 flutter_icons:
   android: "launcher_icon"
