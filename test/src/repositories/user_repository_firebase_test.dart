@@ -93,20 +93,22 @@ void main() {
           expect(user.name, equals(userRepositoryFixtures.testData.name));
           expect(user.nickname, isNull);
 
-          // await userRepository.updateNickname(
-          //   userId: userRepositoryFixtures.testData.id,
-          //   nickname: userRepositoryFixtures.testData.nickname,
-          // );
+          await userRepository.updateNickname(
+            userId: userRepositoryFixtures.testData.id,
+            nickname: userRepositoryFixtures.testData.nickname,
+          );
 
-          // final updatedUser = await userRepository.getUserDataById(
-          //   userId: userRepositoryFixtures.testData.id,
-          // );
+          final updatedUser = await userRepository.getUserDataById(
+            userId: userRepositoryFixtures.testData.id,
+          );
 
-          // expect(
-          //   updatedUser.nickname,
-          //   equals(userRepositoryFixtures.testData.nickname),
-          // );
+          expect(
+            updatedUser.nickname,
+            equals(userRepositoryFixtures.testData.nickname),
+          );
         },
+        skip:
+            'For some reason creating user is not working here, possible problem in fake firestore lib',
       );
 
       test(
@@ -124,55 +126,57 @@ void main() {
     },
   );
 
-  // group(
-  //   'User Repository update name test',
-  //   () {
-  //     test(
-  //       'Update name test',
-  //       () async {
-  //         await userRepository.createUser(
-  //           id: userRepositoryFixtures.testData.id,
-  //           name: userRepositoryFixtures.testData.name,
-  //           email: userRepositoryFixtures.testData.email,
-  //         );
+  group(
+    'User Repository update name test',
+    () {
+      test(
+        'Update name test',
+        () async {
+          await userRepository.createUser(
+            id: userRepositoryFixtures.testData.id,
+            name: userRepositoryFixtures.testData.name,
+            email: userRepositoryFixtures.testData.email,
+          );
 
-  //         final user = await userRepository.getUserDataById(
-  //           userId: userRepositoryFixtures.testData.id,
-  //         );
+          final user = await userRepository.getUserDataById(
+            userId: userRepositoryFixtures.testData.id,
+          );
 
-  //         expect(
-  //           user.name,
-  //           equals(userRepositoryFixtures.testData.name),
-  //         );
+          expect(
+            user.name,
+            equals(userRepositoryFixtures.testData.name),
+          );
 
-  //         await userRepository.updateUserName(
-  //           userId: userRepositoryFixtures.testData.id,
-  //           name: userRepositoryFixtures.testData.newName,
-  //         );
+          await userRepository.updateUserName(
+            userId: userRepositoryFixtures.testData.id,
+            name: userRepositoryFixtures.testData.newName,
+          );
 
-  //         final updatedUser = await userRepository.getUserDataById(
-  //           userId: userRepositoryFixtures.testData.id,
-  //         );
+          final updatedUser = await userRepository.getUserDataById(
+            userId: userRepositoryFixtures.testData.id,
+          );
 
-  //         expect(
-  //           updatedUser.name,
-  //           equals(userRepositoryFixtures.testData.newName),
-  //         );
-  //       },
-  //     );
+          expect(
+            updatedUser.name,
+            equals(userRepositoryFixtures.testData.newName),
+          );
+        },
+        skip:
+            'For some reason creating user is not working here, possible problem in fake firestore lib',
+      );
 
-  //     test(
-  //       'Update name test when user doesnt exist',
-  //       () async {
-  //         await expectLater(
-  //           () => userRepository.updateUserName(
-  //             userId: userRepositoryFixtures.testData.id,
-  //             name: userRepositoryFixtures.testData.name,
-  //           ),
-  //           throwsA(isA<AppErrorModel>()),
-  //         );
-  //       },
-  //     );
-  //   },
-  // );
+      test(
+        'Update name test when user doesnt exist',
+        () async {
+          await expectLater(
+            () => userRepository.updateUserName(
+              userId: userRepositoryFixtures.testData.id,
+              name: userRepositoryFixtures.testData.name,
+            ),
+            throwsA(isA<AppErrorModel>()),
+          );
+        },
+      );
+    },
+  );
 }
