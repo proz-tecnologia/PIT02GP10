@@ -1,7 +1,5 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
-import 'package:gastos_app/src/modules/authentication/register/register_states.dart';
+import 'package:gastos_app/src/modules/authentication/register/register_state.dart';
 import 'package:gastos_app/src/modules/authentication/repositories/auth_repository.dart';
 import 'package:gastos_app/src/repositories/user_repository.dart';
 
@@ -14,12 +12,12 @@ class RegisterPageController {
     required this.userRepository,
   });
 
-  final registerStateNotifier = ValueNotifier<RegisterStates>(
+  final registerStateNotifier = ValueNotifier<RegisterState>(
     RegisterStateEmpty(),
   );
 
-  RegisterStates get state => registerStateNotifier.value;
-  set state(RegisterStates state) => registerStateNotifier.value = state;
+  RegisterState get state => registerStateNotifier.value;
+  set state(RegisterState state) => registerStateNotifier.value = state;
 
   Future<void> registerUser({
     required String name,
@@ -48,7 +46,6 @@ class RegisterPageController {
 
       state = RegisterStateSuccess();
     } catch (e) {
-      log(e.toString());
       state = RegisterStateError(e);
     }
   }

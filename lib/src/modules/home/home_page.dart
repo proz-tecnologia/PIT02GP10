@@ -6,7 +6,7 @@ import 'package:gastos_app/src/modules/home/components/custom_app_bar.dart';
 import 'package:gastos_app/src/modules/home/components/drawer/custom_drawer.dart';
 import 'package:gastos_app/src/modules/home/components/home_body.dart';
 import 'package:gastos_app/src/modules/home/controllers/home_page_controller.dart';
-import 'package:gastos_app/src/modules/home/controllers/home_page_states.dart';
+import 'package:gastos_app/src/modules/home/controllers/home_page_state.dart';
 import 'package:gastos_app/src/shared/components/custom_loading_icon.dart';
 
 class HomePage extends StatefulWidget {
@@ -60,6 +60,7 @@ class _HomePageState extends State<HomePage> {
                 expenses: success.expensesList,
                 profits: success.profitsList,
                 username: success.username,
+                avatarUrl: success.avatarUrl,
                 onRefresh: () {
                   homeController.loadData();
                 },

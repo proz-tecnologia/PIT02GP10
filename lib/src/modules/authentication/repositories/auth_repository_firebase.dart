@@ -14,7 +14,7 @@ class AuthRepositoryFirebase implements AuthRepository {
     String? phone,
     required String password,
   }) async {
-    final response = await FirebaseAuth.instance.createUserWithEmailAndPassword(
+    final response = await firebaseAuthInstance.createUserWithEmailAndPassword(
       email: email,
       password: password,
     );
@@ -43,7 +43,7 @@ class AuthRepositoryFirebase implements AuthRepository {
   Future<void> recoveryPassword({
     required String email,
   }) async {
-    return await firebaseAuthInstance.sendPasswordResetEmail(email: email);
+    await firebaseAuthInstance.sendPasswordResetEmail(email: email);
   }
 
   @override
@@ -53,4 +53,19 @@ class AuthRepositoryFirebase implements AuthRepository {
 
   @override
   User? get currentUser => firebaseAuthInstance.currentUser;
+
+  @override
+  Future<void> updateName({required String name}) async {
+    await firebaseAuthInstance.currentUser!.updateDisplayName(name);
+  }
+
+  @override
+  Future<void> updatePassword({required String password}) async {
+    await firebaseAuthInstance.currentUser!.updatePassword(password);
+  }
+
+  @override
+  Future<void> updatePhotoUrl({required String photoUrl}) async {
+    await firebaseAuthInstance.currentUser!.updatePhotoURL(photoUrl);
+  }
 }

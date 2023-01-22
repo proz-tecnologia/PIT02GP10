@@ -12,12 +12,14 @@ class HomeBody extends StatefulWidget {
     required this.profits,
     required this.expenses,
     required this.username,
+    this.avatarUrl,
     required this.onRefresh,
   }) : super(key: key);
 
   final List<ProfitModel> profits;
   final List<ExpenseModel> expenses;
   final String username;
+  final String? avatarUrl;
   final VoidCallback onRefresh;
 
   @override
@@ -41,6 +43,7 @@ class _HomeBodyState extends State<HomeBody> {
                 profits: widget.profits,
                 expenses: widget.expenses,
                 username: widget.username,
+                avatarUrl: widget.avatarUrl,
               ),
               ProfitsAndExpensesResumedList(
                 profits: widget.profits,

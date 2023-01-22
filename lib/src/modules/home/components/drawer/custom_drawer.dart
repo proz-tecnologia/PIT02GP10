@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:gastos_app/src/modules/home/components/drawer/drawer_menu_item.dart';
 import 'package:gastos_app/src/modules/home/components/drawer/drawer_side_icon.dart';
+import 'package:gastos_app/src/modules/home/modules/profile/profile_routes.dart';
 
 class CustomDrawer extends StatelessWidget {
   const CustomDrawer({
@@ -30,6 +32,7 @@ class CustomDrawer extends StatelessWidget {
                 children: [
                   DrawerMenuItem(
                     onPressed: () {
+                      Modular.to.pushNamed(ProfileRoutes.profile);
                       Navigator.pop(context);
                     },
                     icon: Icons.account_circle_outlined,

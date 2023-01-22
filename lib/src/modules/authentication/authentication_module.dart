@@ -1,4 +1,6 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:gastos_app/src/firebase/firebase_collections.dart';
 import 'package:gastos_app/src/modules/authentication/authentication_routes.dart';
 import 'package:gastos_app/src/modules/authentication/login/login_page.dart';
 import 'package:gastos_app/src/modules/authentication/login/login_page_controller.dart';
@@ -19,7 +21,13 @@ class AuthenticationModule extends Module {
   @override
   List<Bind<Object>> get binds => [
         Bind.factory<SplashPageController>((i) => SplashPageController()),
-        Bind.factory<UserRepository>((i) => UserRepositoryFirebase()),
+        Bind.factory<UserRepository>(
+          (i) => UserRepositoryFirebase(
+            collection: i.get<FirebaseFirestore>().collection(
+                  FirebaseCollection.users,
+                ),
+          ),
+        ),
         Bind.factory<LoginPageController>(
           (i) => LoginPageController(
             authRepository: i.get<AuthRepository>(),
