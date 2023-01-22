@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:gastos_app/src/app/app_routes.dart';
@@ -19,6 +20,9 @@ class AppModule extends Module {
           (i) => AuthRepositoryFirebase(
             firebaseAuthInstance: i.get<FirebaseAuth>(),
           ),
+        ),
+        Bind.lazySingleton<FirebaseFirestore>(
+          (i) => FirebaseFirestore.instance,
         ),
       ];
 

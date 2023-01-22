@@ -39,6 +39,7 @@ class _RegisterPageState extends State<RegisterPage> {
         name: nameController.text,
         email: emailController.text,
         password: passwordController.text,
+        phone: phoneController.text,
       );
     }
   }

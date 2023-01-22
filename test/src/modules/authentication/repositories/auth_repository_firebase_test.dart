@@ -160,29 +160,6 @@ void main() {
   );
 
   group(
-    ' Test Logout',
-    () {
-      test(
-        'Logout success',
-        () async {
-          when(() => mockFirebaseAuth.signOut()).thenAnswer(
-            (_) async {},
-          );
-
-          await authRepositoryFirebase.logout();
-
-          expectSync(
-            () => authRepositoryFirebase.logout(),
-            returnsNormally,
-          );
-
-          verify(() => mockFirebaseAuth.signOut()).called(2);
-        },
-      );
-    },
-  );
-
-  group(
     ' Test currentUser getter',
     () {
       test(

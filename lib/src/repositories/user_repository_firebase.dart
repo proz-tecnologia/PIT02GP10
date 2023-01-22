@@ -4,9 +4,9 @@ import 'package:gastos_app/src/models/user_model.dart';
 import 'package:gastos_app/src/repositories/user_repository.dart';
 
 class UserRepositoryFirebase implements UserRepository {
-  CollectionReference get _firestore => FirebaseFirestore.instance.collection(
-        'users',
-      );
+  final CollectionReference<Map<String, dynamic>> collection;
+
+  UserRepositoryFirebase({required this.collection});
 
   @override
   Future<void> createUser({
@@ -25,7 +25,7 @@ class UserRepositoryFirebase implements UserRepository {
     );
 
     try {
-      await _firestore.add(user.toMap());
+      await collection.add(user.toMap());
     } catch (e) {
       rethrow;
     }
@@ -34,14 +34,14 @@ class UserRepositoryFirebase implements UserRepository {
   @override
   Future<UserModel> getUserDataById({required String userId}) async {
     try {
-      final response = await _firestore.where('id', isEqualTo: userId).get();
+      final response = await collection.where('id', isEqualTo: userId).get();
 
       if (response.docs.isNotEmpty) {
         final docs = response.docs;
 
         final userData = docs.first;
 
-        final user = UserModel.fromMap(userData.data() as Map<String, dynamic>);
+        final user = UserModel.fromMap(userData.data());
 
         return user;
       }
@@ -57,14 +57,14 @@ class UserRepositoryFirebase implements UserRepository {
     required String userId,
     required String nickname,
   }) async {
-    final response = await _firestore.where('id', isEqualTo: userId).get();
+    final response = await collection.where('id', isEqualTo: userId).get();
 
     if (response.docs.isNotEmpty) {
       final docs = response.docs;
 
       final user = docs.first;
 
-      await _firestore.doc(user.id).update({'nickname': nickname});
+      await collection.doc(user.id).update({'nickname': nickname});
       return;
     }
 
@@ -76,14 +76,14 @@ class UserRepositoryFirebase implements UserRepository {
     required String userId,
     required String phone,
   }) async {
-    final response = await _firestore.where('id', isEqualTo: userId).get();
+    final response = await collection.where('id', isEqualTo: userId).get();
 
     if (response.docs.isNotEmpty) {
       final docs = response.docs;
 
       final user = docs.first;
 
-      await _firestore.doc(user.id).update({'phone': phone});
+      await collection.doc(user.id).update({'phone': phone});
       return;
     }
 
@@ -95,14 +95,14 @@ class UserRepositoryFirebase implements UserRepository {
     required String userId,
     required String name,
   }) async {
-    final response = await _firestore.where('id', isEqualTo: userId).get();
+    final response = await collection.where('id', isEqualTo: userId).get();
 
     if (response.docs.isNotEmpty) {
       final docs = response.docs;
 
       final user = docs.first;
 
-      await _firestore.doc(user.id).update({'name': name});
+      await collection.doc(user.id).update({'name': name});
       return;
     }
 
@@ -112,14 +112,14 @@ class UserRepositoryFirebase implements UserRepository {
   @override
   Future<void> updateUserAvatar(
       {required String userId, required String url}) async {
-    final response = await _firestore.where('id', isEqualTo: userId).get();
+    final response = await collection.where('id', isEqualTo: userId).get();
 
     if (response.docs.isNotEmpty) {
       final docs = response.docs;
 
       final user = docs.first;
 
-      await _firestore.doc(user.id).update({'avatarUrl': url});
+      await collection.doc(user.id).update({'avatarUrl': url});
       return;
     }
 
