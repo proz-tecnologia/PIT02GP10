@@ -7,24 +7,20 @@ import 'package:gastos_app/src/repositories/user_repository_firebase.dart';
 import '../../fixtures/user_repository_fixtures.dart';
 
 void main() {
-  final instance = FakeFirebaseFirestore();
+  late FakeFirebaseFirestore instance;
 
-  final userRepository = UserRepositoryFirebase(
-    collection: instance.collection(FirebaseCollection.users),
-  );
+  late UserRepositoryFirebase userRepository;
 
   final userRepositoryFixtures = UserRepositoryFixtures();
 
-  tearDown(() {
-    instance
-        .collection(FirebaseCollection.users)
-        .snapshots()
-        .forEach((querySnapshot) {
-      for (final docSnapshot in querySnapshot.docs) {
-        docSnapshot.reference.delete();
-      }
-    });
+  setUp(() {
+    instance = FakeFirebaseFirestore();
+
+    userRepository = UserRepositoryFirebase(
+      collection: instance.collection(FirebaseCollection.users),
+    );
   });
+
   group(
     'User Repository Create User Test',
     () {
@@ -107,8 +103,6 @@ void main() {
             equals(userRepositoryFixtures.testData.nickname),
           );
         },
-        skip:
-            'For some reason creating user is not working here, possible problem in fake firestore lib',
       );
 
       test(
@@ -161,8 +155,6 @@ void main() {
             equals(userRepositoryFixtures.testData.newName),
           );
         },
-        skip:
-            'For some reason creating user is not working here, possible problem in fake firestore lib',
       );
 
       test(
