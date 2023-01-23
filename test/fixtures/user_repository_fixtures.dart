@@ -8,6 +8,7 @@ class UserRepositoryFixtures {
     nickname: faker.person.firstName(),
     avatarUrl: faker.lorem.word(),
     newName: faker.person.firstName(),
+    phone: faker.phoneNumber.us(),
   );
 }
 
@@ -18,6 +19,7 @@ class UserRepositoryTestData {
   final String nickname;
   final String avatarUrl;
   final String newName;
+  final String phone;
 
   UserRepositoryTestData({
     required this.email,
@@ -26,5 +28,6 @@ class UserRepositoryTestData {
     required this.nickname,
     required this.avatarUrl,
     required this.newName,
+    required this.phone,
   });
 }

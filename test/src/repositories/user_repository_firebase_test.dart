@@ -171,4 +171,78 @@ void main() {
       );
     },
   );
+
+  group(
+    'User repository update user phone',
+    () {
+      test('test when phone is updated correctly', () async {
+        await userRepository.createUser(
+          id: userRepositoryFixtures.testData.id,
+          name: userRepositoryFixtures.testData.name,
+          email: userRepositoryFixtures.testData.email,
+        );
+
+        await userRepository.updatePhone(
+          userId: userRepositoryFixtures.testData.id,
+          phone: userRepositoryFixtures.testData.phone,
+        );
+
+        final user = await userRepository.getUserDataById(
+          userId: userRepositoryFixtures.testData.id,
+        );
+
+        expect(
+          user.phone,
+          equals(userRepositoryFixtures.testData.phone),
+        );
+      });
+
+      test('test if expection is thrown when user is not found', () async {
+        await expectLater(
+          () => userRepository.updateUserAvatar(
+            userId: userRepositoryFixtures.testData.id,
+            url: userRepositoryFixtures.testData.avatarUrl,
+          ),
+          throwsA(isA<AppErrorModel>()),
+        );
+      });
+    },
+  );
+
+  group(
+    'User repository update user avatarUrl',
+    () {
+      test('test when avatarUrl is updated correctly', () async {
+        await userRepository.createUser(
+          id: userRepositoryFixtures.testData.id,
+          name: userRepositoryFixtures.testData.name,
+          email: userRepositoryFixtures.testData.email,
+        );
+
+        await userRepository.updateUserAvatar(
+          userId: userRepositoryFixtures.testData.id,
+          url: userRepositoryFixtures.testData.avatarUrl,
+        );
+
+        final user = await userRepository.getUserDataById(
+          userId: userRepositoryFixtures.testData.id,
+        );
+
+        expect(
+          user.avatarUrl,
+          equals(userRepositoryFixtures.testData.avatarUrl),
+        );
+      });
+
+      test('test if expection is thrown when user is not created', () async {
+        await expectLater(
+          () => userRepository.updatePhone(
+            userId: userRepositoryFixtures.testData.id,
+            phone: userRepositoryFixtures.testData.phone,
+          ),
+          throwsA(isA<AppErrorModel>()),
+        );
+      });
+    },
+  );
 }
