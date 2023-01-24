@@ -94,7 +94,7 @@ void main() {
         expect(json.contains(user.name), isTrue);
       });
 
-      test('UserModel copyWith', () {
+      test('UserModel copyWith providing a name', () {
         final user = userFixture.completeUserModel;
 
         final newName = faker.person.name();
@@ -102,6 +102,42 @@ void main() {
         final copiedUser = user.copyWith(name: newName);
 
         expect(copiedUser.name, equals(newName));
+      });
+      test('UserModel copyWith providing a email', () {
+        final user = userFixture.completeUserModel;
+
+        final newEmail = faker.internet.email();
+
+        final copiedUser = user.copyWith(email: newEmail);
+
+        expect(copiedUser.email, equals(newEmail));
+      });
+
+      test('UserModel copyWith providing all data', () {
+        final user = userFixture.completeUserModel;
+
+        final newName = faker.person.name();
+        final newEmail = faker.internet.email();
+        final newId = faker.guid.random.string(50);
+        final newAvatarUrl = faker.lorem.word();
+        final newPhone = faker.phoneNumber.us();
+        final newNickname = faker.person.name();
+
+        final copiedUser = user.copyWith(
+          avatarUrl: newAvatarUrl,
+          email: newEmail,
+          id: newId,
+          name: newName,
+          phone: newPhone,
+          nickname: newNickname,
+        );
+
+        expect(copiedUser.name, equals(newName));
+        expect(copiedUser.email, equals(newEmail));
+        expect(copiedUser.nickname, equals(newNickname));
+        expect(copiedUser.phone, equals(newPhone));
+        expect(copiedUser.id, equals(newId));
+        expect(copiedUser.avatarUrl, equals(newAvatarUrl));
       });
 
       test('UserModel toString', () {
@@ -112,12 +148,29 @@ void main() {
         expect(userString.contains(user.name), isTrue);
       });
 
-      test('UserModel operator =', () {
+      test('UserModel operator ==', () {
         final user = userFixture.completeUserModel;
 
         final secondUser = userFixture.completeUserModel;
 
         expect(user == secondUser, isTrue);
+      });
+      test('UserModel operator == test when user is not equal', () {
+        final user = userFixture.completeUserModel;
+
+        final secondUser = userFixture.partialUserModel;
+
+        expect(user == secondUser, isFalse);
+      });
+
+      test('UserModel operator == test when nickname is not equal', () {
+        final user = userFixture.completeUserModel;
+
+        final secondUser = userFixture.completeUserModel.copyWith(
+          nickname: faker.person.name(),
+        );
+
+        expect(user == secondUser, isFalse);
       });
 
       test('UserModel hashCode', () {
