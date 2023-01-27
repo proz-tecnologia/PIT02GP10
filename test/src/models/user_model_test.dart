@@ -103,7 +103,7 @@ void main() {
 
         expect(copiedUser.name, equals(newName));
       });
-      test('UserModel copyWith providing a email', () {
+      test('UserModel copyWith changing a email', () {
         final user = userFixture.completeUserModel;
 
         final newEmail = faker.internet.email();
